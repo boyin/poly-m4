@@ -1,8 +1,4 @@
-//#include "polymul_NxN_aux.h"
 
-
-	.syntax		unified
-	.text
 
  	.macro	mr_hi, res32, qq, neg_qqinv, scr
 	smulbb	\scr, \res32, \neg_qqinv
@@ -43,6 +39,8 @@
 
 #include "polymul_64x64_aux.h"
 	.p2align	2,,3	
+	.syntax		unified
+	.text
 // void gf_polymul_64x64_divR (int32_t *h, int32_t *f, int32_t *g);
 	.global gf_polymul_64x64_divR
 	.type	gf_polymul_64x64_divR, %function

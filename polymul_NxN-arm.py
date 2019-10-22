@@ -39,10 +39,14 @@ def print_ldr (reg, loc, comment) :
     print("	ldr	%s, %s	// %s" % (reg, loc, comment))
 def print_str (reg, loc, comment) :
     print("	str	%s, %s	// %s" % (reg, loc, comment))
-# might change to using vmov vfp and registers later.
+# stack version, might change to using vmov vfp and registers later.
 s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
 s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
 s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
+# s_h = "s0";	s_2M = "s1";	s_gg = "s2";
+# s_hh = "s3";	s_ov = "s4";	s_q = "s5";
+# s_qi = "s6";	s_q32 = "s7";	s_mq = "s8";
+
 
 def KA_terms (N,N0) :
     assert (isinstance(N,int) and (N==1<<int(log(N,2)+0.5)) and (N>=B))

@@ -7,8 +7,11 @@ q = 4591
 qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
-#aux = open("polymul_NxN_aux.h","w+")
-
+ARGS = sys.argv
+# NARGS = len(ARGS)
+# if (NARGS == 1) :
+#     aux = open("polymul_NxN_aux.h","w+")
+    
 # adjust
 # def adj_size (size) :
 #     if (size < q_ab) :  # 2341 is q-dependent
@@ -39,7 +42,7 @@ def print_ldr (reg, loc, comment) :
     print("	ldr	%s, %s	// %s" % (reg, loc, comment))
 def print_str (reg, loc, comment) :
     print("	str	%s, %s	// %s" % (reg, loc, comment))
-# might change to using vmov vfp and registers later.
+# may change to vfp registers later.
 s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
 s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
 s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
@@ -52,6 +55,7 @@ def KA_terms (N,N0) :
         N = N/2
     return M
 
+
 B = 4 # base case
 W = 2 # width of vectors
 q_mb = int(sqrt((32767-2295)*2**16/B)) # multiplicative bound
@@ -62,9 +66,13 @@ size2 = [0 for i in range(M_range/W*2)]
 sizet = [0 for i in range(N_range/W*2)]
 
 def KA_prologue () :
-    print '//#include "polymul_NxN_aux.h"'
+    # if (NARGS == 1) :
+    #     print '#include "polymul_NxN_aux.h"'
+    #     print "	.p2align	2,,3"
+    #     print "	.syntax		unified"
+    #     print "	.text"
+    #
     print '''
-
 
  	.macro	mr_hi, res32, qq, neg_qqinv, scr
 	smulbb	\\scr, \\res32, \\neg_qqinv
@@ -105,15 +113,20 @@ def KA_prologue () :
 def KA_polymulNxN (N) :
     # KA_head
     print("// N=%d requires %d=8x%d storage\n" % (N,8*KA_terms(N,B),KA_terms(N,B)))
+    # if (NARGS > 1) :
+    aux = open("polymul_%dx%d.h" % (N,N), "w+")
+    aux.write("void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
+    aux.close();
     aux = open("polymul_%dx%d_aux.h" % (N,N),"w+")
     aux.write("	.p2align	2,,3\n")
     aux.write("	.syntax		unified\n")
     aux.write("	.text\n\n")
     print '#include "polymul_%dx%d_aux.h"' % (N,N)
     print "	.p2align	2,,3	"
-    print "// void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
     print "	.syntax		unified"
     print "	.text"
+    #
+    print "// void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
     print "	.global gf_polymul_%dx%d_divR" % (N,N)
     print "	.type	gf_polymul_%dx%d_divR, %%function" % (N,N)
     print "gf_polymul_%dx%d_divR:" % (N,N)
@@ -135,9 +148,12 @@ def KA_polymulNxN (N) :
     print_str("r0", s_gg, "save gg (ff=sp)")
     print "	add	r14, r0, r12	// hh=gg+%d(=2M)" % (2*M)
     print_str("r14", s_hh, "save h")
-    #print "	movw	r14, #:lower16:KA_exp_ov_%d" % (N)
-    #print "	movt	r14, #:upper16:KA_exp_ov_%d" % (N)
+    # if (NARGS == 1) :
+    #     print "	movw	r14, #:lower16:KA_exp_ov_%d" % (N)
+    #     print "	movt	r14, #:upper16:KA_exp_ov_%d" % (N)
+    # else :
     print "	ldr	r14, =KA_exp_ov_%d" % N
+    #
     print_str("r14", s_ov, "save ov pointer")
     print "	movw	r12, #%d" % (q)
     print_str("r12", s_q, "save q")
@@ -273,29 +289,6 @@ def KA_polymulNxN (N) :
     print "	mov	r0, sp		// reload ff"
     print_ldr("r1",s_gg, "reload gg")
     print
-    # print "	mov	r6, #0			// r6(j) = range(0,r4,r2/4)" 
-    # print "KA%d_exp_adds1:" % N
-    # print "	mov	r7, #0			// r7(k) = range(0,r2/4)"
-    # print "KA%d_exp_adds2:" % N
-    # print "	add	r8, r7, r6"
-    # print "	add	r8, r8, r4, LSL #1	// r8 = j+k+N1/W"
-    # print "	add	r9, r7, r6, LSL #1	// r9 = 2*j+k"
-    # print "	add	r10, r9, r2, ASR #2	// r10 = 2*j+k+N0/2/W"
-    # print "	ldr 	r11, [r0, r9, LSL #2]	// r11 = ff[2*j+k]"
-    # print "	ldr	r12, [r0, r10, LSL #2]  // r12 = ff[2*j+k+N0/2/W]" 
-    # print "	sadd16	r11, r11, r12"
-    # print "	str	r11, [r0, r8, LSL #2]	// ff[j+k+N1/W] = r11+r12"
-    # print "	ldr 	r11, [r1, r9, LSL #2]	// r11 = gg[2*j+k]"
-    # print "	ldr	r12, [r1, r10, LSL #2]	// r12 = gg[2*j+k+N0/2/W]"
-    # print "	sadd16	r11, r11, r12"
-    # print "	str	r11, [r1, r8, LSL #2]	// gg[j+k+N1/W] = r11+r12"
-    # print "	add	 r7, #1"
-    # print "	cmp	r7, r2, ASR #2"
-    # print "	bne	KA%d_exp_add2" % N
-    # print "	add	r6, r2, ASR #2"
-    # print "	cmp	r6, r4"
-    # print "	bne	KA%d_exp_add1" % N
-    #
     print "	lsr	r2, #1 		// N0 /= 2"
     print "	b	KA%d_exp_loop1	// loop" %(N)
     print "KA%d_exp_end1:" % N
@@ -574,15 +567,18 @@ def KA_polymulNxN (N) :
     print "	pop	{r4-r11,lr}"
     print "	bx	lr"
     print ""
+    # if (NARGS > 1 ) :
     aux.close()
+    # 
     
 KA_prologue()
+# if (NARGS > 1) :
 NN = int(sys.argv[1])
 KA_polymulNxN(NN)
-#KA_polymulNxN(8)
-#KA_polymulNxN(16)
-#KA_polymulNxN(32)
-#KA_polymulNxN(64)
-#KA_polymulNxN(128)
 
-#aux.close()
+# if (NARGS == 1) :
+#     NN = 2 * B
+#     while (NN <= N_range) :
+#         KA_polymulNxN(NN)
+#         NN *= 2
+#     aux.close()
