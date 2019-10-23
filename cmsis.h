@@ -66,13 +66,13 @@ static inline int32_t __SSUB16(int32_t x, int32_t y) {
 }
 
 static inline int32_t __SSAX(int32_t x, int32_t y) {
-  return((uint32_t)((int16_t)(x >> 16) + ((int16_t) y))
-	 | ((x<<16) - (y & 0xffff0000)));
-  }
-static inline int32_t __SASX(int32_t x, int32_t y) {
-  return((uint32_t)((int16_t)(x >> 16) + ((int16_t) y))
+  return((uint32_t)(uint16_t)((int16_t)(y >> 16) + ((int16_t) x))
 	 | ((x & 0xffff0000) - (y<<16)));
-  }
+}
+static inline int32_t __SASX(int32_t x, int32_t y) {
+  return((uint32_t)(uint16_t)(((int16_t) x) - (int16_t)(y >> 16))
+	 | ((x & 0xffff0000) + (y<<16)));
+}
 
    
 static inline int32_t __SMULBB(int32_t x, int32_t y) {
@@ -187,13 +187,11 @@ static inline int32_t __MLA(int32_t x, int32_t y, int32_t z) {
 #define __USUB16                          __usub16
 #define __UQSUB16                         __uqsub16
 #define __UHSUB16                         __uhsub16
-#define __SASX                            __sasx
 #define __QASX                            __qasx
 #define __SHASX                           __shasx
 #define __UASX                            __uasx
 #define __UQASX                           __uqasx
 #define __UHASX                           __uhasx
-#define __SSAX                            __ssax
 #define __QSAX                            __qsax
 #define __SHSAX                           __shsax
 #define __USAX                            __usax

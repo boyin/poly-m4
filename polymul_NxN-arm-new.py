@@ -8,6 +8,9 @@ qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 ARGS = sys.argv
+SAVES = 0
+
+    
 # NARGS = len(ARGS)
 # if (NARGS == 1) :
 #     aux = open("polymul_NxN_aux.h","w+")
@@ -41,9 +44,11 @@ def adj_stmt () :
 def print_ldr (reg, loc, comment) :
     #print("	ldr	%s, %s	// %s" % (reg, loc, comment))
     print("	vmov	%s, %s  // %s" % (reg, loc, comment))
+
 def print_str (reg, loc, comment) :
     #print("	str	%s, %s	// %s" % (reg, loc, comment))
     print("	vmov	%s, %s	// %s" % (loc, reg, comment))
+
 # may change to vfp registers later.
 # s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
 # s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
@@ -51,9 +56,15 @@ def print_str (reg, loc, comment) :
 s_h = "s0";	s_2M = "s1";	s_gg = "s2";
 s_hh = "s3";	s_ov = "s4";	s_q = "s5";
 s_qi = "s6";	s_q32 = "s7";	s_mq = "s8";
-
-
-
+# alloc_save("h")  # h, output
+# alloc_save("2M") # 2M, M = KA_terms(N,N0)*l
+# alloc_save("gg") # gg, second input array, expanded, 2M in size, = sp + 2M
+# alloc_save("hh") # hh, output array, expanded, 4M in size
+# alloc_save("ov") # overflow list address"
+# alloc_save("q")  # modulus q = 4591
+# alloc_save("qi") # q^{-1} mod 2^16
+# alloc_save("q32")# round(2^32/q)
+# alloc_save("mq") # -q, I am stupid
 
 def KA_terms (N,N0) :
     assert (isinstance(N,int) and (N==1<<int(log(N,2)+0.5)) and (N>=B))
