@@ -46,28 +46,29 @@
 	.type	gf_polymul_128x128_divR, %function
 gf_polymul_128x128_divR:
 	push	{r4-r11,lr}
+	//vpush	{s16-s31}
 	ldr	r12, =1944	// r12=2M
 	sub	sp, sp, r12, LSL #2	// subtract 7776 = 8M
 		// ff=[sp], gg=[sp,#1944], hh=[sp,#3888]
-	str	r0, [sp,#-4]	// save h
+	vmov	s0, r0	// save h
 	mov	r3, sp
 	add	r0, sp, r12	// gg=ff+1944(=2M)
-	str	r12, [sp,#-8]	// save 2M
-	str	r0, [sp,#-12]	// save gg (ff=sp)
+	vmov	s1, r12	// save 2M
+	vmov	s2, r0	// save gg (ff=sp)
 	add	r14, r0, r12	// hh=gg+1944(=2M)
-	str	r14, [sp,#-16]	// save h
+	vmov	s3, r14	// save h
 	ldr	r14, =KA_exp_ov_128
-	str	r14, [sp,#-20]	// save ov pointer
+	vmov	s4, r14	// save ov pointer
 	movw	r12, #4591
-	str	r12, [sp,#-24]	// save q
+	vmov	s5, r12	// save q
 	movw	r14, #49905
 	movt	r14, #65536-1
-	str	r14, [sp, #-28]	// save qinv
+	vmov	s6, r14	// save qinv
 	rsb	r12, r12, #0		// -q
-	str	r12, [sp,#-36]	// save -q
+	vmov	s8, r12	// save -q
 	movw	r14, #18015
 	movt	r14, #14
-	str	r14, [sp,#-32]	// save q32inv
+	vmov	s7, r14	// save q32inv
 	mov	r14, #256
 KA128_mv_loop:	// r0 = gg, r1 = f, r2 = g, r3 = ff
 	ldm	r1!, {r4-r11}
@@ -77,11 +78,11 @@ KA128_mv_loop:	// r0 = gg, r1 = f, r2 = g, r3 = ff
 	subs	r14, #32
 	bne	KA128_mv_loop
 KA128_exp:	// ff @ sp, gg @ sp + 2M, 2M @ r12
-	ldr	r12, [sp,#-8]	// reload 2M
+	vmov	r12, s1  // reload 2M
 	mov	r0, sp		// ff = r0
 	add	r1, r0, r12	// gg = r1
 	mov	r2, #128		// N0 = r2 = N
-	ldr	r3, [sp,#-20]	// load list to reduce
+	vmov	r3, s4  // load list to reduce
 KA128_exp_loop1:		// loop on N0
 	cmp	r2, #4		// while (N0>B)
 	beq	KA128_exp_end1
@@ -89,8 +90,8 @@ KA128_exp_reduce:		// reduce ff[], gg[]
 	ldrsh	r4, [r3], #2	// list entry
 	cmp	r4, #-1		// end of this list?
 	beq	KA128_exp_adds	// only if -1 end
-	ldr	r6, [sp,#-36]	// load -q
-	ldr	r7, [sp,#-32]	// load q32inv
+	vmov	r6, s8  // load -q
+	vmov	r7, s7  // load q32inv
 	mov	r10, #32768	// load 2^15
 KA128_exp_red1:
 	ldrsh	r5, [r3], #2	// reduce ff[r4-r5], gg[r4-r5]
@@ -145,7 +146,7 @@ KA128_exp_adds1:
 KA128_exp_end:
 	rsb	r2, r2, #0
 	mov	r0, sp		// reload ff
-	ldr	r1, [sp,#-12]	// reload gg
+	vmov	r1, s2  // reload gg
 
 	lsr	r2, #1 		// N0 /= 2
 	b	KA128_exp_loop1	// loop
@@ -156,8 +157,8 @@ KA128_mul:
 		// no multiplicative overflow
 KA128_muls:
 	ldrsh	r14, [r3], #2	// r14 = N1/B
-	str	r3, [sp,#-20]	// save overflow list pointer
-	ldr	r2, [sp,#-16]	// load r2 = hh
+	vmov	s4, r3	// save overflow list pointer
+	vmov	r2, s3  // load r2 = hh
 KA128_muls1:
 	// begin polymul_4x4_divR
 	ldr	r3, [r0, #2]		// r3 = f12
@@ -175,8 +176,8 @@ KA128_muls1:
 	smladx  r12, r3, r7, r12	// r12 += f1 g3 + f2 g2 = h4 (32bit)
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)
-	ldr	r5, [sp, #-28]	// r5 = -q^{-1} mod 2^16
-	ldr	r6, [sp,#-24]	// r6 = q
+	vmov	r5, s6  // r5 = -q^{-1} mod 2^16
+	vmov	r6, s5  // r6 = q
 	mr_16x2	r12, r3, r6, r5, r7
 	mr_hi	r4, r6, r5, r7             
 	lsr	r4, #16
@@ -190,13 +191,14 @@ KA128_muls1:
 	subs	r14, #1
 	bne	KA128_muls1
 KA128_collect:
-	ldr	r2, [sp,#-16]	// reload hh
-	ldr	r3, [sp,#-20]	// reload overflow list
+	vmov	r2, s3  // reload hh
+	vmov	r3, s4  // reload overflow list
 KA128_col_4_ov:
 	ldrsh	r4, [r3], #2
 	cmp	r4, #-1
 	beq	KA128_col_4_add
-	ldrd	r0, r1, [sp,#-36]	// load -q, q32inv
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
 	mov	r6,#32768
 KA128_col_4_ov1:
 	ldrsh	r5, [r3], #2
@@ -240,7 +242,8 @@ KA128_col_8_ov:
 	ldrsh	r4, [r3], #2
 	cmp	r4, #-1
 	beq	KA128_col_8_add
-	ldrd	r0, r1, [sp,#-36]	// load -q, q32inv
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
 	mov	r6,#32768
 KA128_col_8_ov1:
 	ldrsh	r5, [r3], #2
@@ -289,7 +292,8 @@ KA128_col_16_ov:
 	ldrsh	r4, [r3], #2
 	cmp	r4, #-1
 	beq	KA128_col_16_add
-	ldrd	r0, r1, [sp,#-36]	// load -q, q32inv
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
 	mov	r6,#32768
 KA128_col_16_ov1:
 	ldrsh	r5, [r3], #2
@@ -338,7 +342,8 @@ KA128_col_32_ov:
 	ldrsh	r4, [r3], #2
 	cmp	r4, #-1
 	beq	KA128_col_32_add
-	ldrd	r0, r1, [sp,#-36]	// load -q, q32inv
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
 	mov	r6,#32768
 KA128_col_32_ov1:
 	ldrsh	r5, [r3], #2
@@ -387,7 +392,8 @@ KA128_col_64_ov:
 	ldrsh	r4, [r3], #2
 	cmp	r4, #-1
 	beq	KA128_col_64_add
-	ldrd	r0, r1, [sp,#-36]	// load -q, q32inv
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
 	mov	r6,#32768
 KA128_col_64_ov1:
 	ldrsh	r5, [r3], #2
@@ -430,7 +436,7 @@ KA128_col_64_add1:	// begin KA collect loop
 	b	KA128_col_64_add1
 KA128_col_64_end:
 KA128_mv_back:			// hh=[sp,4M] still =r2
-	ldr	r0, [sp,#-4]	// reload h
+	vmov	r0, s0  // reload h
 	mov	r14, #512
 KA128_mv_back_loop:
 	ldm	r2!, {r4-r11}
@@ -438,8 +444,9 @@ KA128_mv_back_loop:
 	subs	r14, #32
 	bne	KA128_mv_back_loop
 KA128_end:
-	ldr	r12, [sp,#-8]
+	vmov	r12, s1  // load 2M
 	add	sp, sp, r12, LSL #2	// add back 7776 = 8M
+	//vpop	{s16-s31}
 	pop	{r4-r11,lr}
 	bx	lr
 

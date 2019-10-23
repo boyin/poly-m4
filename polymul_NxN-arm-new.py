@@ -39,13 +39,21 @@ def adj_stmt () :
 
 # may change to using vmov later
 def print_ldr (reg, loc, comment) :
-    print("	ldr	%s, %s	// %s" % (reg, loc, comment))
+    #print("	ldr	%s, %s	// %s" % (reg, loc, comment))
+    print("	vmov	%s, %s  // %s" % (reg, loc, comment))
 def print_str (reg, loc, comment) :
-    print("	str	%s, %s	// %s" % (reg, loc, comment))
+    #print("	str	%s, %s	// %s" % (reg, loc, comment))
+    print("	vmov	%s, %s	// %s" % (loc, reg, comment))
 # may change to vfp registers later.
-s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
-s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
-s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
+# s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
+# s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
+# s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
+s_h = "s0";	s_2M = "s1";	s_gg = "s2";
+s_hh = "s3";	s_ov = "s4";	s_q = "s5";
+s_qi = "s6";	s_q32 = "s7";	s_mq = "s8";
+
+
+
 
 def KA_terms (N,N0) :
     assert (isinstance(N,int) and (N==1<<int(log(N,2)+0.5)) and (N>=B))
@@ -115,7 +123,7 @@ def KA_polymulNxN (N) :
     print("// N=%d requires %d=8x%d storage\n" % (N,8*KA_terms(N,B),KA_terms(N,B)))
     # if (NARGS > 1) :
     aux = open("polymul_%dx%d.h" % (N,N), "w+")
-    aux.write("void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
+    aux.write("extern void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
     aux.close();
     aux = open("polymul_%dx%d_aux.h" % (N,N),"w+")
     aux.write("	.p2align	2,,3\n")
@@ -137,11 +145,11 @@ def KA_polymulNxN (N) :
     for i in range (M/W*2)  : size2[i] = 0
     for i in range (N/W*2)  : sizet[i] = 0
     print "	push	{r4-r11,lr}"
-    # print "	vmov	s0, r0		// save h"
+    print "	//vpush	{s16-s31}"
     print "	ldr	r12, =%d	// r12=2M" % (2*M)
     print "	sub	sp, sp, r12, LSL #2	// subtract %d = 8M" % (8*M) 
     print "		// ff=[sp], gg=[sp,#%d], hh=[sp,#%d]" % (2*M,4*M)
-    print "	str	r0, %s	// save h" % (s_h)
+    print_str("r0",s_h,"save h")
     print "	mov	r3, sp"
     print "	add	r0, sp, r12	// gg=ff+%d(=2M)" % (2*M)
     print_str("r12", s_2M, "save 2M")
@@ -443,9 +451,9 @@ def KA_polymulNxN (N) :
             print "	cmp	r4, #-1"
             print "	beq	KA%d_col_%d_add" % (N,N0)
             #print "KA%d_col_%d_ov0:" % (N,N0)
-            #print_ldr("r0",s_mq,"load -q")
-            #print_ldr("r1",s_q32,"load qinv32")
-            print "	ldrd	r0, r1, %s	// load -q, q32inv" % (s_mq);
+            print_ldr("r0",s_mq,"load -q")
+            print_ldr("r1",s_q32,"load qinv32")
+            #print "	ldrd	r0, r1, %s	// load -q, q32inv" % (s_mq);
             print "	mov	r6,#32768"
             print "KA%d_col_%d_ov1:" % (N,N0)
             print "	ldrsh	r5, [r3], #2"
@@ -562,8 +570,9 @@ def KA_polymulNxN (N) :
     #
     aux.write("\n")
     print "KA%d_end:" % N
-    print "	ldr	r12, %s" % (s_2M)
+    print_ldr("r12", s_2M, "load 2M")
     print "	add	sp, sp, r12, LSL #2	// add back %d = 8M" % (8*M) 
+    print "	//vpop	{s16-s31}"
     print "	pop	{r4-r11,lr}"
     print "	bx	lr"
     print ""
