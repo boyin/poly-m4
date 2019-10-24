@@ -1,45 +1,5 @@
 #include "polymul_NxN_aux.h"
-
-
-	.p2align	2,,3	
-	.syntax		unified
-	.text
-
- 	.macro	mr_hi, res32, qq, neg_qqinv, scr
-	smulbb	\scr, \res32, \neg_qqinv
-	smlabb	\res32, \qq, \scr, \res32
-	.endm
-	
-	.macro	mr_16x2, r0, r1, qq, neg_qqinv, scr, res
-	mr_hi	\r0, \qq, \neg_qqinv, \scr
-	mr_hi	\r1, \qq, \neg_qqinv, \scr
-    	.ifb	\res
-	pkhtb	\r0, \r1, \r0, ASR #16
-	.else	
-	pkhtb	\res, \r1, \r0, ASR #16
-	.endif
-	.endm
-
-	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\scr, \res, \q32inv, \_2p15
-	smlatb	\res, \mq, \scr, \res
-	.endm
-	// note that high half of res is undefined
-	// must save with strh
-
-	.macro	br_16x2, res, mq, q32inv, _2p15, scr1, scr2, newres
-	smlawb	\scr1, \q32inv, \res, \_2p15
-	smlatb	\scr2, \scr1, \mq, \res
-	smlawt	\scr1, \q32inv, \res, \_2p15
-	smultb	\scr1, \scr1, \mq
-	add	\scr1, \res, \scr1, LSL #16 
-	.ifb	\newres
-	pkhbt	\res, \scr2, \scr1
-	.else	
-	pkhbt	\newres, \scr2, \scr1
-	.endif
-	.endm	
-
+#include "red-asm.h"
 // N=8 requires 96=8x12 storage
 
 // void gf_polymul_8x8_divR (int32_t *h, int32_t *f, int32_t *g);
@@ -425,7 +385,7 @@ KA16_col_8_ov2:
 	cmp	r4, r5
 	bls	KA16_col_8_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA16_col_8_ov1
 KA16_col_8_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -644,7 +604,7 @@ KA32_col_4_ov2:
 	cmp	r4, r5
 	bls	KA32_col_4_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA32_col_4_ov1
 KA32_col_4_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -688,7 +648,7 @@ KA32_col_8_ov2:
 	cmp	r4, r5
 	bls	KA32_col_8_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA32_col_8_ov1
 KA32_col_8_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -738,7 +698,7 @@ KA32_col_16_ov2:
 	cmp	r4, r5
 	bls	KA32_col_16_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA32_col_16_ov1
 KA32_col_16_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -957,7 +917,7 @@ KA64_col_4_ov2:
 	cmp	r4, r5
 	bls	KA64_col_4_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA64_col_4_ov1
 KA64_col_4_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1001,7 +961,7 @@ KA64_col_8_ov2:
 	cmp	r4, r5
 	bls	KA64_col_8_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA64_col_8_ov1
 KA64_col_8_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1051,7 +1011,7 @@ KA64_col_16_ov2:
 	cmp	r4, r5
 	bls	KA64_col_16_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA64_col_16_ov1
 KA64_col_16_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1101,7 +1061,7 @@ KA64_col_32_ov2:
 	cmp	r4, r5
 	bls	KA64_col_32_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA64_col_32_ov1
 KA64_col_32_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1320,7 +1280,7 @@ KA128_col_4_ov2:
 	cmp	r4, r5
 	bls	KA128_col_4_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA128_col_4_ov1
 KA128_col_4_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1364,7 +1324,7 @@ KA128_col_8_ov2:
 	cmp	r4, r5
 	bls	KA128_col_8_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA128_col_8_ov1
 KA128_col_8_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1414,7 +1374,7 @@ KA128_col_16_ov2:
 	cmp	r4, r5
 	bls	KA128_col_16_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA128_col_16_ov1
 KA128_col_16_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1464,7 +1424,7 @@ KA128_col_32_ov2:
 	cmp	r4, r5
 	bls	KA128_col_32_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA128_col_32_ov1
 KA128_col_32_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1514,7 +1474,7 @@ KA128_col_64_ov2:
 	cmp	r4, r5
 	bls	KA128_col_64_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA128_col_64_ov1
 KA128_col_64_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1730,7 +1690,7 @@ KA256_col_4_ov2:
 	cmp	r4, r5
 	bls	KA256_col_4_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_4_ov1
 KA256_col_4_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1774,7 +1734,7 @@ KA256_col_8_ov2:
 	cmp	r4, r5
 	bls	KA256_col_8_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_8_ov1
 KA256_col_8_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1824,7 +1784,7 @@ KA256_col_16_ov2:
 	cmp	r4, r5
 	bls	KA256_col_16_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_16_ov1
 KA256_col_16_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1874,7 +1834,7 @@ KA256_col_32_ov2:
 	cmp	r4, r5
 	bls	KA256_col_32_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_32_ov1
 KA256_col_32_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1924,7 +1884,7 @@ KA256_col_64_ov2:
 	cmp	r4, r5
 	bls	KA256_col_64_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_64_ov1
 KA256_col_64_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4
@@ -1971,7 +1931,7 @@ KA256_col_128_ov2:
 	cmp	r4, r5
 	bls	KA256_col_128_ov2
 	ldr	r4, [r3], #4
-	cmp	r4, -1
+	cmp	r4, #-1
 	bne	KA256_col_128_ov1
 KA256_col_128_add:			// KA collection
 	ldr	r14, [r3], #4	// #shift/8, #iterations*4

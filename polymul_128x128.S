@@ -1,40 +1,4 @@
-
-
- 	.macro	mr_hi, res32, qq, neg_qqinv, scr
-	smulbb	\scr, \res32, \neg_qqinv
-	smlabb	\res32, \qq, \scr, \res32
-	.endm
-	
-	.macro	mr_16x2, r0, r1, qq, neg_qqinv, scr, res
-	mr_hi	\r0, \qq, \neg_qqinv, \scr
-	mr_hi	\r1, \qq, \neg_qqinv, \scr
-    	.ifb	\res
-	pkhtb	\r0, \r1, \r0, ASR #16
-	.else	
-	pkhtb	\res, \r1, \r0, ASR #16
-	.endif
-	.endm
-
-	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\scr, \res, \q32inv, \_2p15
-	smlatb	\res, \mq, \scr, \res
-	.endm
-	// note that high half of res is undefined
-	// must save with strh
-
-	.macro	br_16x2, res, mq, q32inv, _2p15, scr1, scr2, newres
-	smlawb	\scr1, \q32inv, \res, \_2p15
-	smlatb	\scr2, \scr1, \mq, \res
-	smlawt	\scr1, \q32inv, \res, \_2p15
-	smultb	\scr1, \scr1, \mq
-	add	\scr1, \res, \scr1, LSL #16 
-	.ifb	\newres
-	pkhbt	\res, \scr2, \scr1
-	.else	
-	pkhbt	\newres, \scr2, \scr1
-	.endif
-	.endm	
-
+#include "red-asm.h"
 // N=128 requires 7776=8x972 storage
 
 #include "polymul_128x128_aux.h"
@@ -140,8 +104,9 @@ KA128_exp_adds1:
 	subs	r4, r4, #2
 	beq	KA128_exp_end
 	bics	r7, r4, r2, ASR #2
-	subeq	r0, r0, r2
-	subeq	r1, r1, r2
+	itt	eq		// divisible by N0/2/W=1?
+	subeq	r0, r0, r2	// then add N0!
+	subeq	r1, r1, r2	// then add N0!
 	b	KA128_exp_adds1
 KA128_exp_end:
 	rsb	r2, r2, #0
@@ -284,6 +249,7 @@ KA128_col_8_add1:	// begin KA collect loop
 	subs	r14, r14, #4
 	beq	KA128_col_8_end
 	tst	r14, #7	// set bit < 8?
+	itt	eq		// no, then next set
 	addeq	r1, r1, #48
 	addeq	r12, r12, #16
 	b	KA128_col_8_add1
@@ -334,6 +300,7 @@ KA128_col_16_add1:	// begin KA collect loop
 	subs	r14, r14, #4
 	beq	KA128_col_16_end
 	tst	r14, #15	// set bit < 16?
+	itt	eq		// no, then next set
 	addeq	r1, r1, #96
 	addeq	r12, r12, #32
 	b	KA128_col_16_add1
@@ -384,6 +351,7 @@ KA128_col_32_add1:	// begin KA collect loop
 	subs	r14, r14, #4
 	beq	KA128_col_32_end
 	tst	r14, #31	// set bit < 32?
+	itt	eq		// no, then next set
 	addeq	r1, r1, #192
 	addeq	r12, r12, #64
 	b	KA128_col_32_add1
@@ -416,21 +384,22 @@ KA128_col_64_add:			// KA collection
 KA128_col_64_add1:	// begin KA collect loop
 	ldr	r4, [r1, r0]		//+2*N0
 	ldr	r6, [r1, r0, LSL #1]	//+4*N0
+	ldr	r7, [r1, r11]		//+6*N0
 	ssub16	r4, r4, r6
-	ldr	r6, [r1, r11]		//+6*N0
-	sadd16	r8, r4, r6
+	sadd16	r8, r4, r7
 	ldr	r6, [r1]
+	ldr	r7, [r12, r0]		//+2*N0
 	ssub16	r4, r4, r6
-	ldr	r6, [r12, r0]		//+2*N0
-	ssub16	r8, r6, r8
-	str	r8, [r1, r0, LSL #1] 	//+4*N0
+	ssub16	r8, r7, r8
 	ldr	r6, [r12], #4		// shift r12 up 4
+	str	r8, [r1, r0, LSL #1] 	//+4*N0
 	sadd16	r4, r4, r6
 	str	r4, [r1, r0]		//+2*N0
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA128_col_64_end
 	tst	r14, #63	// set bit < 64?
+	itt	eq			//next 32 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
 	b	KA128_col_64_add1

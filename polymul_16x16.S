@@ -1,40 +1,4 @@
-
-
- 	.macro	mr_hi, res32, qq, neg_qqinv, scr
-	smulbb	\scr, \res32, \neg_qqinv
-	smlabb	\res32, \qq, \scr, \res32
-	.endm
-	
-	.macro	mr_16x2, r0, r1, qq, neg_qqinv, scr, res
-	mr_hi	\r0, \qq, \neg_qqinv, \scr
-	mr_hi	\r1, \qq, \neg_qqinv, \scr
-    	.ifb	\res
-	pkhtb	\r0, \r1, \r0, ASR #16
-	.else	
-	pkhtb	\res, \r1, \r0, ASR #16
-	.endif
-	.endm
-
-	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\scr, \res, \q32inv, \_2p15
-	smlatb	\res, \mq, \scr, \res
-	.endm
-	// note that high half of res is undefined
-	// must save with strh
-
-	.macro	br_16x2, res, mq, q32inv, _2p15, scr1, scr2, newres
-	smlawb	\scr1, \q32inv, \res, \_2p15
-	smlatb	\scr2, \scr1, \mq, \res
-	smlawt	\scr1, \q32inv, \res, \_2p15
-	smultb	\scr1, \scr1, \mq
-	add	\scr1, \res, \scr1, LSL #16 
-	.ifb	\newres
-	pkhbt	\res, \scr2, \scr1
-	.else	
-	pkhbt	\newres, \scr2, \scr1
-	.endif
-	.endm	
-
+#include "red-asm.h"
 // N=16 requires 288=8x36 storage
 
 #include "polymul_16x16_aux.h"
@@ -137,8 +101,9 @@ KA16_exp_adds1:
 	subs	r4, r4, #2
 	beq	KA16_exp_end
 	bics	r7, r4, r2, ASR #2
-	subeq	r0, r0, r2
-	subeq	r1, r1, r2
+	itt	eq		// divisible by N0/2/W=1?
+	subeq	r0, r0, r2	// then add N0!
+	subeq	r1, r1, r2	// then add N0!
 	b	KA16_exp_adds1
 KA16_exp_end:
 	rsb	r2, r2, #0
@@ -263,6 +228,7 @@ KA16_col_8_add1:	// begin KA collect loop
 	subs	r14, r14, #4
 	beq	KA16_col_8_end
 	tst	r14, #7	// set bit < 8?
+	itt	eq		// no, then next set
 	addeq	r1, r1, #48
 	addeq	r12, r12, #16
 	b	KA16_col_8_add1

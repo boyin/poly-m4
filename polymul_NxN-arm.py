@@ -67,47 +67,7 @@ sizet = [0 for i in range(N_range/W*2)]
 
 def KA_prologue () :
     print '#include "polymul_NxN_aux.h"'
-    print '''
-
-	.p2align	2,,3	
-	.syntax		unified
-	.text
-
- 	.macro	mr_hi, res32, qq, neg_qqinv, scr
-	smulbb	\\scr, \\res32, \\neg_qqinv
-	smlabb	\\res32, \\qq, \\scr, \\res32
-	.endm
-	
-	.macro	mr_16x2, r0, r1, qq, neg_qqinv, scr, res
-	mr_hi	\\r0, \\qq, \\neg_qqinv, \\scr
-	mr_hi	\\r1, \\qq, \\neg_qqinv, \\scr
-    	.ifb	\\res
-	pkhtb	\\r0, \\r1, \\r0, ASR #16
-	.else	
-	pkhtb	\\res, \\r1, \\r0, ASR #16
-	.endif
-	.endm
-
-	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\\scr, \\res, \\q32inv, \\_2p15
-	smlatb	\\res, \\mq, \\scr, \\res
-	.endm
-	// note that high half of res is undefined
-	// must save with strh
-
-	.macro	br_16x2, res, mq, q32inv, _2p15, scr1, scr2, newres
-	smlawb	\\scr1, \\q32inv, \\res, \\_2p15
-	smlatb	\\scr2, \\scr1, \\mq, \\res
-	smlawt	\\scr1, \\q32inv, \\res, \\_2p15
-	smultb	\\scr1, \\scr1, \\mq
-	add	\\scr1, \\res, \\scr1, LSL #16 
-	.ifb	\\newres
-	pkhbt	\\res, \\scr2, \\scr1
-	.else	
-	pkhbt	\\newres, \\scr2, \\scr1
-	.endif
-	.endm	
-'''
+    print '#include "red-asm.h"'
 
 def KA_polymulNxN (N) :
     # KA_head
@@ -461,7 +421,7 @@ def KA_polymulNxN (N) :
             print "	cmp	r4, r5"
             print "	bls	KA%d_col_%d_ov2" % (N,N0)
             print "	ldr	r4, [r3], #4"
-            print "	cmp	r4, -1"
+            print "	cmp	r4, #-1"
             print "	bne	KA%d_col_%d_ov1" % (N,N0)
         # hh has not left r2, ov has not left r3
         print "KA%d_col_%d_add:			// KA collection" % (N,N0)

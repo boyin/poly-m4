@@ -9,8 +9,6 @@ q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 ARGS = sys.argv
 SAVES = 0
-
-    
 # NARGS = len(ARGS)
 # if (NARGS == 1) :
 #     aux = open("polymul_NxN_aux.h","w+")
@@ -91,43 +89,7 @@ def KA_prologue () :
     #     print "	.syntax		unified"
     #     print "	.text"
     #
-    print '''
-
- 	.macro	mr_hi, res32, qq, neg_qqinv, scr
-	smulbb	\\scr, \\res32, \\neg_qqinv
-	smlabb	\\res32, \\qq, \\scr, \\res32
-	.endm
-	
-	.macro	mr_16x2, r0, r1, qq, neg_qqinv, scr, res
-	mr_hi	\\r0, \\qq, \\neg_qqinv, \\scr
-	mr_hi	\\r1, \\qq, \\neg_qqinv, \\scr
-    	.ifb	\\res
-	pkhtb	\\r0, \\r1, \\r0, ASR #16
-	.else	
-	pkhtb	\\res, \\r1, \\r0, ASR #16
-	.endif
-	.endm
-
-	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\\scr, \\res, \\q32inv, \\_2p15
-	smlatb	\\res, \\mq, \\scr, \\res
-	.endm
-	// note that high half of res is undefined
-	// must save with strh
-
-	.macro	br_16x2, res, mq, q32inv, _2p15, scr1, scr2, newres
-	smlawb	\\scr1, \\q32inv, \\res, \\_2p15
-	smlatb	\\scr2, \\scr1, \\mq, \\res
-	smlawt	\\scr1, \\q32inv, \\res, \\_2p15
-	smultb	\\scr1, \\scr1, \\mq
-	add	\\scr1, \\res, \\scr1, LSL #16 
-	.ifb	\\newres
-	pkhbt	\\res, \\scr2, \\scr1
-	.else	
-	pkhbt	\\newres, \\scr2, \\scr1
-	.endif
-	.endm	
-'''
+    print '#include "red-asm.h"'
 
 def KA_polymulNxN (N) :
     # KA_head
@@ -300,8 +262,9 @@ def KA_polymulNxN (N) :
     #print "	bne	KA%d_exp_adds1" % N
     #print "	sub	r0, r0, r2"
     #print "	sub	r1, r1, r2"
-    print "	subeq	r0, r0, r2"
-    print "	subeq	r1, r1, r2"
+    print "	itt	eq		// divisible by N0/2/W=%d?" % (N0/2/W)
+    print "	subeq	r0, r0, r2	// then add N0!"
+    print "	subeq	r1, r1, r2	// then add N0!"
     print "	b	KA%d_exp_adds1" % N
     print "KA%d_exp_end:" % N
     print "	rsb	r2, r2, #0"
@@ -533,6 +496,7 @@ def KA_polymulNxN (N) :
             #print "	bne	KA%d_col_%d_add1" % (N,N0)
             #print "	add	r1, r1, #%d" % (N0*6)
             #print "	add	r12, r12, #%d" % (N0*2)
+            print "	itt	eq		// no, then next set"
             print "	addeq	r1, r1, #%d" % (N0*6)
             print "	addeq	r12, r12, #%d" % (N0*2)
             print "	b	KA%d_col_%d_add1" % (N,N0)
@@ -542,15 +506,15 @@ def KA_polymulNxN (N) :
             print "KA%d_col_%d_add1:	// begin KA collect loop" % (N,N0)
 	    print "	ldr	r4, [r1, r0]		//+2*N0"
             print "	ldr	r6, [r1, r0, LSL #1]	//+4*N0"
+            print "	ldr	r7, [r1, r11]		//+6*N0" 
             print "	ssub16	r4, r4, r6"
-            print "	ldr	r6, [r1, r11]		//+6*N0" 
-            print "	sadd16	r8, r4, r6"
+            print "	sadd16	r8, r4, r7"
             print "	ldr	r6, [r1]"
+            print "	ldr	r7, [r12, r0]		//+2*N0"
             print "	ssub16	r4, r4, r6"
-            print "	ldr	r6, [r12, r0]		//+2*N0"
-            print "	ssub16	r8, r6, r8"
-            print "	str	r8, [r1, r0, LSL #1] 	//+4*N0"
+            print "	ssub16	r8, r7, r8"
             print "	ldr	r6, [r12], #4		// shift r12 up 4"
+            print "	str	r8, [r1, r0, LSL #1] 	//+4*N0"
             print "	sadd16	r4, r4, r6"
             print "	str	r4, [r1, r0]		//+2*N0"
             print "	add	r1, r1, #4		// shift r1 up 4"
@@ -560,6 +524,7 @@ def KA_polymulNxN (N) :
             #print "	bne	KA%d_col_%d_add1" % (N,N0)
             #print "	add	r1, r1, r11		//+6*N0"
             #print "	add	r12, r12, r0		//+2*N0"
+            print "	itt	eq			//next %d bloc" % (N0/W)
             print "	addeq	r1, r1, r11		//+6*N0"
             print "	addeq	r12, r12, r0		//+2*N0"
             print "	b	KA%d_col_%d_add1" % (N,N0)
