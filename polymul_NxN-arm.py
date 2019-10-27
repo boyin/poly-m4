@@ -7,8 +7,12 @@ q = 4591
 qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
-aux = open("polymul_NxN_aux.h","w+")
-
+ARGS = sys.argv
+SAVES = 0
+# NARGS = len(ARGS)
+# if (NARGS == 1) :
+#     aux = open("polymul_NxN_aux.h","w+")
+    
 # adjust
 # def adj_size (size) :
 #     if (size < q_ab) :  # 2341 is q-dependent
@@ -32,21 +36,33 @@ def adjd (size) :
         return adj_size(size)
 
 def adj_stmt () :
-    return("  barrett_16x2	%s")	# adjust W=2 shorts
+    return("  br_16x2	%s")	# adjust W=2 shorts
 
 # may change to using vmov later
 def print_ldr (reg, loc, comment) :
-    print("	ldr	%s, %s	// %s" % (reg, loc, comment))
-def print_str (reg, loc, comment) :
-    print("	str	%s, %s	// %s" % (reg, loc, comment))
-# stack version, might change to using vmov vfp and registers later.
-s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
-s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
-s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
-# s_h = "s0";	s_2M = "s1";	s_gg = "s2";
-# s_hh = "s3";	s_ov = "s4";	s_q = "s5";
-# s_qi = "s6";	s_q32 = "s7";	s_mq = "s8";
+    #print("	ldr	%s, %s	// %s" % (reg, loc, comment))
+    print("	vmov	%s, %s  // %s" % (reg, loc, comment))
 
+def print_str (reg, loc, comment) :
+    #print("	str	%s, %s	// %s" % (reg, loc, comment))
+    print("	vmov	%s, %s	// %s" % (loc, reg, comment))
+
+# may change to vfp registers later.
+# s_h = "[sp,#-4]";	s_2M = "[sp,#-8]";	s_gg = "[sp,#-12]";
+# s_hh = "[sp,#-16]";	s_ov = "[sp,#-20]";	s_q = "[sp,#-24]";
+# s_qi = "[sp, #-28]";	s_q32 = "[sp,#-32]";	s_mq = "[sp,#-36]";
+s_h = "s0";	s_2M = "s1";	s_gg = "s2";
+s_hh = "s3";	s_ov = "s4";	s_q = "s5";
+s_qi = "s6";	s_q32 = "s7";	s_mq = "s8";
+# alloc_save("h")  # h, output
+# alloc_save("2M") # 2M, M = KA_terms(N,N0)*l
+# alloc_save("gg") # gg, second input array, expanded, 2M in size, = sp + 2M
+# alloc_save("hh") # hh, output array, expanded, 4M in size
+# alloc_save("ov") # overflow list address"
+# alloc_save("q")  # modulus q = 4591
+# alloc_save("qi") # q^{-1} mod 2^16
+# alloc_save("q32")# round(2^32/q)
+# alloc_save("mq") # -q, I am stupid
 
 def KA_terms (N,N0) :
     assert (isinstance(N,int) and (N==1<<int(log(N,2)+0.5)) and (N>=B))
@@ -55,6 +71,7 @@ def KA_terms (N,N0) :
         M += M/2
         N = N/2
     return M
+
 
 B = 4 # base case
 W = 2 # width of vectors
@@ -66,12 +83,30 @@ size2 = [0 for i in range(M_range/W*2)]
 sizet = [0 for i in range(N_range/W*2)]
 
 def KA_prologue () :
-    print '#include "polymul_NxN_aux.h"'
+    # if (NARGS == 1) :
+    #     print '#include "polymul_NxN_aux.h"'
+    #     print "	.p2align	2,,3"
+    #     print "	.syntax		unified"
+    #     print "	.text"
+    #
     print '#include "red-asm.h"'
 
 def KA_polymulNxN (N) :
     # KA_head
     print("// N=%d requires %d=8x%d storage\n" % (N,8*KA_terms(N,B),KA_terms(N,B)))
+    # if (NARGS > 1) :
+    aux = open("polymul_%dx%d.h" % (N,N), "w+")
+    aux.write("extern void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
+    aux.close();
+    aux = open("polymul_%dx%d_aux.h" % (N,N),"w+")
+    aux.write("	.p2align	2,,3\n")
+    aux.write("	.syntax		unified\n")
+    aux.write("	.text\n\n")
+    print '#include "polymul_%dx%d_aux.h"' % (N,N)
+    print "	.p2align	2,,3	"
+    print "	.syntax		unified"
+    print "	.text"
+    #
     print "// void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
     print "	.global gf_polymul_%dx%d_divR" % (N,N)
     print "	.type	gf_polymul_%dx%d_divR, %%function" % (N,N)
@@ -83,20 +118,23 @@ def KA_polymulNxN (N) :
     for i in range (M/W*2)  : size2[i] = 0
     for i in range (N/W*2)  : sizet[i] = 0
     print "	push	{r4-r11,lr}"
-    # print "	vmov	s0, r0		// save h"
+    print "	//vpush	{s16-s31}"
     print "	ldr	r12, =%d	// r12=2M" % (2*M)
     print "	sub	sp, sp, r12, LSL #2	// subtract %d = 8M" % (8*M) 
     print "		// ff=[sp], gg=[sp,#%d], hh=[sp,#%d]" % (2*M,4*M)
-    print "	str	r0, %s	// save h" % (s_h)
+    print_str("r0",s_h,"save h")
     print "	mov	r3, sp"
     print "	add	r0, sp, r12	// gg=ff+%d(=2M)" % (2*M)
     print_str("r12", s_2M, "save 2M")
     print_str("r0", s_gg, "save gg (ff=sp)")
     print "	add	r14, r0, r12	// hh=gg+%d(=2M)" % (2*M)
     print_str("r14", s_hh, "save h")
-    print "	movw	r14, #:lower16:KA_exp_ov_%d" % (N)
-    print "	movt	r14, #:upper16:KA_exp_ov_%d" % (N)
-    #print "	ldr	r14, =KA_exp_ov_%d" % N
+    # if (NARGS == 1) :
+    #     print "	movw	r14, #:lower16:KA_exp_ov_%d" % (N)
+    #     print "	movt	r14, #:upper16:KA_exp_ov_%d" % (N)
+    # else :
+    print "	ldr	r14, =KA_exp_ov_%d" % N
+    #
     print_str("r14", s_ov, "save ov pointer")
     print "	movw	r12, #%d" % (q)
     print_str("r12", s_q, "save q")
@@ -151,12 +189,12 @@ def KA_polymulNxN (N) :
         for j in range(0,N1/W) :
             if (size_mark[j] == 1) :
             	if (size_mark[j-1] == 0) :
-                    aux.write("	.word	%d\n" % j)
+                    aux.write("	.hword	%d\n" % j)
                 if (size_mark[j+1] == 0) :
-                    aux.write("	.word	%d\n" % j)
-        aux.write("	.word	-1\n")
+                    aux.write("	.hword	%d\n" % j)
+        aux.write("	.hword	-1\n")
         aux.write("KA_exp_add_%d_%d:\n" % (N,N0))
-        aux.write("	.word	%d	// #TERMS(%d,%d)/4\n" % (N1/W/2,N,N0))
+        aux.write("	.hword	%d	// #TERMS(%d,%d)/4\n" % (N1/W/2,N,N0))
         N0 /= 2
         #
     #
@@ -167,14 +205,14 @@ def KA_polymulNxN (N) :
     print "	beq	KA%d_exp_end1" % N
     #
     print "KA%d_exp_reduce:		// reduce ff[], gg[]" % N
-    print "	ldr	r4, [r3], #4	// list entry"
+    print "	ldrsh	r4, [r3], #2	// list entry"
     print "	cmp	r4, #-1		// end of this list?"
     print "	beq	KA%d_exp_adds	// only if -1 end" % N
     print_ldr("r6", s_mq, "load -q")
     print_ldr("r7", s_q32, "load q32inv")
     print "	mov	r10, #32768	// load 2^15"
     print "KA%d_exp_red1:" % N
-    print "	ldr	r5, [r3], #4	// reduce ff[r4-r5], gg[r4-r5]"
+    print "	ldrsh	r5, [r3], #2	// reduce ff[r4-r5], gg[r4-r5]"
     print "KA%d_exp_red2:			// while loop on r4" % N
     print "	ldr	r8, [r0, r4, LSL #2]	// ff[r4]"
     print "	ldr	r9, [r1, r4, LSL #2]	// gg[r4]"
@@ -186,7 +224,7 @@ def KA_polymulNxN (N) :
     print "	add	r4, #1"
     print "	cmp	r4, r5		// r4 > r5?"
     print "	bls	KA%d_exp_red2	// loop (r4)" % N
-    print "	ldr	r4, [r3], #4	// re-load list entry"
+    print "	ldrsh	r4, [r3], #2	// re-load list entry"
     print "	cmp	r4, #-1		// re-check, end of list?"
     print "	bne	KA%d_exp_red1" % N
     print "KA%d_exp_adds:" % N
@@ -197,7 +235,7 @@ def KA_polymulNxN (N) :
     print "     gg[j+k+N1/W]=__SADD16(gg[2*j+k],gg[2*j+k+N0/2/W]);"
     print "    }"
     print "*/"
-    print "	ldr	r4, [r3], #4		// load N1/W/2"
+    print "	ldrsh	r4, [r3], #2		// load N1/W/2"
     print "	add	r5, r0, r4, LSL #3	// r5 = ff + N1/W"
     print "	add	r6, r1, r4, LSL #3	// r6 = gg + N1/W"
     print "	add	r0, r0, r2		// r0 = ff + N0/2/W"
@@ -221,38 +259,18 @@ def KA_polymulNxN (N) :
     print "	subs	r4, r4, #2"
     print "	beq	KA%d_exp_end" % N
     print "	bics	r7, r4, r2, ASR #2"
-    print "	bne	KA%d_exp_adds1" % N
-    print "	sub	r0, r0, r2"
-    print "	sub	r1, r1, r2"
+    #print "	bne	KA%d_exp_adds1" % N
+    #print "	sub	r0, r0, r2"
+    #print "	sub	r1, r1, r2"
+    print "	itt	eq		// divisible by N0/2/W=%d?" % (N0/2/W)
+    print "	subeq	r0, r0, r2	// then add N0!"
+    print "	subeq	r1, r1, r2	// then add N0!"
     print "	b	KA%d_exp_adds1" % N
     print "KA%d_exp_end:" % N
     print "	rsb	r2, r2, #0"
     print "	mov	r0, sp		// reload ff"
     print_ldr("r1",s_gg, "reload gg")
     print
-    # print "	mov	r6, #0			// r6(j) = range(0,r4,r2/4)" 
-    # print "KA%d_exp_adds1:" % N
-    # print "	mov	r7, #0			// r7(k) = range(0,r2/4)"
-    # print "KA%d_exp_adds2:" % N
-    # print "	add	r8, r7, r6"
-    # print "	add	r8, r8, r4, LSL #1	// r8 = j+k+N1/W"
-    # print "	add	r9, r7, r6, LSL #1	// r9 = 2*j+k"
-    # print "	add	r10, r9, r2, ASR #2	// r10 = 2*j+k+N0/2/W"
-    # print "	ldr 	r11, [r0, r9, LSL #2]	// r11 = ff[2*j+k]"
-    # print "	ldr	r12, [r0, r10, LSL #2]  // r12 = ff[2*j+k+N0/2/W]" 
-    # print "	sadd16	r11, r11, r12"
-    # print "	str	r11, [r0, r8, LSL #2]	// ff[j+k+N1/W] = r11+r12"
-    # print "	ldr 	r11, [r1, r9, LSL #2]	// r11 = gg[2*j+k]"
-    # print "	ldr	r12, [r1, r10, LSL #2]	// r12 = gg[2*j+k+N0/2/W]"
-    # print "	sadd16	r11, r11, r12"
-    # print "	str	r11, [r1, r8, LSL #2]	// gg[j+k+N1/W] = r11+r12"
-    # print "	add	 r7, #1"
-    # print "	cmp	r7, r2, ASR #2"
-    # print "	bne	KA%d_exp_add2" % N
-    # print "	add	r6, r2, ASR #2"
-    # print "	cmp	r6, r4"
-    # print "	bne	KA%d_exp_add1" % N
-    #
     print "	lsr	r2, #1 		// N0 /= 2"
     print "	b	KA%d_exp_loop1	// loop" %(N)
     print "KA%d_exp_end1:" % N
@@ -274,18 +292,18 @@ def KA_polymulNxN (N) :
     for j in range(N1/W) :
         if (size_mark[j] == 1) :  
             size_mark_empty = 0
-            aux.write("	.word	%d\n" % j)
+            aux.write("	.hword	%d\n" % j)
     if (size_mark_empty == 1) :
         print "		// no multiplicative overflow"
         aux.write("	// no multiplicative overflow\n")
     else :
-        aux.write("	.word	-1\n")
+        aux.write("	.hword	-1\n")
         # r3 points to KA_mul_ov_N at this point, and r0, r1 are ff, gg
         print_ldr("r6",s_mq,"load -q")
         print_ldr("r7",s_q32,"load round(2^32/q)")
         print "	mov	r8, #32768"
         print "KA%d_mul_ov:" % (N) 
-        print "	ldr	r2, [r3], #4"	  
+        print "	ldrsh	r2, [r3], #2"	  
         print "	cmp	r2, #-1		// multiplicative overflow?"
         print "	beq	KA%d_muls" % (N)
         print "	ldr	r4, [r0, r2, LSL #2]"
@@ -295,9 +313,9 @@ def KA_polymulNxN (N) :
         print "	br_16x2 r5, r6, r7, r8, r9, r10"
         print "	str	r5, [r0, r2, LSL #2]"
         print "	b	KA%d_mul_ov" % (N)
-    aux.write("	.word	%d	// #TERMS(%d,%d)/4\n" % (N1/B,N,B)) 
+    aux.write("	.hword	%d	// #TERMS(%d,%d)/4\n" % (N1/B,N,B)) 
     print "KA%d_muls:" % (N)
-    print "	ldr	r14, [r3], #4	// r14 = N1/B"
+    print "	ldrsh	r14, [r3], #2	// r14 = N1/B"
     print_str("r3",s_ov,"save overflow list pointer")
     print_ldr("r2",s_hh,"load r2 = hh")
     print "KA%d_muls1:" % (N)
@@ -378,12 +396,12 @@ def KA_polymulNxN (N) :
             for j in range(KA_terms(N,N0)/W*2) :
                 if (size_mark[j] == 1) :
                     if (size_mark[j-1] == 0) :
-                        aux.write("	.word	%d\n" % j)
+                        aux.write("	.hword	%d\n" % j)
                     if (size_mark[j+1] == 0) :
-                        aux.write("	.word	%d\n" % j)
-            aux.write("	.word	-1\n")
+                        aux.write("	.hword	%d\n" % j)
+            aux.write("	.hword	-1\n")
         aux.write("KA_col_add_%d_%d:\n" % (N,N0))
-        aux.write("	.word	%d	// =#shift/8, #iterations*4\n" % (N1/W))
+        aux.write("	.hword	%d	// =#shift/8, #iterations*4\n" % (N1/W))
         for j in range(0,N1,2*N0) :
             # KA sequence of collection
             for i in range(0,N0,W) :
@@ -403,16 +421,16 @@ def KA_polymulNxN (N) :
             print "KA%d_col_%d_ov:" % (N,N0)
             #
             #print_ldr("r3",s_ov,"reload overflow list")
-            print "	ldr	r4, [r3], #4"
+            print "	ldrsh	r4, [r3], #2"
             print "	cmp	r4, #-1"
             print "	beq	KA%d_col_%d_add" % (N,N0)
             #print "KA%d_col_%d_ov0:" % (N,N0)
-            #print_ldr("r0",s_mq,"load -q")
-            #print_ldr("r1",s_q32,"load qinv32")
-            print "	ldrd	r0, r1, %s	// load -q, q32inv" % (s_mq);
+            print_ldr("r0",s_mq,"load -q")
+            print_ldr("r1",s_q32,"load qinv32")
+            #print "	ldrd	r0, r1, %s	// load -q, q32inv" % (s_mq);
             print "	mov	r6,#32768"
             print "KA%d_col_%d_ov1:" % (N,N0)
-            print "	ldr	r5, [r3], #4"
+            print "	ldrsh	r5, [r3], #2"
             print "KA%d_col_%d_ov2:" % (N,N0)
             print "	ldr	r8, [r2, r4, LSL #2]"
             print "	br_16x2	r8, r0, r1, r6, r7, r9"
@@ -420,12 +438,12 @@ def KA_polymulNxN (N) :
             print "	add	r4, #1"
             print "	cmp	r4, r5"
             print "	bls	KA%d_col_%d_ov2" % (N,N0)
-            print "	ldr	r4, [r3], #4"
-            print "	cmp	r4, #-1"
+            print "	ldrsh	r4, [r3], #2"
+            print "	cmp	r4, -1"
             print "	bne	KA%d_col_%d_ov1" % (N,N0)
         # hh has not left r2, ov has not left r3
         print "KA%d_col_%d_add:			// KA collection" % (N,N0)
-        print "	ldr	r14, [r3], #4	// #shift/8, #iterations*4"
+        print "	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4"
         #print_str("r3",s_ov,"save overflow list")
         print "	add	r12, r2, r14, LSL #3	// other pointer"
         print "	mov	r1, r2		// copy of hh"
@@ -475,9 +493,12 @@ def KA_polymulNxN (N) :
             print "	subs	r14, r14, #4"
             print "	beq	KA%d_col_%d_end" % (N,N0)
             print "	tst	r14, #%d	// set bit < %d?" % (N0-1,N0)
-            print "	bne	KA%d_col_%d_add1" % (N,N0)
-            print "	add	r1, r1, #%d" % (N0*6)
-            print "	add	r12, r12, #%d" % (N0*2)
+            #print "	bne	KA%d_col_%d_add1" % (N,N0)
+            #print "	add	r1, r1, #%d" % (N0*6)
+            #print "	add	r12, r12, #%d" % (N0*2)
+            print "	itt	eq		// no, then next set"
+            print "	addeq	r1, r1, #%d" % (N0*6)
+            print "	addeq	r12, r12, #%d" % (N0*2)
             print "	b	KA%d_col_%d_add1" % (N,N0)
         else : # N0 >= 64
             print "	mov	r0, #%d			// 2*N0" % (N0*2)
@@ -485,24 +506,27 @@ def KA_polymulNxN (N) :
             print "KA%d_col_%d_add1:	// begin KA collect loop" % (N,N0)
 	    print "	ldr	r4, [r1, r0]		//+2*N0"
             print "	ldr	r6, [r1, r0, LSL #1]	//+4*N0"
+            print "	ldr	r7, [r1, r11]		//+6*N0" 
             print "	ssub16	r4, r4, r6"
-            print "	ldr	r6, [r1, r11]		//+6*N0" 
-            print "	sadd16	r8, r4, r6"
+            print "	sadd16	r8, r4, r7"
             print "	ldr	r6, [r1]"
+            print "	ldr	r7, [r12, r0]		//+2*N0"
             print "	ssub16	r4, r4, r6"
-            print "	ldr	r6, [r12, r0]		//+2*N0"
-            print "	ssub16	r8, r6, r8"
-            print "	str	r8, [r1, r0, LSL #1] 	//+4*N0"
+            print "	ssub16	r8, r7, r8"
             print "	ldr	r6, [r12], #4		// shift r12 up 4"
+            print "	str	r8, [r1, r0, LSL #1] 	//+4*N0"
             print "	sadd16	r4, r4, r6"
             print "	str	r4, [r1, r0]		//+2*N0"
             print "	add	r1, r1, #4		// shift r1 up 4"
 	    print "	subs	r14, r14, #2"
             print "	beq	KA%d_col_%d_end" % (N,N0)
             print "	tst	r14, #%d	// set bit < %d?" % (N0-1,N0)
-            print "	bne	KA%d_col_%d_add1" % (N,N0)
-            print "	add	r1, r1, r11		//+6*N0"
-            print "	add	r12, r12, r0		//+2*N0"
+            #print "	bne	KA%d_col_%d_add1" % (N,N0)
+            #print "	add	r1, r1, r11		//+6*N0"
+            #print "	add	r12, r12, r0		//+2*N0"
+            print "	itt	eq			//next %d bloc" % (N0/W)
+            print "	addeq	r1, r1, r11		//+6*N0"
+            print "	addeq	r12, r12, r0		//+2*N0"
             print "	b	KA%d_col_%d_add1" % (N,N0)
         print "KA%d_col_%d_end:"   % (N,N0)     
         #
@@ -522,18 +546,24 @@ def KA_polymulNxN (N) :
     #
     aux.write("\n")
     print "KA%d_end:" % N
-    print "	ldr	r12, %s" % (s_2M)
+    print_ldr("r12", s_2M, "load 2M")
     print "	add	sp, sp, r12, LSL #2	// add back %d = 8M" % (8*M) 
+    print "	//vpop	{s16-s31}"
     print "	pop	{r4-r11,lr}"
     print "	bx	lr"
     print ""
-
+    # if (NARGS > 1 ) :
+    aux.close()
+    # 
+    
 KA_prologue()
-KA_polymulNxN(8)
-KA_polymulNxN(16)
-KA_polymulNxN(32)
-KA_polymulNxN(64)
-KA_polymulNxN(128)
-KA_polymulNxN(256)
+# if (NARGS > 1) :
+NN = int(sys.argv[1])
+KA_polymulNxN(NN)
 
-aux.close()
+# if (NARGS == 1) :
+#     NN = 2 * B
+#     while (NN <= N_range) :
+#         KA_polymulNxN(NN)
+#         NN *= 2
+#     aux.close()
