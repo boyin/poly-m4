@@ -476,7 +476,8 @@ def T_polymulNxN (T, l) :
     print_str("r3",V["ov"],"save overflow list pointer")
     print_ldr("r2",V["hh"],"load r2 = hh")
     print "T%dx%d_muls1:" %  (N,l)
-    print '''	// begin polymul_4x4_divR
+    if (B==4) : # I will write other cases later
+        print '''	// begin polymul_4x4_divR
 	ldr	r3, [r0, #2]		// r3 = f12
 	ldr	r5, [r0, #4]
 	ldr	r4, [r0], #8  		// r4 = f01, f5 = f23
@@ -492,10 +493,10 @@ def T_polymulNxN (T, l) :
 	smladx  r12, r3, r7, r12	// r12 += f1 g3 + f2 g2 = h4 (32bit)
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)'''
-    print_ldr("r5",V["qi"],"r5 = -q^{-1} mod 2^16")
-    print_ldr("r6",V["q"],"r6 = q")
-    #
-    print '''	mr_16x2	r12, r3, r6, r5, r7
+        print_ldr("r5",V["qi"],"r5 = -q^{-1} mod 2^16")
+        print_ldr("r6",V["q"],"r6 = q")
+        #
+        print '''	mr_16x2	r12, r3, r6, r5, r7
 	mr_hi	r4, r6, r5, r7             
 	lsr	r4, #16
 	mr_16x2	r8, r9, r6, r5, r7
@@ -558,6 +559,8 @@ def T_polymulNxN (T, l) :
                         size_mark[(j+2*N1+N0+i)/W]=1
                     size_mark_empty = 0                    
         aux.write("T_col_ov_%d_%d:\n" % (N,N0))
+        if (T==768 and (N0==8 or N0==16)):
+            aux.write("	/* tailored overflow check\n") 
 	if (size_mark_empty == 0) :
             for j in range((2*l-1)*KA_terms(N,N0)/W*2) :
                 if (size_mark[j] == 1) :
@@ -569,6 +572,9 @@ def T_polymulNxN (T, l) :
                         else :
                             aux.write("%d\n" % j)
             aux.write("	.hword	-1\n")
+        else : aux.write("	// no overflow\n")
+        if (T==768 and (N0==8 or N0==16)):
+            aux.write("	skipped overflow list */\n") 
         aux.write("T_col_add_%d_%d:\n" % (N,N0))
         aux.write("	.hword	%d	// =#shift/8, #iterations*4\n" % (N1/W))
         for j in range(0,N1,2*N0) :
@@ -584,7 +590,99 @@ def T_polymulNxN (T, l) :
             for i in range(0,N0,W) :
                 size2[(2*j+N0+i)/W] = sizet[i/W] + size2[(2*N1+j+i)/W]
         if (size_mark_empty == 1) :
-            print "T%dx%d_col_%d_ov:			// no overflow" %  (N,l,N0)
+            print "T%dx%d_col_%d_ov:			// no overflow"%(N,l,N0)
+        elif (T==768 and N0==8) : # 2-5 mod 8 from 0:7128
+            print "T%dx%d_col_%d_ov:	// tailored overflow check" %  (N,l,N0)
+            print "	movw	r5, #7120"
+            print "	add	r4, r2, #8"
+            print_ldr("r0",V["-q"],"load -q")
+            print_ldr("r1",V["q32"],"load qinv32")
+            print "	mov	r6,#32768"
+            print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"	
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #24"
+            print "	subs	r5, r5, #8"
+            print "	bne	T%dx%d_col_%d_ov1" %  (N,l,N0)
+        elif (T==768 and N0==16) :
+            # 4-5 or 10 mod 16 from 0:1408, 4-11 mod 16 from 1408:3168
+            # 4-5 or 10 mod 16 from 3168:3872, 4-11 mod 16 from 3872:4752
+            print "T%dx%d_col_%d_ov:	// tailored overflow check" %  (N,l,N0)
+            print_ldr("r0",V["-q"],"load -q")
+            print_ldr("r1",V["q32"],"load qinv32")
+            print "	mov	r6,#32768"
+            print "	movw	r5, #0"
+            print "	add	r4, r2, #16"
+            print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #24"
+            print "	ldr	r8, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	str	r8, [r4], #40"
+            print "	add	r5, r5, #16"
+            print "	cmp	r5, #1408"
+            print "	bcc	T%dx%d_col_%d_ov1" %  (N,l,N0)
+            print "T%dx%d_col_%d_ov2:" %  (N,l,N0)
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #40"
+            print "	add	r5, r5, #16"
+            print "	cmp	r5, #3168"
+            print "	bcc	T%dx%d_col_%d_ov2" %  (N,l,N0)
+            print "T%dx%d_col_%d_ov3:" %  (N,l,N0)
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #24"
+            print "	ldr	r8, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	str	r8, [r4], #40"
+            print "	add	r5, r5, #16"
+            print "	cmp	r5, #3872"
+            print "	bcc	T%dx%d_col_%d_ov3" %  (N,l,N0)
+            print "	movw	r11, #4752"
+            print "T%dx%d_col_%d_ov4:" %  (N,l,N0)
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #8"
+            print "	ldrd	r8, r9, [r4]"
+	    print "	br_16x2	r8, r0, r1, r6, r7, r10"
+            print "	br_16x2	r9, r0, r1, r6, r7, r10"
+            print "	strd	r8, r9, [r4], #40"
+            print "	add	r5, r5, #16"
+            print "	cmp	r5, r11"
+            print "	bcc	T%dx%d_col_%d_ov4" %  (N,l,N0)
+        #elif (T==768 and N0==32) :
+        #elif (T==768 and N0==64) :
         else :
             # checking for overflows
             print "T%dx%d_col_%d_ov:" %  (N,l,N0)
@@ -798,10 +896,10 @@ def T_polymulNxN (T, l) :
 T_prologue()
 #TT = 64
 #LL = 4
-#TT = 768
-#LL = 6
-TT = 640
-LL = 5
+TT = 768
+LL = 6
+#TT = 640
+#LL = 5
 #TT = sys.argv[1]
 #LL = sys.argv[2]
 T_polymulNxN(TT,LL)

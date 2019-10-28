@@ -55,6 +55,7 @@ T_col_ov_128_4:
 T_col_add_128_4:
 	.hword	3564	// =#shift/8, #iterations*4
 T_col_ov_128_8:
+	/* tailored overflow check
 	.hword	2, 5
 	.hword	10, 13
 	.hword	18, 21
@@ -947,9 +948,11 @@ T_col_ov_128_8:
 	.hword	7114, 7117
 	.hword	7122, 7125
 	.hword	-1
+	skipped overflow list */
 T_col_add_128_8:
 	.hword	2376	// =#shift/8, #iterations*4
 T_col_ov_128_16:
+	/* tailored overflow check
 	.hword	4, 5
 	.hword	10, 10
 	.hword	20, 21
@@ -1380,6 +1383,7 @@ T_col_ov_128_16:
 	.hword	4724, 4731
 	.hword	4740, 4747
 	.hword	-1
+	skipped overflow list */
 T_col_add_128_16:
 	.hword	1584	// =#shift/8, #iterations*4
 T_col_ov_128_32:
