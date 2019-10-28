@@ -37,7 +37,7 @@
 
 	.macro	br_32, res, mq, q32inv, scr
 	smmulr	\scr, \res, \q32inv
-	mla	\res, \mq, \q32inv, \res
+	mla	\res, \mq, \scr, \res
 	.endm
 	  
 	.macro	center_adj, res, qqx2, scr // qqx2 = 2 copies of qq
