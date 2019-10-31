@@ -310,6 +310,7 @@ T_col_ov_128_8:
 T_col_add_128_8:
 	.hword	2376	// =#shift/8, #iterations*4
 T_col_ov_128_16:
+// overflow ranges: 0-2816: 4-11  mod 16 2816-3168: 2-13  mod 16 3168-3872: 4-11  mod 16 3872-4576: 2-13  mod 16 4576-4736: 4-11  mod 16
 	/* tailored overflow check
 	.hword	4, 11
 	.hword	20, 27
@@ -613,6 +614,7 @@ T_col_ov_128_16:
 T_col_add_128_16:
 	.hword	1584	// =#shift/8, #iterations*4
 T_col_ov_128_32:
+// overflow ranges: 0-1408: 8-12  18-22  mod 32 1408-2112: 8-14  16-23  mod 32 2112-2816: 8-12  18-22  mod 32 2816-3136: 8-14  16-23  mod 32
 	.hword	8, 12
 	.hword	18, 22
 	.hword	40, 44
@@ -701,28 +703,50 @@ T_col_ov_128_32:
 	.hword	1362, 1366
 	.hword	1384, 1388
 	.hword	1394, 1398
-	.hword	1416, 1431
-	.hword	1448, 1463
-	.hword	1480, 1495
-	.hword	1512, 1527
-	.hword	1544, 1559
-	.hword	1576, 1591
-	.hword	1608, 1623
-	.hword	1640, 1655
-	.hword	1672, 1687
-	.hword	1704, 1719
-	.hword	1736, 1751
-	.hword	1768, 1783
-	.hword	1800, 1815
-	.hword	1832, 1847
-	.hword	1864, 1879
-	.hword	1896, 1911
-	.hword	1928, 1943
-	.hword	1960, 1975
-	.hword	1992, 2007
-	.hword	2024, 2039
-	.hword	2056, 2071
-	.hword	2088, 2103
+	.hword	1416, 1422
+	.hword	1424, 1431
+	.hword	1448, 1454
+	.hword	1456, 1463
+	.hword	1480, 1486
+	.hword	1488, 1495
+	.hword	1512, 1518
+	.hword	1520, 1527
+	.hword	1544, 1550
+	.hword	1552, 1559
+	.hword	1576, 1582
+	.hword	1584, 1591
+	.hword	1608, 1614
+	.hword	1616, 1623
+	.hword	1640, 1646
+	.hword	1648, 1655
+	.hword	1672, 1678
+	.hword	1680, 1687
+	.hword	1704, 1710
+	.hword	1712, 1719
+	.hword	1736, 1742
+	.hword	1744, 1751
+	.hword	1768, 1774
+	.hword	1776, 1783
+	.hword	1800, 1806
+	.hword	1808, 1815
+	.hword	1832, 1838
+	.hword	1840, 1847
+	.hword	1864, 1870
+	.hword	1872, 1879
+	.hword	1896, 1902
+	.hword	1904, 1911
+	.hword	1928, 1934
+	.hword	1936, 1943
+	.hword	1960, 1966
+	.hword	1968, 1975
+	.hword	1992, 1998
+	.hword	2000, 2007
+	.hword	2024, 2030
+	.hword	2032, 2039
+	.hword	2056, 2062
+	.hword	2064, 2071
+	.hword	2088, 2094
+	.hword	2096, 2103
 	.hword	2120, 2124
 	.hword	2130, 2134
 	.hword	2152, 2156
@@ -767,21 +791,33 @@ T_col_ov_128_32:
 	.hword	2770, 2774
 	.hword	2792, 2796
 	.hword	2802, 2806
-	.hword	2824, 2839
-	.hword	2856, 2871
-	.hword	2888, 2903
-	.hword	2920, 2935
-	.hword	2952, 2967
-	.hword	2984, 2999
-	.hword	3016, 3031
-	.hword	3048, 3063
-	.hword	3080, 3095
-	.hword	3112, 3127
-	.hword	3144, 3159
+	.hword	2824, 2830
+	.hword	2832, 2839
+	.hword	2856, 2862
+	.hword	2864, 2871
+	.hword	2888, 2894
+	.hword	2896, 2903
+	.hword	2920, 2926
+	.hword	2928, 2935
+	.hword	2952, 2958
+	.hword	2960, 2967
+	.hword	2984, 2990
+	.hword	2992, 2999
+	.hword	3016, 3022
+	.hword	3024, 3031
+	.hword	3048, 3054
+	.hword	3056, 3063
+	.hword	3080, 3086
+	.hword	3088, 3095
+	.hword	3112, 3118
+	.hword	3120, 3127
+	.hword	3144, 3150
+	.hword	3152, 3159
 	.hword	-1
 T_col_add_128_32:
 	.hword	1056	// =#shift/8, #iterations*4
 T_col_ov_128_64:
+// overflow ranges: 0-1408: 13-19  23-23  28-35  39-39  44-49  55-55  mod 64 1408-2048: 15-19  23-23  28-35  39-39  44-47  mod 64
 	.hword	13, 19
 	.hword	23, 23
 	.hword	28, 35

@@ -281,24 +281,22 @@ T128x6_col_4_add1:	// beginning of KA collect
 	subs	r14, #4
 	bne	T128x6_col_4_add1
 T128x6_col_4_end:
-T128x6_col_8_ov:
-	ldrsh	r4, [r3], #2
-	cmp	r4, #-1
-	beq	T128x6_col_8_add
+T128x6_col_8_ov:	// tailored overflow check
+	movw	r5, #7120
+	add	r4, r2, #8
 	vmov	r0, s8	// load -q
 	vmov	r1, s7	// load qinv32
 	mov	r6,#32768
 T128x6_col_8_ov1:
-	ldrsh	r5, [r3], #2
-T128x6_col_8_ov2:
-	ldr	r8, [r2, r4, LSL #2]
-	br_16x2	r8, r0, r1, r6, r7, r9
-	str	r8, [r2, r4, LSL #2]
-	add	r4, #1
-	cmp	r4, r5
-	bls	T128x6_col_8_ov2
-	ldrsh	r4, [r3], #2
-	cmp	r4, -1
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #24
+	subs	r5, r5, #8
 	bne	T128x6_col_8_ov1
 T128x6_col_8_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
@@ -332,25 +330,75 @@ T128x6_col_8_add1:	// begin KA collect loop
 	addeq	r12, r12, #16
 	b	T128x6_col_8_add1
 T128x6_col_8_end:
-T128x6_col_16_ov:
-	ldrsh	r4, [r3], #2
-	cmp	r4, #-1
-	beq	T128x6_col_16_add
+T128x6_col_16_ov:	// tailored overflow check
 	vmov	r0, s8	// load -q
 	vmov	r1, s7	// load qinv32
 	mov	r6,#32768
+	movw	r5, #0
+	add	r4, r2, #16
 T128x6_col_16_ov1:
-	ldrsh	r5, [r3], #2
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #24
+	ldr	r8, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	str	r8, [r4], #40
+	add	r5, r5, #16
+	cmp	r5, #1408
+	bcc	T128x6_col_16_ov1
 T128x6_col_16_ov2:
-	ldr	r8, [r2, r4, LSL #2]
-	br_16x2	r8, r0, r1, r6, r7, r9
-	str	r8, [r2, r4, LSL #2]
-	add	r4, #1
-	cmp	r4, r5
-	bls	T128x6_col_16_ov2
-	ldrsh	r4, [r3], #2
-	cmp	r4, -1
-	bne	T128x6_col_16_ov1
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #40
+	add	r5, r5, #16
+	cmp	r5, #3168
+	bcc	T128x6_col_16_ov2
+T128x6_col_16_ov3:
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #24
+	ldr	r8, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	str	r8, [r4], #40
+	add	r5, r5, #16
+	cmp	r5, #3872
+	bcc	T128x6_col_16_ov3
+	movw	r11, #4752
+T128x6_col_16_ov4:
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #8
+	ldrd	r8, r9, [r4]
+	br_16x2	r8, r0, r1, r6, r7, r10
+	br_16x2	r9, r0, r1, r6, r7, r10
+	strd	r8, r9, [r4], #40
+	add	r5, r5, #16
+	cmp	r5, r11
+	bcc	T128x6_col_16_ov4
 T128x6_col_16_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer

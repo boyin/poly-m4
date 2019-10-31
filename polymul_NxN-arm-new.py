@@ -70,6 +70,21 @@ alloc_save("q")  # modulus q = 4591
 alloc_save("qi") # q^{-1} mod 2^16
 alloc_save("q32")# round(2^32/q)
 alloc_save("mq") # -q, I am stupid
+alloc_save("0" ) # scratch registers
+alloc_save("1" )
+alloc_save("2" )
+alloc_save("3" )
+alloc_save("4" )
+alloc_save("5" )
+alloc_save("6" )
+alloc_save("7" )
+alloc_save("8" )
+alloc_save("9" )
+alloc_save("10")
+alloc_save("11")
+alloc_save("12")
+alloc_save("13")
+
 
 def KA_terms (N,N0) :
     assert (isinstance(N,int) and (N==1<<int(log(N,2)+0.5)) and (N>=B))
@@ -79,8 +94,8 @@ def KA_terms (N,N0) :
         N = N/2
     return M
 
-
-B = 4 # base case
+B = 8 # test new base case
+#B = 4 # base case
 W = 2 # width of vectors
 q_mb = int(sqrt((32767-2295)*2**16/B)) # multiplicative bound
 N_range = 256
@@ -105,11 +120,11 @@ def KA_polymulNxN (N) :
     aux = open("polymul_%dx%d.h" % (N,N), "w+")
     aux.write("extern void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
     aux.close();
-    aux = open("polymul_%dx%d_aux.h" % (N,N),"w+")
+    aux = open("polymul_%dx%d_B%d_aux.h" % (N,N,B),"w+")
     aux.write("	.p2align	2,,3\n")
     aux.write("	.syntax		unified\n")
     aux.write("	.text\n\n")
-    print '#include "polymul_%dx%d_aux.h"' % (N,N)
+    print '#include "polymul_%dx%d_B%d_aux.h"' % (N,N,B)
     print "	.p2align	2,,3	"
     print "	.syntax		unified"
     print "	.text"
@@ -125,7 +140,8 @@ def KA_polymulNxN (N) :
     for i in range (M/W*2)  : size2[i] = 0
     for i in range (N/W*2)  : sizet[i] = 0
     print "	push	{r4-r11,lr}"
-    print "	//vpush	{s16-s31}"
+    if (SAVES > 16) :
+        print "	vpush	{s16-s31}"
     print "	ldr	r12, =%d	// r12=2M" % (2*M)
     print "	sub	sp, sp, r12, LSL #2	// subtract %d = 8M" % (8*M) 
     print "		// ff=[sp], gg=[sp,#%d], hh=[sp,#%d]" % (2*M,4*M)
@@ -291,8 +307,8 @@ def KA_polymulNxN (N) :
     for j in range(0,N1,B) :
         for i in range(B/W) :
             if (size0[j/W + i] > q_mb) :
-                size0[j/W + i] = adj_size(size0[j/W])
-                size1[j/W + i] = adj_size(size1[j/W])
+                size0[j/W + i] = adj_size(size0[j/W + i])
+                size1[j/W + i] = adj_size(size1[j/W + i])
                 size_mark[j/W + i] = 1
     aux.write("KA_mul_ov_%d:\n" % N)
     size_mark_empty = 1
@@ -316,17 +332,18 @@ def KA_polymulNxN (N) :
         print "	ldr	r4, [r0, r2, LSL #2]"
         print "	ldr	r5, [r1, r2, LSL #2]"
         print "	br_16x2	r4, r6, r7, r8, r9, r10"
-        print "	str	r4, [r0, r2, LSL #2]"
         print "	br_16x2 r5, r6, r7, r8, r9, r10"
-        print "	str	r5, [r0, r2, LSL #2]"
+        print "	str	r4, [r0, r2, LSL #2]"
+        print "	str	r5, [r1, r2, LSL #2]"
         print "	b	KA%d_mul_ov" % (N)
-    aux.write("	.hword	%d	// #TERMS(%d,%d)/4\n" % (N1/B,N,B)) 
+    aux.write("	.hword	%d	// #TERMS(%d,%d)/%d\n" % (N1/B,N,B,B)) 
     print "KA%d_muls:" % (N)
     print "	ldrsh	r14, [r3], #2	// r14 = N1/B"
     print_str("r3",s_ov,"save overflow list pointer")
     print_ldr("r2",s_hh,"load r2 = hh")
     print "KA%d_muls1:" % (N)
-    print '''	// begin polymul_4x4_divR
+    if (B==4) :
+        print '''	// begin polymul_4x4_divR
 	ldr	r3, [r0, #2]		// r3 = f12
 	ldr	r5, [r0, #4]
 	ldr	r4, [r0], #8  		// r4 = f01, f5 = f23
@@ -342,10 +359,10 @@ def KA_polymulNxN (N) :
 	smladx  r12, r3, r7, r12	// r12 += f1 g3 + f2 g2 = h4 (32bit)
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)'''
-    print_ldr("r5",s_qi,"r5 = -q^{-1} mod 2^16")
-    print_ldr("r6",s_q,"r6 = q")
+        print_ldr("r5",s_qi,"r5 = -q^{-1} mod 2^16")
+        print_ldr("r6",s_q,"r6 = q")
 
-    print '''	mr_16x2	r12, r3, r6, r5, r7
+        print '''	mr_16x2	r12, r3, r6, r5, r7
 	mr_hi	r4, r6, r5, r7             
 	lsr	r4, #16
 	mr_16x2	r8, r9, r6, r5, r7
@@ -355,6 +372,100 @@ def KA_polymulNxN (N) :
 	str	r4, [r2, #12]
 	str	r8, [r2], #16
 	// end polymul_4x4_divR '''
+    elif (B==8) :
+        print '''	// begin polymul_8x8_divR
+	ldr	r5, [r0, #4]		// f23
+	ldr	r6, [r0, #8]		// f45
+	ldr	r7, [r0, #12]		// f67
+	ldr	r4, [r0],#16		// f01
+	ldr	r9, [r1, #4]		// g23
+	ldr	r10, [r1, #8]		// g45
+	ldr	r11, [r1, #12]		// g67
+	ldr	r8, [r1],#16		// g01'''
+        print_str("r14",s_0,"scr0=count")
+	print "	smulbb	r12, r4, r8"
+	print "	smuadx	r14, r4, r8"
+        print_str("r12",s_1,"scr1=h0")
+        print_str("r14",s_2,"scr2=h1")
+	print "	smuadx	r12, r4, r9"
+	print "	smladx	r12, r5, r8, r12"
+	print "	smuadx	r14, r4, r10"
+	print "	smladx	r14, r5, r9, r14"
+	print "	smladx	r14, r6, r8, r14"
+	print_str("r12",s_3,"scr3=h3")
+	print_str("r14",s_4,"scr4=h5")
+	print "	smuadx	r12, r4, r11"
+	print "	smladx	r12, r5, r10, r12"
+	print "	smladx	r12, r6, r9, r12"
+	print "	smladx	r12, r7, r8, r12"
+	print "	smuadx	r14, r5, r11"
+	print "	smladx	r14, r6, r10, r14"
+	print "	smladx	r14, r7, r9, r14"
+	print_str("r12",s_5,"scr5=h7")
+	print_str("r14",s_6,"scr6=h9")
+	print "	smuadx	r12, r6, r11"
+	print "	smladx	r12, r7, r10, r12"
+	print "	smuadx	r14, r7, r11"
+	print_str("r12",s_7,"scr7=h11")
+	print_str("r14",s_8,"scr8=h13")
+	print "	pkhtb	r3, r4, r5		// f21"
+	print "	pkhtb	r5, r5, r6		// f43"
+	print "	pkhtb	r6, r6, r7		// f65"
+	print "	smultt	r12, r7, r11		// f7 g7"
+	print "	smultt	r14, r7, r10		// f7 g5"
+	print "	smlad	r14, r6, r11, r14"
+	print_str("r12",s_9,"scr9=h14")
+	print_str("r14",s_10,"scr10=h12")
+	print "	smultt	r12, r7, r9		// f7 g3"
+	print "	smlad	r12, r6, r10, r12"
+	print "	smlad	r12, r5, r11, r12"
+	print "	smultt	r14, r7, r8"
+	print "	smlad	r14, r6, r9, r14"
+	print "	smlad	r14, r5, r10, r14"
+	print "	smlad	r14, r3, r11, r14"
+	print_str("r12",s_11,"scr11=h10")
+	print_str("r14",s_12,"scr12=h8, r7 now used up")
+	print "	smulbb	r7, r4, r9"
+	print "	smlad	r7, r3, r8, r7		// h2"
+	print "	smulbb	r12, r4, r10"
+	print "	smlad	r12, r3, r9, r12"
+	print "	smlad	r12, r5, r8, r12	// h4"
+	print "	smulbb	r14, r4, r11"
+	print "	smlad	r14, r3, r10, r14"
+	print "	smlad	r14, r5, r9, r14"
+	print "	smlad	r14, r6, r8, r14	// h6" 
+	print "	movw	r3, #%d" %(65536-qinv)
+	print "	movw	r4, #%d" %(q)
+	print_ldr("r8", s_3,"h3=scr3")
+	print_ldr("r9", s_4,"h5=scr4")
+	print_ldr("r10", s_5,"h7=scr5")
+	print "	mr_16x2	r7, r8, r4, r3, r11	// h23"
+	print "	mr_16x2	r12, r9, r4, r3, r11	// h45"
+	print "	mr_16x2 r14, r10, r4, r3, r11	// h67"
+	print_ldr("r8", s_12,"h8=scr12")
+	print_ldr("r9", s_6,"h9=scr6")
+	print "	mr_16x2	r8, r9, r4, r3, r11	// h89"
+	print_ldr("r10",s_11,"h10=scr11")
+	print_ldr("r9",s_7,"h11=scr7")
+	print "	mr_16x2	r10, r9, r4, r3, r11	// h10,11"
+	print "	str	r7, [r2, #4]"
+	print "	str	r12, [r2, #8]"
+	print "	str	r14, [r2, #12]"
+	print "	str	r8, [r2, #16]"
+	print "	str	r10, [r2, #20]"
+	print_ldr("r12",s_10,"h12=scr10")
+	print_ldr("r10",s_8,"h13=scr8")
+        print_ldr("r14",s_9,"h14=scr9")
+        print_ldr("r7",s_1,"h0=scr1")
+	print_ldr("r8",s_2,"h1=scr2")
+	print "	mr_16x2	r7, r8, r4, r3, r11"
+	print "	mr_16x2	r12, r10, r4, r3, r11"
+	print "	mr_hi	r14, r4, r3, r11"
+	print "	lsr	r14, #16"
+	print "	str	r12, [r2, #24]"
+	print "	str	r14, [r2, #28]"
+	print "	str	r7, [r2], #32"
+        print_ldr("r14",s_0,"counter=scr0")
     print "	subs	r14, #1"
     print "	bne	KA%d_muls1" % (N)
     #
@@ -555,7 +666,8 @@ def KA_polymulNxN (N) :
     print "KA%d_end:" % N
     print_ldr("r12", s_2M, "load 2M")
     print "	add	sp, sp, r12, LSL #2	// add back %d = 8M" % (8*M) 
-    print "	//vpop	{s16-s31}"
+    if (SAVES > 16) :
+        print "	vpop	{s16-s31}"
     print "	pop	{r4-r11,lr}"
     print "	bx	lr"
     print ""
