@@ -17,13 +17,13 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 		    : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D))	\
 		    : "r"((F)), "m"(*(const int (*)[4]) (F))		\
 		    ) 
-//#define load8a(F,A,B,C,D) /* as above except  (lvalue)F+=4  */	\
+#define load8a(F,A,B,C,D,E) /* as above except  (lvalue)F+=E  */	\
   __asm__ volatile  ("ldr %0, [%4], #4 \n\t"	/* load F01 */		\
 		     "ldr %1, [%4], #4 \n\t"	/* load F23 */		\
 		     "ldr %2, [%4], #4 \n\t"	/* load F45 */		\
-		     "ldr %3, [%4], #4"		/* load F67 */		\
+		     "ldr %3, [%4], %6"		/* load F67 */		\
 		     : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D)), "+r"((F))\
-		     : "m"(*(const int (*)[4]) (F))			\
+		     : "m"(*(const int (*)[4]) (F)),"X"((E)-12)		\
 		     ) 
 
 #define load8x(F,A,B,C,D) /* (A,B,C,D) = 8-poly at F / x mod(x^8+1) */	\
@@ -81,8 +81,10 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 
 #define reduce8a(A,N) /* reduce N elements, 8|N */			\
   __asm__ volatile ("mov lr, %2 \n\t"					\
-		    "ldr r7, = %3 \n\t"					\
-		    "ldr r9, = %4 \n\t"					\
+		    "mov r7, %3  \n\t"					\
+		    "movt r7, %4 \n\t"					\
+		    "mov r9, %5  \n\t"					\
+		    "lsl r9, r9, #16 \n\t"				\
 		    "mov r8, #32768\n\t"				\
 		    "loop%=: \n\t"					\
 		    "ldr r3, [%1] \n\t"					\
@@ -121,7 +123,8 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 		    "bne loop%= \n\t"					\
 		    "sub %1, %2 \n\t"					\
 		    :"+m" (*(const char (*)[]) A)			\
-		    :"r"(A), "X"(N), "X"(q32inv), "X"(qm2p16)		\
+		    :"r"(A), "X"(N), "X"(q32inv % 65536),		\
+		     "X"(q32inv / 65536), "X"(65536-q)			\
 		    :"r3","r4","r5","r6","r7","r8","r9","r10","r11",	\
 		     "r12","lr","cc"					\
 		    )
@@ -174,7 +177,7 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 		    "end%=: \n\t"					\
 		    "sub %1, %1, #80 \n\t"				\
 		    "sub %2, %2, #136 \n\t"				\
-		    : "=m"(*(int (*)[64])(B))			\
+		    : "=m"(*(int (*)[64])(B))				\
 		    : "r"((A)), "r"((B)), "m"(*(const int (*)[32])(A)), \
 		      "X"(q32inv), "X"(qm2p16)				\
 		    : "r3","r4","r5","r6","r7","r8","r9","r10","r11",	\
@@ -523,6 +526,40 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
     store8a(F, f01, f23, f45, f67, E);				\
   }
 
+#define bct8_1_add8_y(F,G,E)					\
+  {								\
+    int f01, f23, f45, f67;					\
+    int t01, t23, t45, t67;					\
+    int g12, g34, g56, g70x;					\
+								\
+    load8((F), f01, f23, f45, f67);				\
+    load8a((G), t01, t23, t45, t67, (E));			\
+								\
+    g12 = __SSUB16(f01,t01); g34 = __SSUB16(f23,t23);		\
+    g56 = __SSUB16(f45,t45); g70x = __SSUB16(f67,t67);		\
+    								\
+    f01 = __SADD16(f01,t01); f23 = __SADD16(f23,t23);		\
+    f45 = __SADD16(f45,t45); f67 = __SADD16(f67,t67);		\
+    								\
+    int g01, g23, g45, g67;						\
+    int g43, g0x7;							\
+    __asm__ volatile ("ror %0, %2, #16 \n\t"				\
+		      "ror %1, %3, #16 \n\t"				\
+		      :"=r"(g43),"=r"(g0x7)				\
+		      :"r"(g34),"r"(g70x)				\
+		      );						\
+    __asm__ volatile ("pkhtb %1, %6, %5, ASR #16 \n\t"			\
+		      "pkhbt %2, %6, %7, LSL #16 \n\t"			\
+		      "pkhtb %3, %4, %7, ASR #16 \n\t"			\
+		      "neg %4, %4 \n\t"					\
+		      "pkhbt %0, %4, %5, LSL #16 \n\t"			\
+		      :"=r"(g01),"=r"(g23),"=r"(g45),"=r"(g67),"+r"(g0x7) \
+		      :"r"(g12),"r"(g43),"r"(g56)			\
+		      );						\
+    f01 = __SADD16(f01,g01); f23 = __SADD16(f23,g23);			\
+    f45 = __SADD16(f45,g45); f67 = __SADD16(f67,g67);			\
+    store8a(F, f01, f23, f45, f67, (E));				\
+  }
 
 void fft64(int *A, int *B) {
   int *F, *G, i;
@@ -570,6 +607,7 @@ void unfft64(int *A, int *B) {
   F = B; G = B + 32;
   for (i=8; i>0; i--) {
     //bct8_1(F,G,16); }
+    //bct8_1_add8_y(F,G,16);
     bct8_1(F,G,0);
     add8_y(F,G,16);
   }
@@ -677,7 +715,7 @@ void unfft64(int *A, int *B) {
 		    : "=m"(*(int (*)[4])(H)),"+r"(H),"+r"(F),"+r"(G)	\
 		    : "X"(q),"X"(65536-qinv),				\
 		      "m"(*(int (*)[4])(F)),"m"(*(int (*)[4])(G))	\
-		    : "r4","r5","r6","r7","r9","r10","r11",	\
+		    : "r4","r5","r6","r7","r9","r10","r11",		\
 		      "r12","lr","cc"					\
 		    )
 
