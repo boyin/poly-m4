@@ -1,3 +1,6 @@
+#ifndef _RED_ASM_H_
+#define _RED_ASM_H_ 1
+
 // macros for reduction mod qq	
 
 	.macro	mr_hi, res32, qq, neg_qqinv, scr
@@ -46,3 +49,5 @@
 	ssub16	scr, res, qqx2
 	sel	res, scr
 	.endm	  
+
+#endif

@@ -1,7 +1,6 @@
 #include "red-asm.h"
 // N,l=128,6 requires 57024=8x11x648 storage
 
-// uses polymul_768x768_T6_B8_aux.h
 #include "polymul_768x768_T6_B8_aux.h"
 	.p2align	2,,3	
 // void gf_polymul_768x768_divR (int32_t *h, int32_t *f, int32_t *g);
