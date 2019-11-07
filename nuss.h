@@ -527,7 +527,9 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
   }
 
 #define bct8_1_add8_y(F,G,E)					\
+  /*void bct8_1_add8_y(int *F, int*G)*/				\
   {								\
+    /*int E=16;*/						\
     int f01, f23, f45, f67;					\
     int t01, t23, t45, t67;					\
     int g12, g34, g56, g70x;					\
@@ -537,10 +539,10 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 								\
     g12 = __SSUB16(f01,t01); g34 = __SSUB16(f23,t23);		\
     g56 = __SSUB16(f45,t45); g70x = __SSUB16(f67,t67);		\
-    								\
+								\
     f01 = __SADD16(f01,t01); f23 = __SADD16(f23,t23);		\
     f45 = __SADD16(f45,t45); f67 = __SADD16(f67,t67);		\
-    								\
+									\
     int g01, g23, g45, g67;						\
     int g43, g0x7;							\
     __asm__ volatile ("ror %0, %2, #16 \n\t"				\
@@ -553,8 +555,8 @@ extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 		      "pkhtb %3, %4, %7, ASR #16 \n\t"			\
 		      "neg %4, %4 \n\t"					\
 		      "pkhbt %0, %4, %5, LSL #16 \n\t"			\
-		      :"=r"(g01),"=r"(g23),"=r"(g45),"=r"(g67),"+r"(g0x7) \
-		      :"r"(g12),"r"(g43),"r"(g56)			\
+		      :"=&r"(g01),"=&r"(g23),"=&r"(g45),"=&r"(g67)	\
+		      :"r"(g0x7),"r"(g12),"r"(g43),"r"(g56)		\
 		      );						\
     f01 = __SADD16(f01,g01); f23 = __SADD16(f23,g23);			\
     f45 = __SADD16(f45,g45); f67 = __SADD16(f67,g67);			\
@@ -607,9 +609,9 @@ void unfft64(int *A, int *B) {
   F = B; G = B + 32;
   for (i=8; i>0; i--) {
     //bct8_1(F,G,16); }
-    //bct8_1_add8_y(F,G,16);
-    bct8_1(F,G,0);
-    add8_y(F,G,16);
+    bct8_1_add8_y(F,G,16);
+    //bct8_1(F,G,0);
+    //add8_y(F,G,16);
   }
     // collect
     //F = B; G = B + 32;
