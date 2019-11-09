@@ -321,21 +321,43 @@ def KA_polymulNxN (N) :
         aux.write("	// no multiplicative overflow\n")
     else :
         aux.write("	.hword	-1\n")
-        # r3 points to KA_mul_ov_N at this point, and r0, r1 are ff, gg
-        print_ldr("r6",s_mq,"load -q")
-        print_ldr("r7",s_q32,"load round(2^32/q)")
-        print "	mov	r8, #32768"
-        print "KA%d_mul_ov:" % (N) 
+        print "KA%d_mul_ov:" %  (N) 
         print "	ldrsh	r2, [r3], #2"	  
         print "	cmp	r2, #-1		// multiplicative overflow?"
-        print "	beq	KA%d_muls" % (N)
+        print "	beq	KA%d_muls" %  (N)
+        print "	mov	r8, #32768"
+        print_ldr("r6",s_mq,"load -q")
+        print_ldr("r7",s_q32,"load round(2^32/q)")
+        print "KA%d_mul_ov1:" %  (N) 
+        print "	ldrsh	r11, [r3], #2"
+        print "KA%d_mul_ov2:" %  (N) 
         print "	ldr	r4, [r0, r2, LSL #2]"
         print "	ldr	r5, [r1, r2, LSL #2]"
         print "	br_16x2	r4, r6, r7, r8, r9, r10"
         print "	br_16x2 r5, r6, r7, r8, r9, r10"
         print "	str	r4, [r0, r2, LSL #2]"
         print "	str	r5, [r1, r2, LSL #2]"
-        print "	b	KA%d_mul_ov" % (N)
+        print "	add	r2, r2, #1"
+        print "	cmp	r2, r11"
+        print "	bls	KA%d_mul_ov2" %  (N)
+        print "	ldrsh	r2, [r3], #2"
+        print "	cmp	r2, -1"
+        print "	bne	KA%d_mul_ov1" %  (N)
+        # r3 points to KA_mul_ov_N at this point, and r0, r1 are ff, gg
+        # print_ldr("r6",s_mq,"load -q")
+        # print_ldr("r7",s_q32,"load round(2^32/q)")
+        # print "	mov	r8, #32768"
+        # print "KA%d_mul_ov:" % (N) 
+        # print "	ldrsh	r2, [r3], #2"	  
+        # print "	cmp	r2, #-1		// multiplicative overflow?"
+        # print "	beq	KA%d_muls" % (N)
+        # print "	ldr	r4, [r0, r2, LSL #2]"
+        # print "	ldr	r5, [r1, r2, LSL #2]"
+        # print "	br_16x2	r4, r6, r7, r8, r9, r10"
+        # print "	br_16x2 r5, r6, r7, r8, r9, r10"
+        # print "	str	r4, [r0, r2, LSL #2]"
+        # print "	str	r5, [r1, r2, LSL #2]"
+        # print "	b	KA%d_mul_ov" % (N)
     aux.write("	.hword	%d	// #TERMS(%d,%d)/%d\n" % (N1/B,N,B,B)) 
     print "KA%d_muls:" % (N)
     print "	ldrsh	r14, [r3], #2	// r14 = N1/B"

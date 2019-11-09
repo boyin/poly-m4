@@ -25,6 +25,12 @@ def alloc_save (S) :
 #         i = ceil ((floor(size * q16 / 2.0**16 + 0.5) - 0.5) * 2.0**16 / q16) - 1
 #         return(i - q * floor(i * q16 / 2.0**16 +0.5))
 
+def is_even (E) :
+    if isinstance(E,int) :
+        return (int(E/2)*2 == E)
+    else :
+        return(False)
+
 def adj_size (size) : return (2295) # ARM adjustment is tight.
 
 def mr_size (size) :
@@ -450,7 +456,7 @@ def T_polymulNxN (T, l) :
     print "T%dx%d_mul:" % (N,l)
     size1 = size0
     N1 = (2*l-1)*KA_terms(N,B)
-    size_mark = [0 for i in range(N1/W)]
+    size_mark = [0 for i in range(N1/W+1)]
     #
     print "  // check multiplicative overflow (pre-mult size > q_mb=%d)" % q_mb 
     for j in range(0,N1,B) :
@@ -464,27 +470,38 @@ def T_polymulNxN (T, l) :
     for j in range(N1/W) :
         if (size_mark[j] == 1) :  
             size_mark_empty = 0
-            aux.write("	.hword	%d\n" % j)
+            if (size_mark[j-1] == 0) :
+                aux.write("	.hword	%d," % j)
+            if (size_mark[j+1] == 0) :
+                aux.write(" %d\n" % j)
     if (size_mark_empty == 1) :
         print "		// no multiplicative overflow"
         aux.write("	// no multiplicative overflow\n")
     else :
         aux.write("	.hword	-1\n")
         # r3 points to T_mul_ov_N at this point, and r0, r1 are ff, gg
-        print_ldr("r6",V["-q"],"load -q")
-        print_ldr("r7",V["q32"],"load round(2^32/q)")
-        print "	mov	r8, #32768"
         print "T%dx%d_mul_ov:" %  (N,l) 
         print "	ldrsh	r2, [r3], #2"	  
         print "	cmp	r2, #-1		// multiplicative overflow?"
         print "	beq	T%dx%d_muls" %  (N,l)
+        print "	mov	r8, #32768"
+        print_ldr("r6",V["-q"],"load -q")
+        print_ldr("r7",V["q32"],"load round(2^32/q)")
+        print "T%dx%d_mul_ov1:" %  (N,l) 
+        print "	ldrsh	r11, [r3], #2"
+        print "T%dx%d_mul_ov2:" %  (N,l) 
         print "	ldr	r4, [r0, r2, LSL #2]"
         print "	ldr	r5, [r1, r2, LSL #2]"
         print "	br_16x2	r4, r6, r7, r8, r9, r10"
         print "	br_16x2 r5, r6, r7, r8, r9, r10"
         print "	str	r4, [r0, r2, LSL #2]"
         print "	str	r5, [r1, r2, LSL #2]"
-        print "	b	T%dx%d_mul_ov" %  (N,l)
+        print "	add	r2, r2, #1"
+        print "	cmp	r2, r11"
+        print "	bls	T%dx%d_mul_ov2" %  (N,l)
+        print "	ldrsh	r2, [r3], #2"
+        print "	cmp	r2, -1"
+        print "	bne	T%dx%d_mul_ov1" %  (N,l)
     aux.write("	.hword	%d	// #TERMS(%d,%d)/4\n" % (N1/B,N,B)) 
     print "T%dx%d_muls:" %  (N,l)
     print "	ldrsh	r14, [r3], #2	// r14 = N1/B"
@@ -669,6 +686,41 @@ def T_polymulNxN (T, l) :
                         size_mark[(j+2*N1+N0+i)/W]=1
                     size_mark_empty = 0                    
         aux.write("T_col_ov_%d_%d:\n" % (N,N0))
+        if (size_mark_empty == 0) :
+            size_marks_loc_last = 0
+            size_marks_list = []
+            size_marks_list_last = []
+            for i in range(2*N0/W) :
+                if (size_mark[i]==1 and size_mark[i-1]==0) :
+                    size_marks_list_last.append(i)
+                if (size_mark[i]==1 and size_mark[i+1]==0) :
+                    size_marks_list_last.append(i)
+            for j in range(2*N0/W,(2*l-1)*KA_terms(N,N0)/W*2,2*N0/W) :
+                size_marks_list_this = []
+                for i in range(2*N0/W) :
+                    if (size_mark[i+j]==1 and size_mark[i+j-1]==0) :
+                        size_marks_list_this.append(i) 
+                    if (size_mark[i+j]==1 and size_mark[i+j+1]==0) :
+                        size_marks_list_this.append(i) 
+                if (size_marks_list_this != size_marks_list_last) :
+                    size_marks_list.append([size_marks_loc_last,j,size_marks_list_last])
+                    size_marks_list_last = size_marks_list_this
+                    size_marks_loc_last = j
+                    if not is_even(len(size_marks_list_this)) :
+                        print "//",j,size_marks_list_this[0],size_marks_list_this[1],str(size_marks_list_this[2]),str(size_mark[j:j+N0]),"\n"
+            size_marks_list.append([size_marks_loc_last,j,size_marks_list_last])
+            aux.write("// overflow ranges:")
+            for a in size_marks_list :
+                aux.write(" %d-%d:" % (a[0],a[1]))
+                if not is_even(len(a[2])) :
+                    aux.write("ERROR")
+                    aux.write(str(a[2]))
+                    aux.write(str(size_mark[a[0]:a[1]]))
+                else :
+                    for i in range(0,len(a[2]),2) :
+                        aux.write(" %d-%d " % (a[2][i],a[2][i+1]))
+                aux.write(" mod %d" % (2*N0/W))
+            aux.write("\n")
         #if (T==768 and (N0==8 or N0==16)):
         #    aux.write("	/* tailored overflow check\n") 
 	if (size_mark_empty == 0) :

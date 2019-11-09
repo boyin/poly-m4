@@ -7,7 +7,9 @@
 #define q32inv 935519
 #define qinv 15631
 
-extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
+void gf_polymul_8x8_divR_negc (int *h, int *f, int *g);
+void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
+//extern void gf_polymul_8x8_divR_negc(int *h, int *f, int *g);
 
 #define load8(F,A,B,C,D) /* (A,B,C,D) = 8-poly at F         */		\
   __asm__ volatile ("ldr %0, [%4] \n\t"		/* load F01 */		\
@@ -610,8 +612,7 @@ void unfft64(int *A, int *B) {
   for (i=8; i>0; i--) {
     //bct8_1(F,G,16); }
     bct8_1_add8_y(F,G,16);
-    //bct8_1(F,G,0);
-    //add8_y(F,G,16);
+    //bct8_1(F,G,0);    //add8_y(F,G,16);
   }
     // collect
     //F = B; G = B + 32;
@@ -718,7 +719,8 @@ void unfft64(int *A, int *B) {
 		    : "X"(q),"X"(65536-qinv),				\
 		      "m"(*(int (*)[4])(F)),"m"(*(int (*)[4])(G))	\
 		    : "r4","r5","r6","r7","r9","r10","r11",		\
-		      "r12","lr","cc"					\
+		      "r12","lr","cc",					\
+		      "s0","s1","s2","s3","s4","s5","s6","s7"		\
 		    )
 
 
@@ -739,5 +741,105 @@ void gf_polymul_64x64_div4096_negc (int *h, int f[32], int g[32]) {
   unfft64(h, hh);
 }
 
+void butterfly64_1(int *F, int *G){
+  int *FF = F;
+  int *GG = G;
+  int i, f01, f23, f45, f67, g01, g23, g45, g67, t01, t23, t45, t67;
+  for (i=0; i<8; i++) {
+    load8(FF, f01, f23, f45, f67);
+    load8(GG, g01, g23, g45, g67);
+    t01 = __SADD16(f01,g01); t23 = __SADD16(f23,g23);
+    t45 = __SADD16(f45,g45); t67 = __SADD16(f67,g67);
+    store8a(FF, t01, t23, t45, t67, 16);
+    g01 = __SSUB16(f01,g01); g23 = __SSUB16(f23,g23);
+    g45 = __SSUB16(f45,g45); g67 = __SSUB16(f67,g67);
+    store8a(GG, g01, g23, g45, g67, 16);
+  }
+}
+
+
+// Cooley-Tukey butterfly in R[x]/(x^64+1), w = y^(-2t)
+void butterfly64ct_ym2t(int *F, int *G, int t) { 
+  if (t) {								
+    __asm__ volatile ("mov r14, #31\n\t"	/* r14= counter */	\
+		      "rbit r9, %4 \n\t"				\
+		      "clz r9, r9 \n\t"          /* #trailing 0's in t */ \
+		      "lsr r9, r14, r9\n\t"/*(5-trailing 0's in t) 1's */ \
+		      "mov r10, #0\n\t"	      	/* r10= location */	\
+		      "ldr r11, [%3]\n\t"	/* r11= saved G[loc] */	\
+		      "loop%=:\n\t"					\
+		      "add r8, r10, %4\n\t"	/* r8= next loc */	\
+		      "and r7, r8, #31\n\t"	/* r7= ... mod 32 */	\
+		      "ldr r4, [%2, r10, LSL #2]\n\t"	/* F[loc] */	\
+		      "ldr r5, [%3, r7, LSL #2]\n\t"	/* G[newloc] */ \
+		      "tst r14, r9 \n\t"	/* 1 full cycle? */	\
+		      "ittt eq \n\t" 		/* if so ...  */	\
+		      "moveq r5, r11 \n\t"	/* used saved G[loc] */ \
+		      "addeq r7, r7, #1 \n\t" 	/* incr next loc */	\
+		      "ldreq r11, [%3, r7, LSL #2]\n\t" /* next G[loc] */ \
+		      "ands r8, #32\n\t"				\
+		      "it eq \n\t"		/* if no wrap? */	\
+		      "ssub16eq r5, r8, r5\n\t"				\
+		      "sadd16 r6, r4, r5\n\t"	/* new G[loc] */	\
+		      "ssub16 r4, r4, r5\n\t"	/* new F[loc] */	\
+		      "str r4, [%2, r10, LSL #2]\n\t"			\
+		      "str r6, [%3, r10, LSL #2]\n\t"			\
+		      "mov r10, r7\n\t"					\
+		      "subs r14, #1 \n\t" 	/* decr counter */	\
+		      "bcs loop%=\n\t"					\
+		      :"+m"(*(int (*)[32])(F)),"+m"(*(int (*)[32])(G))	\
+		      :"r"(F),"r"(G),"r"(t)				\
+		      :"r4","r5","r6","r7","r8",			\
+		       "r9","r10","r11","r12","lr","cc"			\
+		      );}  else butterfly64_1(F,G);
+}
+
+// Gentleman-Sande butterfly in R[x]/(x^64+1), w = y^(2t)
+void butterfly64gs_y2t(int *F, int *G, int t) {
+  if (t) {
+    __asm__ volatile ("mov r14, #31\n\t"	/* r14= counter */	\
+		      "rbit r9, %4 \n\t"				\
+		      "clz r9, r9 \n\t"        	/* #trailing 0's in t */ \
+		      "lsr r9, r14, r9\n\t"/*(5-trailing 0's in t) 1's */ \
+		      "mov r10, #0\n\t"	      	/* r10= location */	\
+		      "ldr r5, [%3]\n\t"	/* r5= saved G[loc] */	\
+		      "loop%=:\n\t"					\
+		      "add r8, r10, %4\n\t"	/* r8= next loc */	\
+		      "and r7, r8, #31\n\t"	/* r7= ... mod 32 */	\
+		      "ldr r4, [%2, r10, LSL #2]\n\t"	/* F[loc] */	\
+		      "sadd16 r6, r4, r5\n\t"	/* new F[loc] */	\
+		      "ands r8, #32\n\t"				\
+		      "ite eq \n\t"		/* if no wrap? */	\
+		      "ssub16eq r4, r4, r5\n\t"				\
+		      "ssub16ne r4, r5, r4\n\t"	/* new G[newloc] */	\
+		      "ldr r5, [%3, r7, LSL #2]\n\t" /* old G[newloc] */ \
+		      "str r6, [%2, r10, LSL #2]\n\t"			\
+		      "str r4, [%3, r7, LSL #2]\n\t"			\
+		      "tst r14, r9 \n\t"	/* 1 full cycle? */	\
+		      "itt eq \n\t" 		/* if so ...  */	\
+		      "addeq r7, r7, #1 \n\t" 	/* incr next loc */	\
+		      "ldreq r5, [%3, r7, LSL #2]\n\t"			\
+		      "mov r10, r7\n\t"					\
+		      "subs r14, #1 \n\t" 	/* decr counter */	\
+		      "bcs loop%=\n\t"					\
+		      :"+m"(*(int (*)[32])(F)),"+m"(*(int (*)[32])(G))	\
+		      :"r"(F),"r"(G),"r"(t)				\
+		      :"r4","r5","r6","r7","r8",			\
+		       "r9","r10","r11","r12","lr","cc"			\
+		      );} else butterfly64_1(F,G);
+}
+
+
+/*
+void gf_polymul_768x768_div64 (int *h, int *f, int *g) {
+  int ff[768], gg[768];
+#define hh ff
+  fft48_64(f,ff);
+  fft48_64(g,gg);
+  for (i=47; i>0; i--)  gf_polymul_64x64_div4096_negc(hh+64*i,ff+64*i,gg+64*i);
+  unfft48_64(h,hh);
+  
+}
+*/ 
 
 #endif

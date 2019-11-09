@@ -197,20 +197,28 @@ T128x6_exp_end1:
 
 T128x6_mul:
   // check multiplicative overflow (pre-mult size > q_mb=15799)
-	vmov	r6, s8	// load -q
-	vmov	r7, s7	// load round(2^32/q)
-	mov	r8, #32768
 T128x6_mul_ov:
 	ldrsh	r2, [r3], #2
 	cmp	r2, #-1		// multiplicative overflow?
 	beq	T128x6_muls
+	mov	r8, #32768
+	vmov	r6, s8	// load -q
+	vmov	r7, s7	// load round(2^32/q)
+T128x6_mul_ov1:
+	ldrsh	r11, [r3], #2
+T128x6_mul_ov2:
 	ldr	r4, [r0, r2, LSL #2]
 	ldr	r5, [r1, r2, LSL #2]
 	br_16x2	r4, r6, r7, r8, r9, r10
 	br_16x2 r5, r6, r7, r8, r9, r10
 	str	r4, [r0, r2, LSL #2]
 	str	r5, [r1, r2, LSL #2]
-	b	T128x6_mul_ov
+	add	r2, r2, #1
+	cmp	r2, r11
+	bls	T128x6_mul_ov2
+	ldrsh	r2, [r3], #2
+	cmp	r2, -1
+	bne	T128x6_mul_ov1
 T128x6_muls:
 	ldrsh	r14, [r3], #2	// r14 = N1/B
 	vmov	s4, r3	// save overflow list pointer
@@ -556,7 +564,7 @@ T128x6_gather4:
 	smlabb	r4, r14, r8, r4
 	smlabt	r5, r14, r8, r5
 	add	r3, #1
-	cmp	r3, 11
+	cmp	r3, #11
 	bcc	T128x6_gather4
 	br_32	r4, r7, r11, r6
 	br_32	r5, r7, r11, r6

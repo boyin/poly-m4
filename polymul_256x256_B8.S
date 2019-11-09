@@ -119,20 +119,28 @@ KA256_exp_end1:
 
 KA256_mul:
   // check multiplicative overflow (pre-mult size > q_mb=15799)
-	vmov	r6, s8  // load -q
-	vmov	r7, s7  // load round(2^32/q)
-	mov	r8, #32768
 KA256_mul_ov:
 	ldrsh	r2, [r3], #2
 	cmp	r2, #-1		// multiplicative overflow?
 	beq	KA256_muls
+	mov	r8, #32768
+	vmov	r6, s8  // load -q
+	vmov	r7, s7  // load round(2^32/q)
+KA256_mul_ov1:
+	ldrsh	r11, [r3], #2
+KA256_mul_ov2:
 	ldr	r4, [r0, r2, LSL #2]
 	ldr	r5, [r1, r2, LSL #2]
 	br_16x2	r4, r6, r7, r8, r9, r10
 	br_16x2 r5, r6, r7, r8, r9, r10
 	str	r4, [r0, r2, LSL #2]
 	str	r5, [r1, r2, LSL #2]
-	b	KA256_mul_ov
+	add	r2, r2, #1
+	cmp	r2, r11
+	bls	KA256_mul_ov2
+	ldrsh	r2, [r3], #2
+	cmp	r2, -1
+	bne	KA256_mul_ov1
 KA256_muls:
 	ldrsh	r14, [r3], #2	// r14 = N1/B
 	vmov	s4, r3	// save overflow list pointer
