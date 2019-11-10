@@ -17,7 +17,8 @@ T128x6_saves:
 	vmov	s12, r2	// // save g
 	ldr	r12, =14256	// r12=2M
 	sub	sp, sp, #96	// 4*2*l hwords
-	vmov	s10, sp	// save pointer to temp space
+	mov	r3, sp
+	vmov	s10, r3	// save pointer to temp space
 	sub	sp, sp, r12, LSL #2	// subtract 57024 = 8M
 		// ff=[sp], gg=[sp,#14256], hh=[sp,#28512]
 	mov	r3, sp
@@ -357,24 +358,36 @@ T128x6_col_8_add1:	// begin KA collect loop
 	b	T128x6_col_8_add1
 T128x6_col_8_end:
 T128x6_col_16_ov:
-	ldrsh	r4, [r3], #2
-	cmp	r4, #-1
-	beq	T128x6_col_16_add
 	vmov	r0, s8	// load -q
 	vmov	r1, s7	// load qinv32
-	mov	r6,#32768
+	mov	r6, #32768
+	mov	r12, 0	// pointer to data
 T128x6_col_16_ov1:
-	ldrsh	r5, [r3], #2
+	ldrsh	r4, [r3], #2	// bound
+	cmp	r4, #-1
+	beq	T128x6_col_16_add
+	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
+	ldrsh	r5, [r3], #2	// offset
+	add	r12, r12, r5
 T128x6_col_16_ov2:
-	ldr	r8, [r2, r4, LSL #2]
+	asr	r5, r11, #1	// r11 : number of intervals
+T128x6_col_16_ov3:
+	ldrsh	r10, [r3], #2	// size of interval
+T128x6_col_16_ov4:
+	ldr	r8, [r2, r12, LSL #2]
 	br_16x2	r8, r0, r1, r6, r7, r9
-	str	r8, [r2, r4, LSL #2]
-	add	r4, #1
-	cmp	r4, r5
-	bls	T128x6_col_16_ov2
-	ldrsh	r4, [r3], #2
-	cmp	r4, -1
-	bne	T128x6_col_16_ov1
+	str	r8, [r2, r12, LSL #2]
+	add	r12, r12, #1
+	subs	r10, r10, #1
+	bgt	T128x6_col_16_ov4
+	ldrsh	r10, [r3], #2	// offset
+	add	r12, r12, r10
+	subs	r5, r5, #1	// last interval?
+	bgt	T128x6_col_16_ov3
+	cmp	r12, r4		// am I above the bound?
+	bge	T128x6_col_16_ov1
+	sub	r3, r3, r11, LSL #1	// roll back
+	b	T128x6_col_16_ov2
 T128x6_col_16_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
@@ -408,24 +421,36 @@ T128x6_col_16_add1:	// begin KA collect loop
 	b	T128x6_col_16_add1
 T128x6_col_16_end:
 T128x6_col_32_ov:
-	ldrsh	r4, [r3], #2
-	cmp	r4, #-1
-	beq	T128x6_col_32_add
 	vmov	r0, s8	// load -q
 	vmov	r1, s7	// load qinv32
-	mov	r6,#32768
+	mov	r6, #32768
+	mov	r12, 0	// pointer to data
 T128x6_col_32_ov1:
-	ldrsh	r5, [r3], #2
+	ldrsh	r4, [r3], #2	// bound
+	cmp	r4, #-1
+	beq	T128x6_col_32_add
+	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
+	ldrsh	r5, [r3], #2	// offset
+	add	r12, r12, r5
 T128x6_col_32_ov2:
-	ldr	r8, [r2, r4, LSL #2]
+	asr	r5, r11, #1	// r11 : number of intervals
+T128x6_col_32_ov3:
+	ldrsh	r10, [r3], #2	// size of interval
+T128x6_col_32_ov4:
+	ldr	r8, [r2, r12, LSL #2]
 	br_16x2	r8, r0, r1, r6, r7, r9
-	str	r8, [r2, r4, LSL #2]
-	add	r4, #1
-	cmp	r4, r5
-	bls	T128x6_col_32_ov2
-	ldrsh	r4, [r3], #2
-	cmp	r4, -1
-	bne	T128x6_col_32_ov1
+	str	r8, [r2, r12, LSL #2]
+	add	r12, r12, #1
+	subs	r10, r10, #1
+	bgt	T128x6_col_32_ov4
+	ldrsh	r10, [r3], #2	// offset
+	add	r12, r12, r10
+	subs	r5, r5, #1	// last interval?
+	bgt	T128x6_col_32_ov3
+	cmp	r12, r4		// am I above the bound?
+	bge	T128x6_col_32_ov1
+	sub	r3, r3, r11, LSL #1	// roll back
+	b	T128x6_col_32_ov2
 T128x6_col_32_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
@@ -459,24 +484,36 @@ T128x6_col_32_add1:	// begin KA collect loop
 	b	T128x6_col_32_add1
 T128x6_col_32_end:
 T128x6_col_64_ov:
-	ldrsh	r4, [r3], #2
-	cmp	r4, #-1
-	beq	T128x6_col_64_add
 	vmov	r0, s8	// load -q
 	vmov	r1, s7	// load qinv32
-	mov	r6,#32768
+	mov	r6, #32768
+	mov	r12, 0	// pointer to data
 T128x6_col_64_ov1:
-	ldrsh	r5, [r3], #2
+	ldrsh	r4, [r3], #2	// bound
+	cmp	r4, #-1
+	beq	T128x6_col_64_add
+	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
+	ldrsh	r5, [r3], #2	// offset
+	add	r12, r12, r5
 T128x6_col_64_ov2:
-	ldr	r8, [r2, r4, LSL #2]
+	asr	r5, r11, #1	// r11 : number of intervals
+T128x6_col_64_ov3:
+	ldrsh	r10, [r3], #2	// size of interval
+T128x6_col_64_ov4:
+	ldr	r8, [r2, r12, LSL #2]
 	br_16x2	r8, r0, r1, r6, r7, r9
-	str	r8, [r2, r4, LSL #2]
-	add	r4, #1
-	cmp	r4, r5
-	bls	T128x6_col_64_ov2
-	ldrsh	r4, [r3], #2
-	cmp	r4, -1
-	bne	T128x6_col_64_ov1
+	str	r8, [r2, r12, LSL #2]
+	add	r12, r12, #1
+	subs	r10, r10, #1
+	bgt	T128x6_col_64_ov4
+	ldrsh	r10, [r3], #2	// offset
+	add	r12, r12, r10
+	subs	r5, r5, #1	// last interval?
+	bgt	T128x6_col_64_ov3
+	cmp	r12, r4		// am I above the bound?
+	bge	T128x6_col_64_ov1
+	sub	r3, r3, r11, LSL #1	// roll back
+	b	T128x6_col_64_ov2
 T128x6_col_64_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer

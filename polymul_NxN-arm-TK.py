@@ -192,7 +192,9 @@ def T_polymulNxN (T, l) :
     #print_str("r14",V["2M0"],"save 2M0")
     print "	ldr	r12, =%d	// r12=2M" % (2*M)
     print "	sub	sp, sp, #%d	// 4*2*l hwords" % (16 * l)
-    print_str("sp",V["X"],"save pointer to temp space")
+    #print_str("sp",V["X"],"save pointer to temp space")
+    print "	mov	r3, sp"
+    print_str("r3",V["X"],"save pointer to temp space")
     print "	sub	sp, sp, r12, LSL #2	// subtract %d = 8M" % (8*M) 
     print "		// ff=[sp], gg=[sp,#%d], hh=[sp,#%d]" % (2*M,4*M)
     print "	mov	r3, sp"
@@ -712,28 +714,34 @@ def T_polymulNxN (T, l) :
             aux.write("// overflow ranges:")
             for a in size_marks_list :
                 aux.write(" %d-%d:" % (a[0],a[1]))
-                if not is_even(len(a[2])) :
-                    aux.write("ERROR")
-                    aux.write(str(a[2]))
-                    aux.write(str(size_mark[a[0]:a[1]]))
-                else :
-                    for i in range(0,len(a[2]),2) :
-                        aux.write(" %d-%d " % (a[2][i],a[2][i+1]))
+                for i in range(0,len(a[2]),2) :
+                    aux.write(" %d-%d " % (a[2][i],a[2][i+1]))
                 aux.write(" mod %d" % (2*N0/W))
             aux.write("\n")
+            a2_last = 0;
+            for a in size_marks_list :
+                aux.write("	.hword %d, %d" % (a[1],len(a[2])))
+                aux.write(", %d" % (a[2][0]-a2_last)) 
+                for i in range(0,len(a[2])-2,2) :
+		    aux.write(", %d" % (a[2][i+1]-a[2][i]+1)) # interval length
+                    aux.write(", %d" % (a[2][i+2]-a[2][i+1]-1)) # skip
+		aux.write(", %d" % (a[2][-1]-a[2][-2]+1)) # interval length
+                aux.write(", %d\n" % (2*N0/W+a[2][0]-a[2][-1]-1)) # skip
+                a2_last = a[2][0];
+            aux.write("	.hword	-1\n")
         #if (T==768 and (N0==8 or N0==16)):
         #    aux.write("	/* tailored overflow check\n") 
-	if (size_mark_empty == 0) :
-            for j in range((2*l-1)*KA_terms(N,N0)/W*2) :
-                if (size_mark[j] == 1) :
-                    if (size_mark[j-1] == 0) :
-                        aux.write("	.hword	%d, " % j)
-                    if (size_mark[j+1] == 0) :
-                        if (size_mark[j+2] == 1) :
-                            size_mark[j+1] = 1
-                        else :
-                            aux.write("%d\n" % j)
-            aux.write("	.hword	-1\n")
+	# if (size_mark_empty == 0) :
+        #     for j in range((2*l-1)*KA_terms(N,N0)/W*2) :
+        #         if (size_mark[j] == 1) :
+        #             if (size_mark[j-1] == 0) :
+        #                 aux.write("	.hword	%d, " % j)
+        #             if (size_mark[j+1] == 0) :
+        #                 if (size_mark[j+2] == 1) :
+        #                     size_mark[j+1] = 1
+        #                 else :
+        #                     aux.write("%d\n" % j)
+        #     aux.write("	.hword	-1\n")
         else : aux.write("	// no overflow\n")
         #if (T==768 and (N0==8 or N0==16)):
         #    aux.write("	skipped overflow list */\n") 
@@ -753,122 +761,41 @@ def T_polymulNxN (T, l) :
                 size2[(2*j+N0+i)/W] = sizet[i/W] + size2[(2*N1+j+i)/W]
         if (size_mark_empty == 1) :
             print "T%dx%d_col_%d_ov:			// no overflow"%(N,l,N0)
-        #elif (T==768 and N0==8) : # 2-5 mod 8 from 0:7128
-        #    print "T%dx%d_col_%d_ov:	// tailored overflow check" %  (N,l,N0)
-        #    print "	movw	r5, #7120"
-        #    print "	add	r4, r2, #8"
-        #    print_ldr("r0",V["-q"],"load -q")
-        #    print_ldr("r1",V["q32"],"load qinv32")
-        #    print "	mov	r6,#32768"
-        #    print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"	
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #24"
-        #    print "	subs	r5, r5, #8"
-        #    print "	bne	T%dx%d_col_%d_ov1" %  (N,l,N0)
-        #elif (T==768 and N0==16) :
-        #    # 4-5 or 10 mod 16 from 0:1408, 4-11 mod 16 from 1408:3168
-        #    # 4-5 or 10 mod 16 from 3168:3872, 4-11 mod 16 from 3872:4752
-        #    print "T%dx%d_col_%d_ov:	// tailored overflow check" %  (N,l,N0)
-        #    print_ldr("r0",V["-q"],"load -q")
-        #    print_ldr("r1",V["q32"],"load qinv32")
-        #    print "	mov	r6,#32768"
-        #    print "	movw	r5, #0"
-        #    print "	add	r4, r2, #16"
-        #    print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #24"
-        #    print "	ldr	r8, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	str	r8, [r4], #40"
-        #    print "	add	r5, r5, #16"
-        #    print "	cmp	r5, #1408"
-        #    print "	bcc	T%dx%d_col_%d_ov1" %  (N,l,N0)
-        #    print "T%dx%d_col_%d_ov2:" %  (N,l,N0)
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #40"
-        #    print "	add	r5, r5, #16"
-        #    print "	cmp	r5, #3168"
-        #    print "	bcc	T%dx%d_col_%d_ov2" %  (N,l,N0)
-        #    print "T%dx%d_col_%d_ov3:" %  (N,l,N0)
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #24"
-        #    print "	ldr	r8, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	str	r8, [r4], #40"
-        #    print "	add	r5, r5, #16"
-        #    print "	cmp	r5, #3872"
-        #    print "	bcc	T%dx%d_col_%d_ov3" %  (N,l,N0)
-        #    print "	movw	r11, #4752"
-        #    print "T%dx%d_col_%d_ov4:" %  (N,l,N0)
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #8"
-        #    print "	ldrd	r8, r9, [r4]"
-	#    print "	br_16x2	r8, r0, r1, r6, r7, r10"
-        #    print "	br_16x2	r9, r0, r1, r6, r7, r10"
-        #    print "	strd	r8, r9, [r4], #40"
-        #    print "	add	r5, r5, #16"
-        #    print "	cmp	r5, r11"
-        #    print "	bcc	T%dx%d_col_%d_ov4" %  (N,l,N0)
-        #elif (T==768 and N0==32) :
-        #elif (T==768 and N0==64) :
         else :
             # checking for overflows
             print "T%dx%d_col_%d_ov:" %  (N,l,N0)
-            #
             #print_ldr("r3",V["ov"],"reload overflow list")
-            print "	ldrsh	r4, [r3], #2"
+            print_ldr("r0",V["-q"],"load -q")
+            print_ldr("r1",V["q32"],"load qinv32")
+            print "	mov	r6, #32768"
+            print "	mov	r12, 0	// pointer to data"	     
+            print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
+            print "	ldrsh	r4, [r3], #2	// bound"
             print "	cmp	r4, #-1"
             print "	beq	T%dx%d_col_%d_add" %  (N,l,N0)
             #print "T%dx%d_col_%d_ov0:" %  (N,l,N0)
-            print_ldr("r0",V["-q"],"load -q")
-            print_ldr("r1",V["q32"],"load qinv32")
-            print "	mov	r6,#32768"
-            print "T%dx%d_col_%d_ov1:" %  (N,l,N0)
-            print "	ldrsh	r5, [r3], #2"
+            print "	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries"
+            print "	ldrsh	r5, [r3], #2	// offset"
+            print "	add	r12, r12, r5"
             print "T%dx%d_col_%d_ov2:" %  (N,l,N0)
-            print "	ldr	r8, [r2, r4, LSL #2]"
+            print "	asr	r5, r11, #1	// r11 : number of intervals"
+            print "T%dx%d_col_%d_ov3:" %  (N,l,N0)
+            print "	ldrsh	r10, [r3], #2	// size of interval"
+            print "T%dx%d_col_%d_ov4:" %  (N,l,N0)
+            print "	ldr	r8, [r2, r12, LSL #2]"
             print "	br_16x2	r8, r0, r1, r6, r7, r9"
-            print "	str	r8, [r2, r4, LSL #2]"
-            print "	add	r4, #1"
-            print "	cmp	r4, r5"
-            print "	bls	T%dx%d_col_%d_ov2" %  (N,l,N0)
-            print "	ldrsh	r4, [r3], #2"
-            print "	cmp	r4, -1"
-            print "	bne	T%dx%d_col_%d_ov1" %  (N,l,N0)
+            print "	str	r8, [r2, r12, LSL #2]"
+            print "	add	r12, r12, #1"
+            print "	subs	r10, r10, #1"
+            print "	bgt	T%dx%d_col_%d_ov4" %  (N,l,N0)
+            print "	ldrsh	r10, [r3], #2	// offset"
+            print "	add	r12, r12, r10"
+            print "	subs	r5, r5, #1	// last interval?"
+            print "	bgt	T%dx%d_col_%d_ov3" %  (N,l,N0)
+            print "	cmp	r12, r4		// am I above the bound?"
+            print "	bge	T%dx%d_col_%d_ov1" %  (N,l,N0)
+            print "	sub	r3, r3, r11, LSL #1	// roll back"
+            print "	b	T%dx%d_col_%d_ov2" %  (N,l,N0)
         # hh has not left r2, ov has not left r3
         print "T%dx%d_col_%d_add:			// KA collection" %  (N,l,N0)
         print "	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4"
