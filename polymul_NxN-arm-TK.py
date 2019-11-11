@@ -74,10 +74,11 @@ alloc_save("2M") #V["2M"] = "s1"	#2M, M = KA_terms(N,N0)*(2*l-1)
 alloc_save("gg") #V["gg"] = "s2"	#gg, 2d inputs (exp size 2M) = sp+2M
 alloc_save("hh") #V["hh"] = "s3"	#hh, outputs (exp size 4M) = sp+4M
 alloc_save("ov") #V["ov"] = "s4"	#overflow list address           
-alloc_save("q")  #V["q"] = "s5"		#modulus q = 4591
+#alloc_save("q")  #V["q"] = "s5" 	#modulus q = 4591 (don't need this)
+alloc_save("src")			#not "scr"
 alloc_save("qi") #V["qi"] = "s6"	#q^{-1} mod 2^16            
 alloc_save("q32")#V["q32"] = "s7"	#round(2^32/q) 
-alloc_save("-q") #V["-q"] = "s8"	#-q, I am stupid  
+alloc_save("-q") #V["-q"] = "s8"	#-q, I am stupid, shouldn't need  
 alloc_save("T")  #V["T"] = "s9"		#T = l * N                       
 #alloc_save("2M0")#V["2M0"] = "s10"	#2*M0, M0 = KA_terms(N,N0)
 alloc_save("X")  #V["X"] = "s10"	#temporary space pointer
@@ -212,7 +213,7 @@ def T_polymulNxN (T, l) :
     print "	ldr	r14, =T%d_Mat2" % (l)
     print_str("r14", V["M2"], "save Matrix 2")
     print "	movw	r12, #%d" % (q)
-    print_str("r12", V["q"], "save q")
+    #print_str("r12", V["q"], "save q")
     print "	movw	r14, #%d" % (65536-qinv)
     print "	movt	r14, #65536-1"
     print_str("r14", V["qi"], "save qinv")
@@ -263,7 +264,7 @@ def T_polymulNxN (T, l) :
     #
     print "	// r3 = ff+2*N/W, r0 = gg+2*N/W"
     aux.write("T%d_Mat1:\n" % l)
-    for j in range(2,2*l-1) :
+    for j in range(4,2*l-1) :
         aux.write("	.hword	")
         for k in range(l-1) :
             mult = cmod(MAT1[j][k],q)
@@ -277,23 +278,36 @@ def T_polymulNxN (T, l) :
     print_str("r14",V["scr"],"first, save link to scratch")
     print "	add	r1, r1, #%d" % (4*N)
     # do I need to save this?
-    print_str("r1",V["dst"],"save destination pointer")
-    #
+    # print_str("r1",V["dst"],"save destination pointer")
     print "	mov	r12, #%d	// counter" % (2*N)
     print_ldr("r11",V["q32"],"load round(2^32/q)")
     print_ldr("r7",V["-q"],"load -q")
     print "T%dx%d_split_sub1:" % (N,l)
     print "	mov	r14, #0"
     print_ldr("r9",V["X"],"pointer to X array")
+    print "	mov	r5, #0"
+    print "	mov	r6, #0"
     print "T%dx%d_split_sub2:" % (N,l)
     print "	ldr	r8, [r0, r14]	// load next of set"
     print "	str	r8, [r9], #4	// save to temp array, point"
+    print "	tst	r14, #%d	// even or odd?" % (2*N)
+    print "	ite	eq"
+    print "	sadd16eq	r5, r5, r8	// add to even sum"
+    print "	sadd16ne	r6, r6, r8	// add to odd sum"
     print "	add	r14, r14, #%d	// add 2N size of set" % (2*N)
     print "	cmp	r14, #%d	// compare to 2T" % (2*T)
     print "	bne	T%dx%d_split_sub2" % (N,l)
+    print "	sadd16	r4, r5, r6"
+    print "	ssub16	r5, r5, r6"
+    print "	mov	r9, #32768"
+    print "	br_16x2	r4, r7, r11, r9, r6, r10"
+    print "	br_16x2	r5, r7, r11, r9, r6, r10"
     print_ldr("r9",V["X"],"X array, loaded with a set")
     print_ldr("r10",V["M1"],"load T%d matrix 1" % (l))
-    print "	mov	r2, #0		// counter j"
+    print "	str	r4, [r1]"
+    print "	mov	r2, #%d		// counter j" % (2*N)
+    print "	str	r5, [r1, r2]"
+    print "	add	r2, r2, #%d	// counter j" % (2*N)
     print "T%dx%d_split_sub3:" % (N,l)
     print "	ldrsh	r14, [r10], #2	// MAT1[j][0]"
     print "	ldr	r8, [r9]		// X[0]"
@@ -528,7 +542,8 @@ def T_polymulNxN (T, l) :
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)'''
         print_ldr("r5",V["qi"],"r5 = -q^{-1} mod 2^16")
-        print_ldr("r6",V["q"],"r6 = q")
+        #print_ldr("r6",V["q"],"r6 = q")
+        print "	movw	r6, #%d		// r6 = q" % (q)
         #
         print '''	mr_16x2	r12, r3, r6, r5, r7
 	mr_hi	r4, r6, r5, r7             

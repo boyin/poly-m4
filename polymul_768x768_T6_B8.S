@@ -34,7 +34,6 @@ T128x6_saves:
 	ldr	r14, =T6_Mat2
 	vmov	s16, r14	// save Matrix 2
 	movw	r12, #4591
-	vmov	s5, r12	// save q
 	movw	r14, #49905
 	movt	r14, #65536-1
 	vmov	s6, r14	// save qinv
@@ -69,22 +68,35 @@ T128x6_mv_loop1:
 T128x6_split_sub:	// use twice, r0 = src, r1 = dst
 	vmov	s13, r14	// first, save link to scratch
 	add	r1, r1, #512
-	vmov	s14, r1	// save destination pointer
 	mov	r12, #256	// counter
 	vmov	r11, s7	// load round(2^32/q)
 	vmov	r7, s8	// load -q
 T128x6_split_sub1:
 	mov	r14, #0
 	vmov	r9, s10	// pointer to X array
+	mov	r5, #0
+	mov	r6, #0
 T128x6_split_sub2:
 	ldr	r8, [r0, r14]	// load next of set
 	str	r8, [r9], #4	// save to temp array, point
+	tst	r14, #256	// even or odd?
+	ite	eq
+	sadd16eq	r5, r5, r8	// add to even sum
+	sadd16ne	r6, r6, r8	// add to odd sum
 	add	r14, r14, #256	// add 2N size of set
 	cmp	r14, #1536	// compare to 2T
 	bne	T128x6_split_sub2
+	sadd16	r4, r5, r6
+	ssub16	r5, r5, r6
+	mov	r9, #32768
+	br_16x2	r4, r7, r11, r9, r6, r10
+	br_16x2	r5, r7, r11, r9, r6, r10
 	vmov	r9, s10	// X array, loaded with a set
 	vmov	r10, s15	// load T6 matrix 1
-	mov	r2, #0		// counter j
+	str	r4, [r1]
+	mov	r2, #256		// counter j
+	str	r5, [r1, r2]
+	add	r2, r2, #256	// counter j
 T128x6_split_sub3:
 	ldrsh	r14, [r10], #2	// MAT1[j][0]
 	ldr	r8, [r9]		// X[0]

@@ -42,7 +42,8 @@
 	smmulr	\scr, \res, \q32inv
 	mla	\res, \mq, \scr, \res
 	.endm
-	  
+
+	  // no good don't use
 	.macro	center_adj, res, qqx2, scr // qqx2 = 2 copies of qq
 	sadd16	scr, res, qqx2
 	sel	res, scr
