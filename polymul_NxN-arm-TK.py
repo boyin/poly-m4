@@ -264,7 +264,7 @@ def T_polymulNxN (T, l) :
     #
     print "	// r3 = ff+2*N/W, r0 = gg+2*N/W"
     aux.write("T%d_Mat1:\n" % l)
-    for j in range(4,2*l-1) :
+    for j in range(4,2*l-1,2) :
         aux.write("	.hword	")
         for k in range(l-1) :
             mult = cmod(MAT1[j][k],q)
@@ -288,21 +288,21 @@ def T_polymulNxN (T, l) :
     print "	mov	r5, #0"
     print "	mov	r6, #0"
     print "T%dx%d_split_sub2:" % (N,l)
-    print "	ldr	r8, [r0, r14]	// load next of set"
-    print "	str	r8, [r9], #4	// save to temp array, point"
-    print "	tst	r14, #%d	// even or odd?" % (2*N)
-    print "	ite	eq"
-    print "	sadd16eq	r5, r5, r8	// add to even sum"
-    print "	sadd16ne	r6, r6, r8	// add to odd sum"
-    print "	add	r14, r14, #%d	// add 2N size of set" % (2*N)
-    print "	cmp	r14, #%d	// compare to 2T" % (2*T)
-    print "	bne	T%dx%d_split_sub2" % (N,l)
+    for j in range(l) :
+        print "	ldr	r8, [r0, r14]	// load next of set" 
+        print "	str	r8, [r9, #%d]	// save to temp array" % (4*j)
+        if (is_even(j)) :
+            print "	sadd16	r5, r5, r8"
+        else :
+            print "	sadd16	r6, r6, r8"
+        if (j < l - 1) :
+            print "	add	r14, r14, #%d	// add 2N size of set" % (2*N)
     print "	sadd16	r4, r5, r6"
     print "	ssub16	r5, r5, r6"
-    print "	mov	r9, #32768"
-    print "	br_16x2	r4, r7, r11, r9, r6, r10"
-    print "	br_16x2	r5, r7, r11, r9, r6, r10"
-    print_ldr("r9",V["X"],"X array, loaded with a set")
+    print "	mov	r3, #32768"
+    print "	br_16x2	r4, r7, r11, r3, r6, r10"
+    print "	br_16x2	r5, r7, r11, r3, r6, r10"
+    #print_ldr("r9",V["X"],"X array, loaded with a set")
     print_ldr("r10",V["M1"],"load T%d matrix 1" % (l))
     print "	str	r4, [r1]"
     print "	mov	r2, #%d		// counter j" % (2*N)
@@ -313,22 +313,43 @@ def T_polymulNxN (T, l) :
     print "	ldr	r8, [r9]		// X[0]"
     print "	smulbb	r4, r14, r8"	
     print "	smulbt	r5, r14, r8"
-    print "	mov	r3, #1		// counter k"
+    print "	ldrsh	r14, [r10], #2	// MAT1[j][1]"
+    print "	ldr	r8, [r9, #4]		// X[1]"
+    print "	smulbb	r3, r14, r8"  
+    print "	smulbt	r6, r14, r8"
     print "T%dx%d_split_sub4:" % (N,l)
-    print "	ldrsh	r14, [r10], #2	// MAT1[j][k]"
-    print "	ldr	r8, [r9, r3, LSL #2]	// X[k]"
-    print "	smlabb	r4, r14, r8, r4"	
-    print "	smlabt	r5, r14, r8, r5"
-    print "	add	r3, #1"
-    print "	cmp	r3, #%d" % (l)
-    print "	bcc	T%dx%d_split_sub4" % (N,l)
+    for k in range(2,l) :
+        print "	ldrsh	r14, [r10], #2	// MAT1[j][%d]" % (k)
+        print "	ldr	r8, [r9, #%d]	// X[k]" % (4*k)
+        if (is_even(k)) :
+            print "	smlabb	r4, r14, r8, r4"	
+            print "	smlabt	r5, r14, r8, r5"
+        else:
+            print "	smlabb	r3, r14, r8, r3"	
+            print "	smlabt	r6, r14, r8, r6"
+    print "	add	r8, r4, r3	// row j"
+    print "	cmp	r2, #%d" % ((2*l-4)*2*N)
+    print "	bcs	T%dx%d_split_sub5" % (N,l)
+    print "	sub	r3, r4, r3	// row j+1"
+    print "	add	r4, r5, r6	// row j"
+    print "	sub	r5, r5, r6	// row j+1"
+    print "	br_32	r8, r7, r11, r6"
+    print "	br_32	r3, r7, r11, r6"
     print "	br_32	r4, r7, r11, r6"
     print "	br_32	r5, r7, r11, r6"
-    print "	pkhbt	r4, r4, r5, LSL #16"
-    print "	str	r4, [r1, r2]"
+    print "	pkhbt	r8, r8, r4, LSL #16"
+    print "	pkhbt	r3, r3, r5, LSL #16"
+    print "	str	r8, [r1, r2]"
     print "	add	r2, #%d" % (2*N)
-    print "	cmp	r2, #%d" % ((2*l-3)*2*N)
-    print "	bcc	T%dx%d_split_sub3" % (N,l)
+    print "	str	r3, [r1, r2]"
+    print "	add	r2, #%d" % (2*N)
+    print "	b	T%dx%d_split_sub3" % (N,l)
+    print "T%dx%d_split_sub5:" % (N,l)
+    print "	add	r4, r5, r6	// row j"
+    print "	br_32	r8, r7, r11, r6"
+    print "	br_32	r4, r7, r11, r6"
+    print "	pkhbt	r8, r8, r4, LSL #16"
+    print "	str	r8, [r1, r2]"
     print "	add	r0, #4		// incr src"
     print "	add	r1, #4		// incr dst"
     print "	subs	r12, #4		// decr counter"

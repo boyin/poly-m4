@@ -78,20 +78,33 @@ T128x6_split_sub1:
 	mov	r6, #0
 T128x6_split_sub2:
 	ldr	r8, [r0, r14]	// load next of set
-	str	r8, [r9], #4	// save to temp array, point
-	tst	r14, #256	// even or odd?
-	ite	eq
-	sadd16eq	r5, r5, r8	// add to even sum
-	sadd16ne	r6, r6, r8	// add to odd sum
+	str	r8, [r9, #0]	// save to temp array
+	sadd16	r5, r5, r8
 	add	r14, r14, #256	// add 2N size of set
-	cmp	r14, #1536	// compare to 2T
-	bne	T128x6_split_sub2
+	ldr	r8, [r0, r14]	// load next of set
+	str	r8, [r9, #4]	// save to temp array
+	sadd16	r6, r6, r8
+	add	r14, r14, #256	// add 2N size of set
+	ldr	r8, [r0, r14]	// load next of set
+	str	r8, [r9, #8]	// save to temp array
+	sadd16	r5, r5, r8
+	add	r14, r14, #256	// add 2N size of set
+	ldr	r8, [r0, r14]	// load next of set
+	str	r8, [r9, #12]	// save to temp array
+	sadd16	r6, r6, r8
+	add	r14, r14, #256	// add 2N size of set
+	ldr	r8, [r0, r14]	// load next of set
+	str	r8, [r9, #16]	// save to temp array
+	sadd16	r5, r5, r8
+	add	r14, r14, #256	// add 2N size of set
+	ldr	r8, [r0, r14]	// load next of set
+	str	r8, [r9, #20]	// save to temp array
+	sadd16	r6, r6, r8
 	sadd16	r4, r5, r6
 	ssub16	r5, r5, r6
-	mov	r9, #32768
-	br_16x2	r4, r7, r11, r9, r6, r10
-	br_16x2	r5, r7, r11, r9, r6, r10
-	vmov	r9, s10	// X array, loaded with a set
+	mov	r3, #32768
+	br_16x2	r4, r7, r11, r3, r6, r10
+	br_16x2	r5, r7, r11, r3, r6, r10
 	vmov	r10, s15	// load T6 matrix 1
 	str	r4, [r1]
 	mov	r2, #256		// counter j
@@ -102,22 +115,50 @@ T128x6_split_sub3:
 	ldr	r8, [r9]		// X[0]
 	smulbb	r4, r14, r8
 	smulbt	r5, r14, r8
-	mov	r3, #1		// counter k
+	ldrsh	r14, [r10], #2	// MAT1[j][1]
+	ldr	r8, [r9, #4]		// X[1]
+	smulbb	r3, r14, r8
+	smulbt	r6, r14, r8
 T128x6_split_sub4:
-	ldrsh	r14, [r10], #2	// MAT1[j][k]
-	ldr	r8, [r9, r3, LSL #2]	// X[k]
+	ldrsh	r14, [r10], #2	// MAT1[j][2]
+	ldr	r8, [r9, #8]	// X[k]
 	smlabb	r4, r14, r8, r4
 	smlabt	r5, r14, r8, r5
-	add	r3, #1
-	cmp	r3, #6
-	bcc	T128x6_split_sub4
+	ldrsh	r14, [r10], #2	// MAT1[j][3]
+	ldr	r8, [r9, #12]	// X[k]
+	smlabb	r3, r14, r8, r3
+	smlabt	r6, r14, r8, r6
+	ldrsh	r14, [r10], #2	// MAT1[j][4]
+	ldr	r8, [r9, #16]	// X[k]
+	smlabb	r4, r14, r8, r4
+	smlabt	r5, r14, r8, r5
+	ldrsh	r14, [r10], #2	// MAT1[j][5]
+	ldr	r8, [r9, #20]	// X[k]
+	smlabb	r3, r14, r8, r3
+	smlabt	r6, r14, r8, r6
+	add	r8, r4, r3	// row j
+	cmp	r2, #2048
+	bcs	T128x6_split_sub5
+	sub	r3, r4, r3	// row j+1
+	add	r4, r5, r6	// row j
+	sub	r5, r5, r6	// row j+1
+	br_32	r8, r7, r11, r6
+	br_32	r3, r7, r11, r6
 	br_32	r4, r7, r11, r6
 	br_32	r5, r7, r11, r6
-	pkhbt	r4, r4, r5, LSL #16
-	str	r4, [r1, r2]
+	pkhbt	r8, r8, r4, LSL #16
+	pkhbt	r3, r3, r5, LSL #16
+	str	r8, [r1, r2]
 	add	r2, #256
-	cmp	r2, #2304
-	bcc	T128x6_split_sub3
+	str	r3, [r1, r2]
+	add	r2, #256
+	b	T128x6_split_sub3
+T128x6_split_sub5:
+	add	r4, r5, r6	// row j
+	br_32	r8, r7, r11, r6
+	br_32	r4, r7, r11, r6
+	pkhbt	r8, r8, r4, LSL #16
+	str	r8, [r1, r2]
 	add	r0, #4		// incr src
 	add	r1, #4		// incr dst
 	subs	r12, #4		// decr counter
