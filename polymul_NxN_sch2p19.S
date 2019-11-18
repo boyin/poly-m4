@@ -78,16 +78,16 @@ convert_2p19_0:
 	mla	r9, r10, r11, r9
 	stm	r0!, {r2-r9}
 	subs	r12, #16
-	bne	convert_2p19_0
+	bhi	convert_2p19_0
 	bx	lr
 
-// void gf_polymul_NxN (int *h, int *f, int *g, int N, int C);
+// void gf_polymul_NxNsh (int *h, int *f, int *g, int N, int C);
 	.p2align	2,,3	
 	.syntax		unified
 	.text
-	.global gf_polymul_NxN
-	.type	gf_polymul_NxN, %function
-gf_polymul_NxN:
+	.global gf_polymul_NxNsh
+	.type	gf_polymul_NxNsh, %function
+gf_polymul_NxNsh:
 // 2N bytes each for ff, gg,  8N bytes for hh (32-bit accumulators)
 	ldr	r12, [sp]	// load C from stack
 	push	{r4-r11,lr}
