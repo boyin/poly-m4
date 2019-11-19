@@ -229,7 +229,7 @@ void gf_polymul_768x768sh (int *h, int *f, int *g) {
   convert_r2p19(f, ff, 768);
   convert_r2p19(g, gg, 768);
   my_zero_ints(hh, 1536);
-  gf_polymul_NxNsh_r2p19_addto_32(hh,ff,gg,768,57);
+  gf_polymul_NxNsh_r2p19_addto_32(hh,ff,gg,768,28);
   convert_barrett_32_to_16(hh, h, 1536);
 }
 
