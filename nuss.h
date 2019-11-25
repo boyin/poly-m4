@@ -68,18 +68,20 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 		    ) 
 
 #define store8xa(F,A,B,C,D,E) /* store 8-poly(A,B,C,D)*x mod(x^8+1) at F */ \
-  __asm__ volatile ("str %3, [%1, #2] \n\t"	/* store F23 */		\
-		    "str %4, [%1, #6] \n\t"	/* store F45 */		\
-		    "str %5, [%1, #10] \n\t"	/* store F67 */		\
-		    "rsb %3, %2, #0\n\t"				\
-		    "strh %3, [%1, #14] \n\t"	/* store -F0 */		\
-		    "asr %2, %2, #16\n\t"				\
-		    "strh %2, [%1], %6"	/* store F1  */			\
-		    : "=m"(*(int (*)[4]) (F)), "+r"((F)),		\
-		      "+r"((A)), "+r"((B))				\
-		    :   "r"((C)), "r"((D)), "X"((E))			\
-		    ) 
-
+  {									\
+    int dummyA, dummyB;							\
+    __asm__ volatile ("str %3, [%1, #2] \n\t"	/* store F23 */		\
+		      "str %4, [%1, #6] \n\t"	/* store F45 */		\
+		      "str %5, [%1, #10] \n\t"	/* store F67 */		\
+		      "rsb %3, %2, #0\n\t"				\
+		      "strh %3, [%1, #14] \n\t"	/* store -F0 */		\
+		      "asr %2, %2, #16\n\t"				\
+		      "strh %2, [%1], %6"	/* store F1  */		\
+		      : "=m"(*(int (*)[4])(F)),"+r"((F)),"=r"(dummyA),	\
+			"=r"(dummyB)					\
+                      : "r"((C)), "r"((D)), "X"((E)), "2"((A)), "3"((B)) \
+		      );						\
+  }
 
 #define reduce8a(A,N) /* reduce N elements, 8|N */			\
   __asm__ volatile ("mov lr, %2 \n\t"					\
@@ -738,6 +740,9 @@ void gf_polymul_64x64_div4096_negc (int *h, int f[32], int g[32]) {
   fft64(g, gg);
   for (i=15; i>=0; i--) {
     polymul_8x8_divR_negc_shift(hhh,fff,ggg);}
+    //gf_polymul_8x8_divR_negc(hhh, fff, ggg);
+    //fff += 4; ggg += 4; hhh += 4;
+    //}
   unfft64(h, hh);
 }
 
@@ -746,6 +751,22 @@ void butterfly64_1(int *F, int *G){
   int *GG = G;
   int i, f01, f23, f45, f67, g01, g23, g45, g67, t01, t23, t45, t67;
   for (i=0; i<8; i++) {
+    load8(FF, f01, f23, f45, f67);
+    load8(GG, g01, g23, g45, g67);
+    t01 = __SADD16(f01,g01); t23 = __SADD16(f23,g23);
+    t45 = __SADD16(f45,g45); t67 = __SADD16(f67,g67);
+    store8a(FF, t01, t23, t45, t67, 16);
+    g01 = __SSUB16(f01,g01); g23 = __SSUB16(f23,g23);
+    g45 = __SSUB16(f45,g45); g67 = __SSUB16(f67,g67);
+    store8a(GG, g01, g23, g45, g67, 16);
+  }
+}
+
+void butterfly32_1(int *F, int *G){
+  int *FF = F;
+  int *GG = G;
+  int i, f01, f23, f45, f67, g01, g23, g45, g67, t01, t23, t45, t67;
+  for (i=0; i<4; i++) {
     load8(FF, f01, f23, f45, f67);
     load8(GG, g01, g23, g45, g67);
     t01 = __SADD16(f01,g01); t23 = __SADD16(f23,g23);

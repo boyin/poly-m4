@@ -50,7 +50,7 @@ alloc_save("ct")		# V["ct"]= s6	# product-scanning counter
 V["ff"] = "sp+0"                # alloc_save("ff")
 alloc_save("hh2")		# V["hh2"]=s7	# a second copy of hh
         
-def Sch_polymulNxN() :
+def Sch_polymulNxNsh() :
     global V, NV
 
     print '#include "red-asm.h"'
@@ -106,6 +106,23 @@ def Sch_polymulNxN() :
     print "	.syntax		unified"
     print "	.text"
     print "// void convert_2p19 (r0 = dst, r1 = src, r12 = length) "
+    # print "convert_2p19:"
+    # print "	ldrsh	r2, [r1], #2"
+    # print "	ldrsh	r3, [r1], #2"
+    # print "	ldrsh	r4, [r1], #2"
+    # print "	ldrsh	r5, [r1], #2"
+    # print "	ldrsh	r6, [r1], #2"
+    # print "	ldrsh	r7, [r1], #2"
+    # print "	ldrsh	r8, [r1], #2"
+    # print "	ldrsh	r9, [r1], #2"
+    # print "	add	r2, r2, r3, LSL #19"
+    # print "	add	r3, r4, r5, LSL #19"
+    # print "	add	r4, r6, r7, LSL #19"
+    # print "	add	r5, r8, r9, LSL #19"
+    # print "	stm	r0!, {r2-r5}"
+    # print "	subs	r12, #8"
+    # print "	bhi	convert_2p19"
+    # print "	bx	lr"
     print "convert_2p19:"
     print "	mov	r11, #0x80000	// 2^19"
     print "convert_2p19_0:"
@@ -135,16 +152,16 @@ def Sch_polymulNxN() :
     print "	mla	r9, r10, r11, r9"
     print "	stm	r0!, {r2-r9}"
     print "	subs	r12, #16"
-    print "	bne	convert_2p19_0"
+    print "	bhi	convert_2p19_0"
     print "	bx	lr"
     print
-    print "// void gf_polymul_NxN (int *h, int *f, int *g, int N, int C);"
+    print "// void gf_polymul_NxNsh (int *h, int *f, int *g, int N, int C);"
     print "	.p2align	2,,3	"
     print "	.syntax		unified"
     print "	.text"
-    print "	.global gf_polymul_NxN"
-    print "	.type	gf_polymul_NxN, %function"
-    print "gf_polymul_NxN:"
+    print "	.global gf_polymul_NxNsh"
+    print "	.type	gf_polymul_NxNsh, %function"
+    print "gf_polymul_NxNsh:"
     print "// 2N bytes each for ff, gg,  8N bytes for hh (32-bit accumulators)"
     print "	ldr	r12, [sp]	// load C from stack"
     #print "	pop	r12	// pop C from stack, wrong, don't pop!!"
@@ -386,4 +403,4 @@ def Sch_polymulNxN() :
     print "	bx	lr"
 
 
-Sch_polymulNxN() 
+Sch_polymulNxNsh() 
