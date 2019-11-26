@@ -9,6 +9,7 @@ q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 ARGS = sys.argv
 SAVES = 0
+MONT_OR_BAR = 0
 
 def alloc_save (S) : # allocate variable name s_S as a space
     global SAVES
@@ -117,22 +118,37 @@ def KA_polymulNxN (N) :
     # KA_head
     print("// N=%d requires %d=8x%d storage\n" % (N,8*KA_terms(N,B),KA_terms(N,B)))
     # if (NARGS > 1) :
-    aux = open("polymul_%dx%d.h" % (N,N), "w+")
-    aux.write("extern void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n")
-    aux.close();
-    aux = open("polymul_%dx%d_B%d_aux.h" % (N,N,B),"w+")
+    if (MONT_OR_BAR == 0) :
+        aux = open("polymul_%dx%d.h" % (N,N), "w+")
+        aux.write("extern void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);\n" % (N,N))
+        aux.close();
+        aux = open("polymul_%dx%d_B%d_aux.h" % (N,N,B),"w+")
+    else :
+        aux = open("polymul_%dx%d_bar.h" % (N,N), "w+")
+        aux.write("extern void gf_polymul_%dx%d(int32_t *h, int32_t *f, int32_t *g);\n" % (N,N))
+        aux.close();
+        aux = open("polymul_%dx%d_bar_B%d_aux.h" % (N,N,B),"w+")
     aux.write("	.p2align	2,,3\n")
     aux.write("	.syntax		unified\n")
     aux.write("	.text\n\n")
-    print '#include "polymul_%dx%d_B%d_aux.h"' % (N,N,B)
+    if (MONT_OR_BAR == 0) :
+        print '#include "polymul_%dx%d_B%d_aux.h"' % (N,N,B)
+    else :
+        print '#include "polymul_%dx%d_bar_B%d_aux.h"' % (N,N,B)
     print "	.p2align	2,,3	"
     print "	.syntax		unified"
     print "	.text"
     #
-    print "// void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
-    print "	.global gf_polymul_%dx%d_divR" % (N,N)
-    print "	.type	gf_polymul_%dx%d_divR, %%function" % (N,N)
-    print "gf_polymul_%dx%d_divR:" % (N,N)
+    if (MONT_OR_BAR == 0) :
+        print "// void gf_polymul_%dx%d_divR (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
+        print "	.global gf_polymul_%dx%d_divR" % (N,N)
+        print "	.type	gf_polymul_%dx%d_divR, %%function" % (N,N)
+        print "gf_polymul_%dx%d_divR:" % (N,N)
+    else :
+        print "// void gf_polymul_%dx%d (int32_t *h, int32_t *f, int32_t *g);" % (N,N)
+        print "	.global gf_polymul_%dx%d" % (N,N)
+        print "	.type	gf_polymul_%dx%d, %%function" % (N,N)
+        print "gf_polymul_%dx%d:" % (N,N)
     #
     M = (KA_terms(N,B))
     #
@@ -381,15 +397,23 @@ def KA_polymulNxN (N) :
 	smladx  r12, r3, r7, r12	// r12 += f1 g3 + f2 g2 = h4 (32bit)
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)'''
-        print_ldr("r5",s_qi,"r5 = -q^{-1} mod 2^16")
-        print_ldr("r6",s_q,"r6 = q")
-
-        print '''	mr_16x2	r12, r3, r6, r5, r7
-	mr_hi	r4, r6, r5, r7             
-	lsr	r4, #16
-	mr_16x2	r8, r9, r6, r5, r7
-	mr_16x2	r10, r11, r6, r5, r7
-        str	r10, [r2, #4]
+        if (MONT_OR_BAR == 0) :
+            print_ldr("r5",s_qi,"r5 = -q^{-1} mod 2^16")
+            print_ldr("r6",s_q,"r6 = q")
+            print '''	mr_16x2	r12, r3, r6, r5, r7
+	    mr_hi	r4, r6, r5, r7             
+	    lsr	r4, #16
+	    mr_16x2	r8, r9, r6, r5, r7
+	    mr_16x2	r10, r11, r6, r5, r7'''
+        else : # barrett
+            print_ldr("r5",s_q32,"r5 = round(2^32/q)")
+            print_ldr("r6",s_mq,"r6 = -q")
+            print '''	br_32x2	r12, r3, r6, r5, r7
+	    br_32	r4, r6, r5, r7             
+	    movt	r4, #0
+	    br_32x2	r8, r9, r6, r5, r7
+	    br_32x2	r10, r11, r6, r5, r7'''
+        print '''str	r10, [r2, #4]
 	str	r12, [r2, #8]
 	str	r4, [r2, #12]
 	str	r8, [r2], #16
@@ -456,20 +480,35 @@ def KA_polymulNxN (N) :
 	print "	smlad	r14, r3, r10, r14"
 	print "	smlad	r14, r5, r9, r14"
 	print "	smlad	r14, r6, r8, r14	// h6" 
-	print "	movw	r3, #%d" %(65536-qinv)
-	print "	movw	r4, #%d" %(q)
+	if (MONT_OR_BAR == 0) :
+            print "	movw	r3, #%d" %(65536-qinv)
+	    print "	movw	r4, #%d" %(q)
+        else : # barrett
+            print_ldr("r3", s_q32, "reload q32inv")
+            print_ldr("r4", s_mq, "reload -q")
 	print_ldr("r8", s_3,"h3=scr3")
 	print_ldr("r9", s_4,"h5=scr4")
 	print_ldr("r10", s_5,"h7=scr5")
-	print "	mr_16x2	r7, r8, r4, r3, r11	// h23"
-	print "	mr_16x2	r12, r9, r4, r3, r11	// h45"
-	print "	mr_16x2 r14, r10, r4, r3, r11	// h67"
+        if (MONT_OR_BAR == 0) :
+	    print "	mr_16x2	r7, r8, r4, r3, r11	// h23"
+	    print "	mr_16x2	r12, r9, r4, r3, r11	// h45"
+	    print "	mr_16x2 r14, r10, r4, r3, r11	// h67"
+        else : # barrett
+	    print "	br_32x2	r7, r8, r4, r3, r11	// h23"
+	    print "	br_32x2	r12, r9, r4, r3, r11	// h45"
+	    print "	br_32x2 r14, r10, r4, r3, r11	// h67"
 	print_ldr("r8", s_12,"h8=scr12")
 	print_ldr("r9", s_6,"h9=scr6")
-	print "	mr_16x2	r8, r9, r4, r3, r11	// h89"
+        if (MONT_OR_BAR == 0) :
+	    print "	mr_16x2	r8, r9, r4, r3, r11	// h89"
+        else : # barrett
+	    print "	br_32x2	r8, r9, r4, r3, r11	// h89"
 	print_ldr("r10",s_11,"h10=scr11")
 	print_ldr("r9",s_7,"h11=scr7")
-	print "	mr_16x2	r10, r9, r4, r3, r11	// h10,11"
+        if (MONT_OR_BAR == 0) :
+	    print "	mr_16x2	r10, r9, r4, r3, r11	// h10,11"
+        else : # barrett
+	    print "	br_32x2	r10, r9, r4, r3, r11	// h10,11"
 	print "	str	r7, [r2, #4]"
 	print "	str	r12, [r2, #8]"
 	print "	str	r14, [r2, #12]"
@@ -480,12 +519,18 @@ def KA_polymulNxN (N) :
         print_ldr("r14",s_9,"h14=scr9")
         print_ldr("r7",s_1,"h0=scr1")
 	print_ldr("r8",s_2,"h1=scr2")
-	print "	mr_16x2	r7, r8, r4, r3, r11"
-	print "	mr_16x2	r12, r10, r4, r3, r11"
-	print "	mr_hi	r14, r4, r3, r11"
-	print "	lsr	r14, #16"
-	print "	str	r12, [r2, #24]"
+        if (MONT_OR_BAR == 0) :
+	    print "	mr_16x2	r7, r8, r4, r3, r11	// h01"
+	    print "	mr_16x2	r12, r10, r4, r3, r11	// h12,13"
+	    print "	mr_hi	r14, r4, r3, r11"
+	    print "	lsr	r14, #16"
+        else : # barrett
+	    print "	br_32x2	r7, r8, r4, r3, r11	// h01"
+	    print "	br_32x2	r12, r10, r4, r3, r11	// h12,13"
+	    print "	br_32	r14, r4, r3, r11"
+	    print "	movt	r14, #0"
 	print "	str	r14, [r2, #28]"
+	print "	str	r12, [r2, #24]"
 	print "	str	r7, [r2], #32"
         print_ldr("r14",s_0,"counter=scr0")
     print "	subs	r14, #1"
@@ -700,6 +745,9 @@ def KA_polymulNxN (N) :
 KA_prologue()
 # if (NARGS > 1) :
 NN = int(sys.argv[1])
+if (len(sys.argv) > 2) :
+    if (sys.argv[2]=="BARRETT") :
+        MONT_OR_BAR = 1
 KA_polymulNxN(NN)
 
 # if (NARGS == 1) :

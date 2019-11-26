@@ -45,8 +45,8 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 		    "ldr %0, [%4], #4 \n\t"	/* load F12 */		\
 		    "ldr %1, [%4], #4 \n\t"	/* load F34 */		\
 		    "ldr %2, [%4], %5"          /* load F56 */		\
-		    : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D))	\
-		    : "r"((F)), "X"(E-10), "m"(*(const int (*)[4]) (F))	\
+		    : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D)), "+r"((F))	\
+		    : "X"(E-10), "m"(*(const int (*)[4]) (F))	\
 		    ) 
 
 //#define store8(F,A,B,C,D) /* store 8-poly (A,B,C,D) at F     */	\
@@ -532,8 +532,9 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 
 #define bct8_1_add8_y(F,G,E)					\
   /*void bct8_1_add8_y(int *F, int*G)*/				\
+  /* bct8_1(F,G,0);						\
+     add8_y(F,G,E); */						\
   {								\
-    /*int E=16;*/						\
     int f01, f23, f45, f67;					\
     int t01, t23, t45, t67;					\
     int g12, g34, g56, g70x;					\
@@ -548,24 +549,26 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
     f45 = __SADD16(f45,t45); f67 = __SADD16(f67,t67);		\
 									\
     int g01, g23, g45, g67;						\
-    int g43, g0x7;							\
+    int g43, g0x7, g07, dummy;						\
     __asm__ volatile ("ror %0, %2, #16 \n\t"				\
-		      "ror %1, %3, #16 \n\t"				\
-		      :"=r"(g43),"=r"(g0x7)				\
+		      /* "ror %1, %4, #16 \n\t"	*/			\
+		      "mov %1, #0 \n\t"					\
+		      "sasx %1, %1, %3 \n\t"				\
+		      :"=&r"(g43),"=&r"(g07)				\
 		      :"r"(g34),"r"(g70x)				\
 		      );						\
     __asm__ volatile ("pkhtb %1, %6, %5, ASR #16 \n\t"			\
 		      "pkhbt %2, %6, %7, LSL #16 \n\t"			\
 		      "pkhtb %3, %4, %7, ASR #16 \n\t"			\
-		      "neg %4, %4 \n\t"					\
+		      /* "neg %4, %4 \n\t" */				\
 		      "pkhbt %0, %4, %5, LSL #16 \n\t"			\
 		      :"=&r"(g01),"=&r"(g23),"=&r"(g45),"=&r"(g67)	\
-		      :"r"(g0x7),"r"(g12),"r"(g43),"r"(g56)		\
+		      :"r"(g07),"r"(g12),"r"(g43),"r"(g56)		\
 		      );						\
     f01 = __SADD16(f01,g01); f23 = __SADD16(f23,g23);			\
     f45 = __SADD16(f45,g45); f67 = __SADD16(f67,g67);			\
     store8a(F, f01, f23, f45, f67, (E));				\
-  }
+  } 
 
 void fft64(int *A, int *B) {
   int *F, *G, i;

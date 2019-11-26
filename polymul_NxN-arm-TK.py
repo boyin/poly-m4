@@ -8,6 +8,7 @@ qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 NV = 0; V = {}
+MONT_OR_BAR = 0
 
 def alloc_save (S) :
     global NV

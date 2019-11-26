@@ -1,14 +1,14 @@
 #include "red-asm.h"
 // N=256 requires 15552=8x1944 storage
 
-#include "polymul_256x256_B8_aux.h"
+#include "polymul_256x256_bar_B8_aux.h"
 	.p2align	2,,3	
 	.syntax		unified
 	.text
-// void gf_polymul_256x256_divR (int32_t *h, int32_t *f, int32_t *g);
-	.global gf_polymul_256x256_divR
-	.type	gf_polymul_256x256_divR, %function
-gf_polymul_256x256_divR:
+// void gf_polymul_256x256 (int32_t *h, int32_t *f, int32_t *g);
+	.global gf_polymul_256x256
+	.type	gf_polymul_256x256, %function
+gf_polymul_256x256:
 	push	{r4-r11,lr}
 	vpush	{s16-s31}
 	ldr	r12, =3888	// r12=2M
@@ -207,20 +207,20 @@ KA256_muls1:
 	smlad	r14, r3, r10, r14
 	smlad	r14, r5, r9, r14
 	smlad	r14, r6, r8, r14	// h6
-	movw	r3, #49905
-	movw	r4, #4591
+	vmov	r3, s7  // reload q32inv
+	vmov	r4, s8  // reload -q
 	vmov	r8, s12  // h3=scr3
 	vmov	r9, s13  // h5=scr4
 	vmov	r10, s14  // h7=scr5
-	mr_16x2	r7, r8, r4, r3, r11	// h23
-	mr_16x2	r12, r9, r4, r3, r11	// h45
-	mr_16x2 r14, r10, r4, r3, r11	// h67
+	br_32x2	r7, r8, r4, r3, r11	// h23
+	br_32x2	r12, r9, r4, r3, r11	// h45
+	br_32x2 r14, r10, r4, r3, r11	// h67
 	vmov	r8, s21  // h8=scr12
 	vmov	r9, s15  // h9=scr6
-	mr_16x2	r8, r9, r4, r3, r11	// h89
+	br_32x2	r8, r9, r4, r3, r11	// h89
 	vmov	r10, s20  // h10=scr11
 	vmov	r9, s16  // h11=scr7
-	mr_16x2	r10, r9, r4, r3, r11	// h10,11
+	br_32x2	r10, r9, r4, r3, r11	// h10,11
 	str	r7, [r2, #4]
 	str	r12, [r2, #8]
 	str	r14, [r2, #12]
@@ -231,10 +231,10 @@ KA256_muls1:
 	vmov	r14, s18  // h14=scr9
 	vmov	r7, s10  // h0=scr1
 	vmov	r8, s11  // h1=scr2
-	mr_16x2	r7, r8, r4, r3, r11	// h01
-	mr_16x2	r12, r10, r4, r3, r11	// h12,13
-	mr_hi	r14, r4, r3, r11
-	lsr	r14, #16
+	br_32x2	r7, r8, r4, r3, r11	// h01
+	br_32x2	r12, r10, r4, r3, r11	// h12,13
+	br_32	r14, r4, r3, r11
+	movt	r14, #0
 	str	r14, [r2, #28]
 	str	r12, [r2, #24]
 	str	r7, [r2], #32
