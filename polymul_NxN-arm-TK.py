@@ -8,6 +8,13 @@ qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 NV = 0; V = {}
+MONT_OR_BAR = 0
+
+# def alloc_save (S) : # allocate variable name s_S as a space
+#     global SAVES
+#     if not (("s_"+S) in locals() or ("s_"+S) in globals()) :
+#         globals()["s_"+S] = "s" + str(SAVES)
+#         SAVES +=1
 
 def alloc_save (S) :
     global NV
@@ -113,7 +120,8 @@ def KA_terms (N,N0) :
 
 #T = 768	# Toom size
 #l = 6 		# Toom #segments
-B = 8		# new base case
+B = 16 		# new base case
+#B = 8		# new base case
 #B = 4 		# base case
 W = 2 		# width of vectors
 q_mb = int(sqrt((32767-2295)*2**16/B)) # multiplicative bound
@@ -214,8 +222,8 @@ def T_polymulNxN (T, l) :
     print_str("r14", V["M2"], "save Matrix 2")
     print "	movw	r12, #%d" % (q)
     #print_str("r12", V["q"], "save q")
-    print "	movw	r14, #%d" % (65536-qinv)
-    print "	movt	r14, #65536-1"
+    print "	movw	r14, #%d" % (qinv)
+    #print "	movt	r14, #65536-1"
     print_str("r14", V["qi"], "save qinv")
     print "	rsb	r12, r12, #0		// -q"
     print_str("r12", V["-q"], "save -q")
@@ -562,9 +570,9 @@ def T_polymulNxN (T, l) :
 	smladx  r12, r3, r7, r12	// r12 += f1 g3 + f2 g2 = h4 (32bit)
 	smladx  r11, r5, r6, r11	// r11 += f2 g1 + f3 g0 = h3 (32bit)
 	smuadx	r3, r5, r7		// r3 = f2 g3 + f3 g2 = h5 (32bit)'''
-        print_ldr("r5",V["qi"],"r5 = -q^{-1} mod 2^16")
-        #print_ldr("r6",V["q"],"r6 = q")
-        print "	movw	r6, #%d		// r6 = q" % (q)
+        print_ldr("r5",V["qi"],"r5 = q^{-1} mod 2^16")
+        print_ldr("r6",V["-q"],"r6 = -q")
+        #print "	movw	r6, #%d		// r6 = q" % (q)
         #
         print '''	mr_16x2	r12, r3, r6, r5, r7
 	mr_hi	r4, r6, r5, r7             
@@ -671,6 +679,14 @@ def T_polymulNxN (T, l) :
 	print "	str	r7, [r2], #32"
         print_ldr("r14",V["0"],"counter=scr0")
 	print "// end polymul_8x8_divR"
+    elif (B==16) :
+
+        from polymul_NxN_sch_i import SCH_polymulNxN
+        if (MONT_OR_BAR == 0) : s = V["qi"]
+        else : s = V["q32"]
+        print_str("r14",V["0"],"save counter to scr0")
+        SCH_polymulNxN(16,"r0","r1","r2",V["-q"],s)
+        print_ldr("r14",V["0"],"counter=scr0")
     print "	subs	r14, #1"
     print "	bne	T%dx%d_muls1" %  (N,l)
     #
@@ -757,13 +773,17 @@ def T_polymulNxN (T, l) :
             a2_last = 0;
             for a in size_marks_list :
                 aux.write("	.hword %d, %d" % (a[1],len(a[2])))
-                aux.write(", %d" % (a[2][0]-a2_last)) 
-                for i in range(0,len(a[2])-2,2) :
-		    aux.write(", %d" % (a[2][i+1]-a[2][i]+1)) # interval length
-                    aux.write(", %d" % (a[2][i+2]-a[2][i+1]-1)) # skip
-		aux.write(", %d" % (a[2][-1]-a[2][-2]+1)) # interval length
-                aux.write(", %d\n" % (2*N0/W+a[2][0]-a[2][-1]-1)) # skip
-                a2_last = a[2][0];
+                if (len(a[2])>0) :
+                    aux.write(", %d" % (a[2][0]-a2_last)) # offset
+                    for i in range(0,len(a[2])-2,2) :
+		        aux.write(", %d" % (a[2][i+1]-a[2][i]+1)) # interval length
+                        aux.write(", %d" % (a[2][i+2]-a[2][i+1]-1)) # skip
+		    aux.write(", %d" % (a[2][-1]-a[2][-2]+1)) # interval length
+                    aux.write(", %d\n" % (2*N0/W+a[2][0]-a[2][-1]-1)) # skip
+                    a2_last = a[2][0];
+                else :
+                    aux.write(", %d\n" % (-a2_last))
+                    a2_last = 0;
             aux.write("	.hword	-1\n")
         #if (T==768 and (N0==8 or N0==16)):
         #    aux.write("	/* tailored overflow check\n") 
@@ -813,8 +833,12 @@ def T_polymulNxN (T, l) :
             print "	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries"
             print "	ldrsh	r5, [r3], #2	// offset"
             print "	add	r12, r12, r5"
+            print "	cmp	r11, #0"
+            print "	bne	T%dx%d_col_%d_ov2" %  (N,l,N0)
+            print "	mov	r12, r4		// empty set of intervals"
+            print "	b	T%dx%d_col_%d_ov1" %  (N,l,N0)
             print "T%dx%d_col_%d_ov2:" %  (N,l,N0)
-            print "	asr	r5, r11, #1	// r11 : number of intervals"
+            print "	asr	r5, r11, #1	// r5 : number of intervals"
             print "T%dx%d_col_%d_ov3:" %  (N,l,N0)
             print "	ldrsh	r10, [r3], #2	// size of interval"
             print "T%dx%d_col_%d_ov4:" %  (N,l,N0)

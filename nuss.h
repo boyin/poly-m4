@@ -24,7 +24,7 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 		     "ldr %1, [%4], #4 \n\t"	/* load F23 */		\
 		     "ldr %2, [%4], #4 \n\t"	/* load F45 */		\
 		     "ldr %3, [%4], %6"		/* load F67 */		\
-		     : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D)), "+r"((F))\
+		     : "=&r"((A)),"=&r"((B)),"=&r"((C)),"=&r"((D)),"+r"((F))\
 		     : "m"(*(const int (*)[4]) (F)),"X"((E)-12)		\
 		     ) 
 
@@ -45,8 +45,8 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 		    "ldr %0, [%4], #4 \n\t"	/* load F12 */		\
 		    "ldr %1, [%4], #4 \n\t"	/* load F34 */		\
 		    "ldr %2, [%4], %5"          /* load F56 */		\
-		    : "=&r"((A)), "=&r"((B)), "=&r"((C)), "=&r"((D))	\
-		    : "r"((F)), "X"(E-10), "m"(*(const int (*)[4]) (F))	\
+		    : "=&r"((A)),"=&r"((B)),"=&r"((C)),"=&r"((D)),"+r"((F)) \
+		    : "X"(E-10), "m"(*(const int (*)[4]) (F))		\
 		    ) 
 
 //#define store8(F,A,B,C,D) /* store 8-poly (A,B,C,D) at F     */	\
@@ -532,8 +532,9 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
 
 #define bct8_1_add8_y(F,G,E)					\
   /*void bct8_1_add8_y(int *F, int*G)*/				\
+  /* bct8_1(F,G,0);						\
+     add8_y(F,G,E); */						\
   {								\
-    /*int E=16;*/						\
     int f01, f23, f45, f67;					\
     int t01, t23, t45, t67;					\
     int g12, g34, g56, g70x;					\
@@ -548,24 +549,26 @@ void gf_polymul_64x64_div4096_negc(int *h, int *f, int *g);
     f45 = __SADD16(f45,t45); f67 = __SADD16(f67,t67);		\
 									\
     int g01, g23, g45, g67;						\
-    int g43, g0x7;							\
+    int g43, g0x7, g07, dummy;						\
     __asm__ volatile ("ror %0, %2, #16 \n\t"				\
-		      "ror %1, %3, #16 \n\t"				\
-		      :"=r"(g43),"=r"(g0x7)				\
+		      /* "ror %1, %4, #16 \n\t"	*/			\
+		      "mov %1, #0 \n\t"					\
+		      "sasx %1, %1, %3 \n\t"				\
+		      :"=&r"(g43),"=&r"(g07)				\
 		      :"r"(g34),"r"(g70x)				\
 		      );						\
     __asm__ volatile ("pkhtb %1, %6, %5, ASR #16 \n\t"			\
 		      "pkhbt %2, %6, %7, LSL #16 \n\t"			\
 		      "pkhtb %3, %4, %7, ASR #16 \n\t"			\
-		      "neg %4, %4 \n\t"					\
+		      /* "neg %4, %4 \n\t" */				\
 		      "pkhbt %0, %4, %5, LSL #16 \n\t"			\
 		      :"=&r"(g01),"=&r"(g23),"=&r"(g45),"=&r"(g67)	\
-		      :"r"(g0x7),"r"(g12),"r"(g43),"r"(g56)		\
+		      :"r"(g07),"r"(g12),"r"(g43),"r"(g56)		\
 		      );						\
     f01 = __SADD16(f01,g01); f23 = __SADD16(f23,g23);			\
     f45 = __SADD16(f45,g45); f67 = __SADD16(f67,g67);			\
     store8a(F, f01, f23, f45, f67, (E));				\
-  }
+  } 
 
 void fft64(int *A, int *B) {
   int *F, *G, i;
@@ -624,17 +627,18 @@ void unfft64(int *A, int *B) {
   tr88r(B,A);
 }
 
+/* inline void polymul_8x8_divR_negc_shift(int *H, int *F, int *G) {	\ */
 #define polymul_8x8_divR_negc_shift(H,F,G)				\
-  __asm__ volatile ("ldr	r5, [%2, #4]	/* f23 */ \n\t"		\
+  __asm__ volatile (/*"vmov	s6, r8 \n\t" */				\
+		    "ldr	r5, [%2, #4]	/* f23 */ \n\t"		\
 		    "ldr	r6, [%2, #8]	/* f45 */ \n\t"		\
 		    "ldr	r7, [%2, #12]	/* f67 */ \n\t"		\
 		    "ldr	r4, [%2], #16	/* f01 */ \n\t"		\
 		    "ldr	r9, [%3, #4]	/* g23 */ \n\t"		\
 		    "ldr	r10, [%3, #8]	/* g45 */ \n\t"		\
 		    "ldr	r11, [%3, #12]	/* g67 */ \n\t"		\
-		    "vmov	s4, r3 \n\t"				\
-		    "vmov	s6, r8 \n\t"				\
 		    "ldr	r8, [%3], #16	/* g01 */ \n\t"		\
+		    "vmov	s4, r3 \n\t"				\
 		    "smuadx	r14, r4, r8 \n\t"			\
 		    "smuadx	r3, r5, r11 \n\t"			\
 		    "smladx	r3, r6, r10, r3 \n\t"			\
@@ -711,20 +715,20 @@ void unfft64(int *A, int *B) {
 		    "smulbb	r11, r8, r3 \n\t"			\
 		    "smlabb	r8, r4, r11, r8 \n\t"			\
 		    "pkhtb	r7, r8, r7, ASR #16 \n\t" /* h01 */ 	\
-		    "vmov	r8, s6 \n\t"				\
-		    "vmov	r3, s4 \n\t"				\
 		    "str	r9, [%1, #4] \n\t"			\
 		    "str	r14, [%1, #8] \n\t"			\
 		    "str	r12, [%1, #12] \n\t"			\
 		    "str	r7, [%1], #16 \n\t"			\
+		    /*    "vmov	r8, s6 \n\t"	*/			\
+		    "vmov	r3, s4 \n\t"				\
 		    : "=m"(*(int (*)[4])(H)),"+r"(H),"+r"(F),"+r"(G)	\
 		    : "X"(q),"X"(65536-qinv),				\
 		      "m"(*(int (*)[4])(F)),"m"(*(int (*)[4])(G))	\
-		    : "r4","r5","r6","r7","r9","r10","r11",		\
+		    : "r4","r5","r6","r7","r8","r9","r10","r11",	\
 		      "r12","lr","cc",					\
 		      "s0","s1","s2","s3","s4","s5","s6","s7"		\
-		    )
-
+		    );							\
+  /* } */
 
 
 void gf_polymul_8x8_divR_negc (int *h, int *f, int *g) {
