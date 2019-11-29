@@ -123,7 +123,8 @@ def KA_terms (N,N0) :
 #B = 32		# adventurous new base case
 #B = 16		# new base case
 B = 8		# new base case
-#B = 4 		# base case
+#B = 4 		# old base case
+short1 = 0	# if =1, one of the inputs is short
 W = 2 		# width of vectors
 q_mb = int(sqrt((32767-2295)*2**16/B)) # multiplicative bound
 N_range = 256
@@ -792,22 +793,7 @@ def T_polymulNxN (T, l) :
                     aux.write(", %d\n" % (-a2_last))
                     a2_last = 0;
             aux.write("	.hword	-1\n")
-        #if (T==768 and (N0==8 or N0==16)):
-        #    aux.write("	/* tailored overflow check\n") 
-	# if (size_mark_empty == 0) :
-        #     for j in range((2*l-1)*KA_terms(N,N0)/W*2) :
-        #         if (size_mark[j] == 1) :
-        #             if (size_mark[j-1] == 0) :
-        #                 aux.write("	.hword	%d, " % j)
-        #             if (size_mark[j+1] == 0) :
-        #                 if (size_mark[j+2] == 1) :
-        #                     size_mark[j+1] = 1
-        #                 else :
-        #                     aux.write("%d\n" % j)
-        #     aux.write("	.hword	-1\n")
         else : aux.write("	// no overflow\n")
-        #if (T==768 and (N0==8 or N0==16)):
-        #    aux.write("	skipped overflow list */\n") 
         aux.write("T_col_add_%d_%d:\n" % (N,N0))
         aux.write("	.hword	%d	// =#shift/8, #iterations*4\n" % (N1/W))
         for j in range(0,N1,2*N0) :
