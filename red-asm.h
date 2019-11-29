@@ -1,3 +1,6 @@
+#ifndef _RED_ASM_H_
+#define _RED_ASM_H_ 1
+
 // macros for reduction mod qq	
 
 	.macro	mr_hi, res32, qq, neg_qqinv, scr
@@ -39,10 +42,20 @@
 	smmulr	\scr, \res, \q32inv
 	mla	\res, \mq, \scr, \res
 	.endm
-	  
+
+	.macro	br_32x2, res0, res1, mq, q32inv, scr
+	smmulr	\scr, \res0, \q32inv
+	mla	\res0, \mq, \scr, \res0
+	smmulr	\scr, \res1, \q32inv
+	mla	\res1, \mq, \scr, \res1
+	pkhbt   \res0, \res0, \res1, LSL #16  
+	.endm  
+	  // no good don't use
 	.macro	center_adj, res, qqx2, scr // qqx2 = 2 copies of qq
 	sadd16	scr, res, qqx2
 	sel	res, scr
 	ssub16	scr, res, qqx2
 	sel	res, scr
 	.endm	  
+
+#endif

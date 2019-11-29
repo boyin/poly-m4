@@ -35,7 +35,7 @@
    ---------------------------------------------------------------------------*/
 
 #include <stdint.h>
-#define __STATIC_INLINE static inline
+#define __STATIC_INLINE  /* static */ inline
 #define __ASM __asm__
 
 #ifndef __CORE_CMSIMD_H
