@@ -120,9 +120,11 @@ def KA_terms (N,N0) :
 
 #T = 768	# Toom size
 #l = 6 		# Toom #segments
-B = 16 		# new base case
-#B = 8		# new base case
-#B = 4 		# base case
+#B = 32		# adventurous new base case
+#B = 16		# new base case
+B = 8		# new base case
+#B = 4 		# old base case
+short1 = 0	# if =1, one of the inputs is short
 W = 2 		# width of vectors
 q_mb = int(sqrt((32767-2295)*2**16/B)) # multiplicative bound
 N_range = 256
@@ -212,14 +214,20 @@ def T_polymulNxN (T, l) :
     print_str("r0", V["gg"], "save gg (ff=sp)")
     print "	add	r14, r0, r12	// hh=gg+%d(=2M)" % (2*M)
     print_str("r14", V["hh"], "save h")
-    #print "	movw	r14, #:lower16:T_exp_ov_%d" % (N)
-    #print "	movt	r14, #:upper16:T_exp_ov_%d" % (N)
-    print "	ldr	r14, =T_exp_ov_%d" % N
+    if (B >= 32) : # code too large for relocatable code
+        print "	movw	r14, #:lower16:T_exp_ov_%d" % (N)
+        print "	movt	r14, #:upper16:T_exp_ov_%d" % (N)
+        print "	movw	r11, #:lower16:T%d_Mat2" % (l)
+        print "	movt	r11, #:upper16:T%d_Mat2" % (l)
+        print "	movw	r12, #:lower16:T%d_Mat1" % (l)
+        print "	movt	r12, #:upper16:T%d_Mat1" % (l)
+    else : # use relocatable code if possible
+        print "	ldr	r14, =T_exp_ov_%d" % N
+        print "	ldr	r11, =T%d_Mat2" % (l)
+        print "	ldr	r12, =T%d_Mat1" % (l)
     print_str("r14", V["ov"], "save ov pointer")
-    print "	ldr	r12, =T%d_Mat1" % (l)
     print_str("r12", V["M1"], "save Matrix 1")
-    print "	ldr	r14, =T%d_Mat2" % (l)
-    print_str("r14", V["M2"], "save Matrix 2")
+    print_str("r11", V["M2"], "save Matrix 2")
     print "	movw	r12, #%d" % (q)
     #print_str("r12", V["q"], "save q")
     print "	movw	r14, #%d" % (qinv)
@@ -584,108 +592,108 @@ def T_polymulNxN (T, l) :
 	str	r4, [r2, #12]
 	str	r8, [r2], #16
 	// end polymul_4x4_divR '''
-    elif (B==8) :
-        print '''	// begin polymul_8x8_divR
-	ldr	r5, [r0, #4]		// f23
-	ldr	r6, [r0, #8]		// f45
-	ldr	r7, [r0, #12]		// f67
-	ldr	r4, [r0],#16		// f01
-	ldr	r9, [r1, #4]		// g23
-	ldr	r10, [r1, #8]		// g45
-	ldr	r11, [r1, #12]		// g67
-	ldr	r8, [r1],#16		// g01'''
-        print_str("r14",V["0"],"scr0=count")
-	print "	smulbb	r12, r4, r8"
-	print "	smuadx	r14, r4, r8"
-        print_str("r12",V["1"],"scr1=h0")
-        print_str("r14",V["2"],"scr2=h1")
-	print "	smuadx	r12, r4, r9"
-	print "	smladx	r12, r5, r8, r12"
-	print "	smuadx	r14, r4, r10"
-	print "	smladx	r14, r5, r9, r14"
-	print "	smladx	r14, r6, r8, r14"
-	print_str("r12",V["3"],"scr3=h3")
-	print_str("r14",V["4"],"scr4=h5")
-	print "	smuadx	r12, r4, r11"
-	print "	smladx	r12, r5, r10, r12"
-	print "	smladx	r12, r6, r9, r12"
-	print "	smladx	r12, r7, r8, r12"
-	print "	smuadx	r14, r5, r11"
-	print "	smladx	r14, r6, r10, r14"
-	print "	smladx	r14, r7, r9, r14"
-	print_str("r12",V["5"],"scr5=h7")
-	print_str("r14",V["6"],"scr6=h9")
-	print "	smuadx	r12, r6, r11"
-	print "	smladx	r12, r7, r10, r12"
-	print "	smuadx	r14, r7, r11"
-	print_str("r12",V["7"],"scr7=h11")
-	print_str("r14",V["8"],"scr8=h13")
-	print "	pkhtb	r3, r4, r5		// f21"
-	print "	pkhtb	r5, r5, r6		// f43"
-	print "	pkhtb	r6, r6, r7		// f65"
-	print "	smultt	r12, r7, r11		// f7 g7"
-	print "	smultt	r14, r7, r10		// f7 g5"
-	print "	smlad	r14, r6, r11, r14"
-	print_str("r12",V["9"],"scr9=h14")
-	print_str("r14",V["10"],"scr10=h12")
-	print "	smultt	r12, r7, r9		// f7 g3"
-	print "	smlad	r12, r6, r10, r12"
-	print "	smlad	r12, r5, r11, r12"
-	print "	smultt	r14, r7, r8"
-	print "	smlad	r14, r6, r9, r14"
-	print "	smlad	r14, r5, r10, r14"
-	print "	smlad	r14, r3, r11, r14"
-	print_str("r12",V["11"],"scr11=h10")
-	print_str("r14",V["12"],"scr12=h8, r7 now used up")
-	print "	smulbb	r7, r4, r9"
-	print "	smlad	r7, r3, r8, r7		// h2"
-	print "	smulbb	r12, r4, r10"
-	print "	smlad	r12, r3, r9, r12"
-	print "	smlad	r12, r5, r8, r12	// h4"
-	print "	smulbb	r14, r4, r11"
-	print "	smlad	r14, r3, r10, r14"
-	print "	smlad	r14, r5, r9, r14"
-	print "	smlad	r14, r6, r8, r14	// h6" 
-	print "	movw	r3, #%d" %(65536-qinv)
-	print "	movw	r4, #%d" %(q)
-	print_ldr("r8", V["3"],"h3=scr3")
-	print_ldr("r9", V["4"],"h5=scr4")
-	print_ldr("r10", V["5"],"h7=scr5")
-	print "	mr_16x2	r7, r8, r4, r3, r11	// h23"
-	print "	mr_16x2	r12, r9, r4, r3, r11	// h45"
-	print "	mr_16x2 r14, r10, r4, r3, r11	// h67"
-	print_ldr("r8", V["12"],"h8=scr12")
-	print_ldr("r9", V["6"],"h9=scr6")
-	print "	mr_16x2	r8, r9, r4, r3, r11	// h89"
-	print_ldr("r10",V["11"],"h10=scr11")
-	print_ldr("r9",V["7"],"h11=scr7")
-	print "	mr_16x2	r10, r9, r4, r3, r11	// h10,11"
-	print "	str	r7, [r2, #4]"
-	print "	str	r12, [r2, #8]"
-	print "	str	r14, [r2, #12]"
-	print "	str	r8, [r2, #16]"
-	print "	str	r10, [r2, #20]"
-	print_ldr("r12",V["10"],"h12=scr10")
-	print_ldr("r10",V["8"],"h13=scr8")
-        print_ldr("r14",V["9"],"h14=scr9")
-        print_ldr("r7",V["1"],"h0=scr1")
-	print_ldr("r8",V["2"],"h1=scr2")
-	print "	mr_16x2	r7, r8, r4, r3, r11"
-	print "	mr_16x2	r12, r10, r4, r3, r11"
-	print "	mr_hi	r14, r4, r3, r11"
-	print "	lsr	r14, #16"
-	print "	str	r12, [r2, #24]"
-	print "	str	r14, [r2, #28]"
-	print "	str	r7, [r2], #32"
-        print_ldr("r14",V["0"],"counter=scr0")
-	print "// end polymul_8x8_divR"
-    elif (B==16) :
+    #elif (B==8) :
+    #    print '''	// begin polymul_8x8_divR
+    #    ldr	r5, [r0, #4]		// f23
+    #    ldr	r6, [r0, #8]		// f45
+    #    ldr	r7, [r0, #12]		// f67
+    #    ldr	r4, [r0],#16		// f01
+    #    ldr	r9, [r1, #4]		// g23
+    #    ldr	r10, [r1, #8]		// g45
+    #    ldr	r11, [r1, #12]		// g67
+    #    ldr	r8, [r1],#16		// g01'''
+    #    print_str("r14",V["0"],"scr0=count")
+    #    print "	smulbb	r12, r4, r8"
+    #    print "	smuadx	r14, r4, r8"
+    #    print_str("r12",V["1"],"scr1=h0")
+    #    print_str("r14",V["2"],"scr2=h1")
+    #    print "	smuadx	r12, r4, r9"
+    #    print "	smladx	r12, r5, r8, r12"
+    #    print "	smuadx	r14, r4, r10"
+    #    print "	smladx	r14, r5, r9, r14"
+    #    print "	smladx	r14, r6, r8, r14"
+    #    print_str("r12",V["3"],"scr3=h3")
+    #    print_str("r14",V["4"],"scr4=h5")
+    #    print "	smuadx	r12, r4, r11"
+    #    print "	smladx	r12, r5, r10, r12"
+    #    print "	smladx	r12, r6, r9, r12"
+    #    print "	smladx	r12, r7, r8, r12"
+    #    print "	smuadx	r14, r5, r11"
+    #    print "	smladx	r14, r6, r10, r14"
+    #    print "	smladx	r14, r7, r9, r14"
+    #    print_str("r12",V["5"],"scr5=h7")
+    #    print_str("r14",V["6"],"scr6=h9")
+    #    print "	smuadx	r12, r6, r11"
+    #    print "	smladx	r12, r7, r10, r12"
+    #    print "	smuadx	r14, r7, r11"
+    #    print_str("r12",V["7"],"scr7=h11")
+    #    print_str("r14",V["8"],"scr8=h13")
+    #    print "	pkhtb	r3, r4, r5		// f21"
+    #    print "	pkhtb	r5, r5, r6		// f43"
+    #    print "	pkhtb	r6, r6, r7		// f65"
+    #    print "	smultt	r12, r7, r11		// f7 g7"
+    #    print "	smultt	r14, r7, r10		// f7 g5"
+    #    print "	smlad	r14, r6, r11, r14"
+    #    print_str("r12",V["9"],"scr9=h14")
+    #    print_str("r14",V["10"],"scr10=h12")
+    #    print "	smultt	r12, r7, r9		// f7 g3"
+    #    print "	smlad	r12, r6, r10, r12"
+    #    print "	smlad	r12, r5, r11, r12"
+    #    print "	smultt	r14, r7, r8"
+    #    print "	smlad	r14, r6, r9, r14"
+    #    print "	smlad	r14, r5, r10, r14"
+    #    print "	smlad	r14, r3, r11, r14"
+    #    print_str("r12",V["11"],"scr11=h10")
+    #    print_str("r14",V["12"],"scr12=h8, r7 now used up")
+    #    print "	smulbb	r7, r4, r9"
+    #    print "	smlad	r7, r3, r8, r7		// h2"
+    #    print "	smulbb	r12, r4, r10"
+    #    print "	smlad	r12, r3, r9, r12"
+    #    print "	smlad	r12, r5, r8, r12	// h4"
+    #    print "	smulbb	r14, r4, r11"
+    #    print "	smlad	r14, r3, r10, r14"
+    #    print "	smlad	r14, r5, r9, r14"
+    #    print "	smlad	r14, r6, r8, r14	// h6" 
+    #    print "	movw	r3, #%d" %(65536-qinv)
+    #    print "	movw	r4, #%d" %(q)
+    #    print_ldr("r8", V["3"],"h3=scr3")
+    #    print_ldr("r9", V["4"],"h5=scr4")
+    #    print_ldr("r10", V["5"],"h7=scr5")
+    #    print "	mr_16x2	r7, r8, r4, r3, r11	// h23"
+    #    print "	mr_16x2	r12, r9, r4, r3, r11	// h45"
+    #    print "	mr_16x2 r14, r10, r4, r3, r11	// h67"
+    #    print_ldr("r8", V["12"],"h8=scr12")
+    #    print_ldr("r9", V["6"],"h9=scr6")
+    #    print "	mr_16x2	r8, r9, r4, r3, r11	// h89"
+    #    print_ldr("r10",V["11"],"h10=scr11")
+    #    print_ldr("r9",V["7"],"h11=scr7")
+    #    print "	mr_16x2	r10, r9, r4, r3, r11	// h10,11"
+    #    print "	str	r7, [r2, #4]"
+    #    print "	str	r12, [r2, #8]"
+    #    print "	str	r14, [r2, #12]"
+    #    print "	str	r8, [r2, #16]"
+    #    print "	str	r10, [r2, #20]"
+    #    print_ldr("r12",V["10"],"h12=scr10")
+    #    print_ldr("r10",V["8"],"h13=scr8")
+    #    print_ldr("r14",V["9"],"h14=scr9")
+    #    print_ldr("r7",V["1"],"h0=scr1")
+    #    print_ldr("r8",V["2"],"h1=scr2")
+    #    print "	mr_16x2	r7, r8, r4, r3, r11"
+    #    print "	mr_16x2	r12, r10, r4, r3, r11"
+    #    print "	mr_hi	r14, r4, r3, r11"
+    #    print "	lsr	r14, #16"
+    #    print "	str	r12, [r2, #24]"
+    #    print "	str	r14, [r2, #28]"
+    #    print "	str	r7, [r2], #32"
+    #    print_ldr("r14",V["0"],"counter=scr0")
+    #	print "// end polymul_8x8_divR"
+    elif (B==8 or B==16 or B==32) :
 
         from polymul_NxN_sch_i import SCH_polymulNxN
         if (MONT_OR_BAR == 0) : s = V["qi"]
         else : s = V["q32"]
         print_str("r14",V["0"],"save counter to scr0")
-        SCH_polymulNxN(16,"r0","r1","r2",V["-q"],s)
+        SCH_polymulNxN(B,"r0","r1","r2",V["-q"],s,MONT_OR_BAR)
         print_ldr("r14",V["0"],"counter=scr0")
     print "	subs	r14, #1"
     print "	bne	T%dx%d_muls1" %  (N,l)
@@ -785,22 +793,7 @@ def T_polymulNxN (T, l) :
                     aux.write(", %d\n" % (-a2_last))
                     a2_last = 0;
             aux.write("	.hword	-1\n")
-        #if (T==768 and (N0==8 or N0==16)):
-        #    aux.write("	/* tailored overflow check\n") 
-	# if (size_mark_empty == 0) :
-        #     for j in range((2*l-1)*KA_terms(N,N0)/W*2) :
-        #         if (size_mark[j] == 1) :
-        #             if (size_mark[j-1] == 0) :
-        #                 aux.write("	.hword	%d, " % j)
-        #             if (size_mark[j+1] == 0) :
-        #                 if (size_mark[j+2] == 1) :
-        #                     size_mark[j+1] = 1
-        #                 else :
-        #                     aux.write("%d\n" % j)
-        #     aux.write("	.hword	-1\n")
         else : aux.write("	// no overflow\n")
-        #if (T==768 and (N0==8 or N0==16)):
-        #    aux.write("	skipped overflow list */\n") 
         aux.write("T_col_add_%d_%d:\n" % (N,N0))
         aux.write("	.hword	%d	// =#shift/8, #iterations*4\n" % (N1/W))
         for j in range(0,N1,2*N0) :
@@ -936,9 +929,6 @@ def T_polymulNxN (T, l) :
 	    print "	subs	r14, r14, #2"
             print "	beq	T%dx%d_col_%d_end" %  (N,l,N0)
             print "	tst	r14, #%d	// set bit < %d?" % (N0-1,N0)
-            #print "	bne	T%dx%d_col_%d_add1" %  (N,l,N0)
-            #print "	add	r1, r1, r11		//+6*N0"
-            #print "	add	r12, r12, r0		//+2*N0"
             print "	itt	eq"
             print "	addeq	r1, r1, r11		//+6*N0"
             print "	addeq	r12, r12, r0		//+2*N0"

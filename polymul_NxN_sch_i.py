@@ -7,7 +7,7 @@ qinv = 15631	# q^{-1} mod 2^16
 q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 SAVES = 0
-MONT_OR_BAR = 0
+global MONT_OR_BAR 
 
 r_f = "r1"
 r_g = "r2"
@@ -90,9 +90,10 @@ def reduce_4acc (i, scr) :
     print "	str	%s, [%s], #4" % (acc_r(i,0),r_h)
     print "	str	%s, [%s], #4" % (acc_r(i,2),r_h)
 
-def SCH_polymulNxN(N,rf,rg,rh,smq,sqi) :
+def SCH_polymulNxN(N,rf,rg,rh,smq,sqi,MB) :
     assert (N == int(N/4)*4)    
-    global r_f, r_g, r_h, s_mq, s_qi, s_q32
+    global r_f, r_g, r_h, s_mq, s_qi, s_q32, MONT_OR_BAR
+    MONT_OR_BAR = MB
     r_f = rf; r_g = rg; r_h = rh; s_mq = smq;
     if (MONT_OR_BAR == 0) : s_qi = sqi
     else : s_q32 = sqi
@@ -181,6 +182,7 @@ def SCH_polymulNxN(N,rf,rg,rh,smq,sqi) :
     else :
         print "	br_32x2	%s, %s, r3, r12, r4" % (acc_r(N/2-1,0),acc_r(N/2-1,1))
         print "	br_32	%s, r3, r12, r4" % (acc_r(N/2-1,2))
+        print " bfc	%s, #16, #16" % (acc_r(N/2-1,2))
     print "	str	%s, [%s], #4" % (acc_r(N/2-1,0),r_h)
     print "	str	%s, [%s], #4" % (acc_r(N/2-1,2),r_h)
     print "	add	%s, #%d" % (r_f,2*N)

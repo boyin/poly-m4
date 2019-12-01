@@ -9,7 +9,10 @@ q16inv = 14	# round(2^16/q)
 q32inv = 935519	# round(2^32/q)
 ARGS = sys.argv
 SAVES = 0
-MONT_OR_BAR = 0
+if ("BARRETT" in sys.argv) : MONT_OR_BAR = 1
+else : MONT_OR_BAR = 0
+if ("short" in sys.argv) : short1 = 1
+else : short1 = 0
 
 def alloc_save (S) : # allocate variable name s_S as a space
     global SAVES
@@ -93,5 +96,5 @@ if (len(sys.argv) >= 2) :
     else : s = s_q32
     
     SCH_prologue(NN)
-    SCH_polymulNxN(NN,"r1","r2","r0",s_mq,s)
+    SCH_polymulNxN(NN,"r1","r2","r0",s_mq,s,MONT_OR_BAR)
     SCH_epilogue()
