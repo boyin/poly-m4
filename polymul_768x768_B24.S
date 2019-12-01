@@ -1,0 +1,1045 @@
+#include "red-asm.h"
+// N=768 requires 46656=8x5832 storage
+
+#include "polymul_768x768_B24_aux.h"
+	.p2align	2,,3	
+	.syntax		unified
+	.text
+// void gf_polymul_768x768_divR (int32_t *h, int32_t *f, int32_t *g);
+	.global gf_polymul_768x768_divR
+	.type	gf_polymul_768x768_divR, %function
+gf_polymul_768x768_divR:
+	push	{r4-r11,lr}
+	vpush	{s16-s31}
+	movw	r12, #11664	// r12=2M
+	sub	sp, sp, r12, LSL #2	// subtract 46656 = 8M
+		// ff=[sp], gg=[sp,#11664], hh=[sp,#23328]
+	vmov	s0, r0	// save h
+	mov	r3, sp
+	add	r0, sp, r12	// gg=ff+11664(=2M)
+	vmov	s1, r12	// save 2M
+	vmov	s2, r0	// save gg (ff=sp)
+	add	r14, r0, r12	// hh=gg+11664(=2M)
+	vmov	s3, r14	// save h
+	movw	r14, #:lower16:KA_exp_ov_768
+	movt	r14, #:upper16:KA_exp_ov_768
+	vmov	s4, r14	// save ov pointer
+	movw	r12, #4591
+	movw	r14, #15631
+	vmov	s6, r14	// save qinv
+	rsb	r12, r12, #0		// -q
+	vmov	s8, r12	// save -q
+	movw	r14, #18015
+	movt	r14, #14
+	vmov	s7, r14	// save q32inv
+	mov	r14, #1536
+KA768_mv_loop:	// r0 = gg, r1 = f, r2 = g, r3 = ff
+	ldm	r1!, {r4-r11}
+	stm	r3!, {r4-r11}
+	ldm	r2!, {r4-r11}
+	stm	r0!, {r4-r11}
+	subs	r14, #32
+	bne	KA768_mv_loop
+KA768_exp:	// ff @ sp, gg @ sp + 2M, 2M @ r12
+	vmov	r12, s1  // reload 2M
+	mov	r0, sp		// ff = r0
+	add	r1, r0, r12	// gg = r1
+	mov	r2, #768		// N0 = r2 = N
+	vmov	r3, s4  // load list to reduce
+KA768_exp_loop1:		// loop on N0
+	cmp	r2, #24		// while (N0>B)
+	beq	KA768_exp_end1
+KA768_exp_reduce:		// reduce ff[], gg[]
+	ldrsh	r4, [r3], #2	// list entry
+	cmp	r4, #-1		// end of this list?
+	beq	KA768_exp_adds	// only if -1 end
+	vmov	r6, s8  // load -q
+	vmov	r7, s7  // load q32inv
+	mov	r10, #32768	// load 2^15
+KA768_exp_red1:
+	ldrsh	r5, [r3], #2	// reduce ff[r4-r5], gg[r4-r5]
+KA768_exp_red2:			// while loop on r4
+	ldr	r8, [r0, r4, LSL #2]	// ff[r4]
+	ldr	r9, [r1, r4, LSL #2]	// gg[r4]
+	br_16x2	r8, r6, r7, r10, r11, r12
+	str	r8, [r0, r4, LSL #2]	// ff[r4] %= q
+	br_16x2	r9, r6, r7, r10, r11, r12
+	str	r9, [r1, r4, LSL #2]	// gg[r4] %= q
+	add	r4, #1
+	cmp	r4, r5		// r4 > r5?
+	bls	KA768_exp_red2	// loop (r4)
+	ldrsh	r4, [r3], #2	// re-load list entry
+	cmp	r4, #-1		// re-check, end of list?
+	bne	KA768_exp_red1
+KA768_exp_adds:
+/*
+  for (j=0; j<N1/2/W; j+=N0/2/W) {
+    for (k=0; k<N0/2/W; k++) {
+     ff[j+k+N1/W]=__SADD16(ff[2*j+k],ff[2*j+k+N0/2/W]);
+     gg[j+k+N1/W]=__SADD16(gg[2*j+k],gg[2*j+k+N0/2/W]);
+    }
+*/
+	ldrsh	r4, [r3], #2		// load N1/W/2
+	add	r5, r0, r4, LSL #3	// r5 = ff + N1/W
+	add	r6, r1, r4, LSL #3	// r6 = gg + N1/W
+	add	r0, r0, r2		// r0 = ff + N0/2/W
+	add	r1, r1, r2		// r1 = gg + N0/2/W
+	rsb	r2, r2, #0			// r2 = -N0
+	mov	r12, r2
+KA768_exp_adds1:
+	ldr	r8, [r0, r2]
+	ldr	r10, [r0], #4
+	ldr	r9, [r0, r2]
+	ldr	r11, [r0], #4
+	sadd16	r8, r8, r10
+	sadd16	r9, r9, r11
+	strd	r8, r9, [r5], #8
+	ldr	r8, [r1, r2]
+	ldr	r10, [r1], #4
+	ldr	r9, [r1, r2]
+	ldr	r11, [r1], #4
+	sadd16	r8, r8, r10
+	sadd16	r9, r9, r11
+	strd	r8, r9, [r6], #8
+	subs	r4, r4, #2
+	beq	KA768_exp_end
+	adds	r12, r12, #8
+	ittt	eq		// divisible by N0/2/W?
+	subeq	r0, r0, r2	// then add N0!
+	subeq	r1, r1, r2	// then add N0!
+	moveq	r12, r2		// reload with N0
+	b	KA768_exp_adds1
+KA768_exp_end:
+	rsb	r2, r2, #0
+	mov	r0, sp		// reload ff
+	vmov	r1, s2  // reload gg
+
+	lsr	r2, #1 		// N0 /= 2
+	b	KA768_exp_loop1	// loop
+KA768_exp_end1:
+
+KA768_mul:
+  // check multiplicative overflow (pre-mult size > q_mb=9121)
+KA768_mul_ov:
+	ldrsh	r2, [r3], #2
+	cmp	r2, #-1		// multiplicative overflow?
+	beq	KA768_muls
+	mov	r8, #32768
+	vmov	r6, s8  // load -q
+	vmov	r7, s7  // load round(2^32/q)
+KA768_mul_ov1:
+	ldrsh	r11, [r3], #2
+KA768_mul_ov2:
+	ldr	r4, [r0, r2, LSL #2]
+	ldr	r5, [r1, r2, LSL #2]
+	br_16x2	r4, r6, r7, r8, r9, r10
+	br_16x2 r5, r6, r7, r8, r9, r10
+	str	r4, [r0, r2, LSL #2]
+	str	r5, [r1, r2, LSL #2]
+	add	r2, r2, #1
+	cmp	r2, r11
+	bls	KA768_mul_ov2
+	ldrsh	r2, [r3], #2
+	cmp	r2, -1
+	bne	KA768_mul_ov1
+KA768_muls:
+	ldrsh	r14, [r3], #2	// r14 = N1/B
+	vmov	s4, r3	// save overflow list pointer
+	vmov	r2, s3  // load r2 = hh
+KA768_muls1:
+	vmov	s9, r14	// save counter to scr0
+	ldr	r12, [r1]
+	ldr	r14, [r1, #4]
+	ldr	r3, [r0]
+	ldr	r4, [r0, #4]
+	// block (0,0)
+	smuadx	r6, r3, r12
+	smuadx	r8, r4, r12
+	smladx	r8, r3, r14, r8
+	smuadx	r10, r4, r14
+	smulbb	r5, r3, r12
+	smulbb	r7, r3, r14
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smuad	r9, r3, r14
+	smlatt	r9, r4, r12, r9
+	smultt	r11, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r5, r6, r3, r12, r4
+	mr_16x2	r7, r8, r3, r12, r4
+	str	r5, [r2], #4
+	str	r7, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #0]
+	// block (1,0)
+	smladx	r10, r3, r12, r10
+	smuadx	r5, r4, r12
+	smladx	r5, r3, r14, r5
+	smuadx	r7, r4, r14
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smuad	r6, r3, r14
+	smlatt	r6, r4, r12, r6
+	smultt	r8, r4, r14
+	// block (0,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #0]
+	ldr	r4, [r0, #4]
+	smladx	r10, r3, r12, r10
+	smladx	r5, r4, r12, r5
+	smladx	r5, r3, r14, r5
+	smladx	r7, r4, r14, r7
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smlad	r6, r3, r14, r6
+	smlatt	r6, r4, r12, r6
+	smlatt	r8, r4, r14, r8
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r9, r10, r3, r12, r14
+	mr_16x2	r11, r5, r3, r12, r14
+	str	r9, [r2], #4
+	str	r11, [r2], #4
+	ldr	r3, [r0, #0]
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	// block (0,2)
+	smladx	r7, r3, r12, r7
+	smuadx	r9, r4, r12
+	smladx	r9, r3, r14, r9
+	smuadx	r11, r4, r14
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smuad	r10, r3, r14
+	smlatt	r10, r4, r12, r10
+	smultt	r5, r4, r14
+	// block (1,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	smladx	r7, r3, r12, r7
+	smladx	r9, r4, r12, r9
+	smladx	r9, r3, r14, r9
+	smladx	r11, r4, r14, r11
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smlad	r10, r3, r14, r10
+	smlatt	r10, r4, r12, r10
+	smlatt	r5, r4, r14, r5
+	// block (2,0)
+	ldr	r12, [r1, #0]
+	ldr	r14, [r1, #4]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r7, r3, r12, r7
+	smladx	r9, r4, r12, r9
+	smladx	r9, r3, r14, r9
+	smladx	r11, r4, r14, r11
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smlad	r10, r3, r14, r10
+	smlatt	r10, r4, r12, r10
+	smlatt	r5, r4, r14, r5
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r6, r7, r3, r12, r4
+	mr_16x2	r8, r9, r3, r12, r4
+	str	r6, [r2], #4
+	str	r8, [r2], #4
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	ldr	r12, [r1, #0]
+	// block (3,0)
+	smladx	r11, r3, r12, r11
+	smuadx	r6, r4, r12
+	smladx	r6, r3, r14, r6
+	smuadx	r8, r4, r14
+	smlabb	r10, r3, r12, r10
+	smlabb	r5, r3, r14, r5
+	pkhtb	r3, r3, r4
+	smlad	r5, r3, r12, r5
+	smuad	r7, r3, r14
+	smlatt	r7, r4, r12, r7
+	smultt	r9, r4, r14
+	// block (2,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r11, r3, r12, r11
+	smladx	r6, r4, r12, r6
+	smladx	r6, r3, r14, r6
+	smladx	r8, r4, r14, r8
+	smlabb	r10, r3, r12, r10
+	smlabb	r5, r3, r14, r5
+	pkhtb	r3, r3, r4
+	smlad	r5, r3, r12, r5
+	smlad	r7, r3, r14, r7
+	smlatt	r7, r4, r12, r7
+	smlatt	r9, r4, r14, r9
+	// block (1,2)
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	smladx	r11, r3, r12, r11
+	smladx	r6, r4, r12, r6
+	smladx	r6, r3, r14, r6
+	smladx	r8, r4, r14, r8
+	smlabb	r10, r3, r12, r10
+	smlabb	r5, r3, r14, r5
+	pkhtb	r3, r3, r4
+	smlad	r5, r3, r12, r5
+	smlad	r7, r3, r14, r7
+	smlatt	r7, r4, r12, r7
+	smlatt	r9, r4, r14, r9
+	// block (0,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #0]
+	ldr	r4, [r0, #4]
+	smladx	r11, r3, r12, r11
+	smladx	r6, r4, r12, r6
+	smladx	r6, r3, r14, r6
+	smladx	r8, r4, r14, r8
+	smlabb	r10, r3, r12, r10
+	smlabb	r5, r3, r14, r5
+	pkhtb	r3, r3, r4
+	smlad	r5, r3, r12, r5
+	smlad	r7, r3, r14, r7
+	smlatt	r7, r4, r12, r7
+	smlatt	r9, r4, r14, r9
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r10, r11, r3, r12, r14
+	mr_16x2	r5, r6, r3, r12, r14
+	str	r10, [r2], #4
+	str	r5, [r2], #4
+	ldr	r3, [r0, #0]
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	// block (0,4)
+	smladx	r8, r3, r12, r8
+	smuadx	r10, r4, r12
+	smladx	r10, r3, r14, r10
+	smuadx	r5, r4, r14
+	smlabb	r7, r3, r12, r7
+	smlabb	r9, r3, r14, r9
+	pkhtb	r3, r3, r4
+	smlad	r9, r3, r12, r9
+	smuad	r11, r3, r14
+	smlatt	r11, r4, r12, r11
+	smultt	r6, r4, r14
+	// block (1,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	smladx	r8, r3, r12, r8
+	smladx	r10, r4, r12, r10
+	smladx	r10, r3, r14, r10
+	smladx	r5, r4, r14, r5
+	smlabb	r7, r3, r12, r7
+	smlabb	r9, r3, r14, r9
+	pkhtb	r3, r3, r4
+	smlad	r9, r3, r12, r9
+	smlad	r11, r3, r14, r11
+	smlatt	r11, r4, r12, r11
+	smlatt	r6, r4, r14, r6
+	// block (2,2)
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r8, r3, r12, r8
+	smladx	r10, r4, r12, r10
+	smladx	r10, r3, r14, r10
+	smladx	r5, r4, r14, r5
+	smlabb	r7, r3, r12, r7
+	smlabb	r9, r3, r14, r9
+	pkhtb	r3, r3, r4
+	smlad	r9, r3, r12, r9
+	smlad	r11, r3, r14, r11
+	smlatt	r11, r4, r12, r11
+	smlatt	r6, r4, r14, r6
+	// block (3,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	smladx	r8, r3, r12, r8
+	smladx	r10, r4, r12, r10
+	smladx	r10, r3, r14, r10
+	smladx	r5, r4, r14, r5
+	smlabb	r7, r3, r12, r7
+	smlabb	r9, r3, r14, r9
+	pkhtb	r3, r3, r4
+	smlad	r9, r3, r12, r9
+	smlad	r11, r3, r14, r11
+	smlatt	r11, r4, r12, r11
+	smlatt	r6, r4, r14, r6
+	// block (4,0)
+	ldr	r12, [r1, #0]
+	ldr	r14, [r1, #4]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r8, r3, r12, r8
+	smladx	r10, r4, r12, r10
+	smladx	r10, r3, r14, r10
+	smladx	r5, r4, r14, r5
+	smlabb	r7, r3, r12, r7
+	smlabb	r9, r3, r14, r9
+	pkhtb	r3, r3, r4
+	smlad	r9, r3, r12, r9
+	smlad	r11, r3, r14, r11
+	smlatt	r11, r4, r12, r11
+	smlatt	r6, r4, r14, r6
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r7, r8, r3, r12, r4
+	mr_16x2	r9, r10, r3, r12, r4
+	str	r7, [r2], #4
+	str	r9, [r2], #4
+	ldr	r3, [r0, #40]
+	ldr	r4, [r0, #44]
+	ldr	r12, [r1, #0]
+	// block (5,0)
+	smladx	r5, r3, r12, r5
+	smuadx	r7, r4, r12
+	smladx	r7, r3, r14, r7
+	smuadx	r9, r4, r14
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smuad	r8, r3, r14
+	smlatt	r8, r4, r12, r8
+	smultt	r10, r4, r14
+	// block (4,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r5, r3, r12, r5
+	smladx	r7, r4, r12, r7
+	smladx	r7, r3, r14, r7
+	smladx	r9, r4, r14, r9
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smlad	r8, r3, r14, r8
+	smlatt	r8, r4, r12, r8
+	smlatt	r10, r4, r14, r10
+	// block (3,2)
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	smladx	r5, r3, r12, r5
+	smladx	r7, r4, r12, r7
+	smladx	r7, r3, r14, r7
+	smladx	r9, r4, r14, r9
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smlad	r8, r3, r14, r8
+	smlatt	r8, r4, r12, r8
+	smlatt	r10, r4, r14, r10
+	// block (2,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r5, r3, r12, r5
+	smladx	r7, r4, r12, r7
+	smladx	r7, r3, r14, r7
+	smladx	r9, r4, r14, r9
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smlad	r8, r3, r14, r8
+	smlatt	r8, r4, r12, r8
+	smlatt	r10, r4, r14, r10
+	// block (1,4)
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	smladx	r5, r3, r12, r5
+	smladx	r7, r4, r12, r7
+	smladx	r7, r3, r14, r7
+	smladx	r9, r4, r14, r9
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smlad	r8, r3, r14, r8
+	smlatt	r8, r4, r12, r8
+	smlatt	r10, r4, r14, r10
+	// block (0,5)
+	ldr	r12, [r1, #40]
+	ldr	r14, [r1, #44]
+	ldr	r3, [r0, #0]
+	ldr	r4, [r0, #4]
+	smladx	r5, r3, r12, r5
+	smladx	r7, r4, r12, r7
+	smladx	r7, r3, r14, r7
+	smladx	r9, r4, r14, r9
+	smlabb	r11, r3, r12, r11
+	smlabb	r6, r3, r14, r6
+	pkhtb	r3, r3, r4
+	smlad	r6, r3, r12, r6
+	smlad	r8, r3, r14, r8
+	smlatt	r8, r4, r12, r8
+	smlatt	r10, r4, r14, r10
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r11, r5, r3, r12, r4
+	mr_16x2	r6, r7, r3, r12, r4
+	str	r11, [r2], #4
+	str	r6, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #40]
+	// block (1,5)
+	smladx	r9, r3, r12, r9
+	smuadx	r11, r4, r12
+	smladx	r11, r3, r14, r11
+	smuadx	r6, r4, r14
+	smlabb	r8, r3, r12, r8
+	smlabb	r10, r3, r14, r10
+	pkhtb	r3, r3, r4
+	smlad	r10, r3, r12, r10
+	smuad	r5, r3, r14
+	smlatt	r5, r4, r12, r5
+	smultt	r7, r4, r14
+	// block (2,4)
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r9, r3, r12, r9
+	smladx	r11, r4, r12, r11
+	smladx	r11, r3, r14, r11
+	smladx	r6, r4, r14, r6
+	smlabb	r8, r3, r12, r8
+	smlabb	r10, r3, r14, r10
+	pkhtb	r3, r3, r4
+	smlad	r10, r3, r12, r10
+	smlad	r5, r3, r14, r5
+	smlatt	r5, r4, r12, r5
+	smlatt	r7, r4, r14, r7
+	// block (3,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	smladx	r9, r3, r12, r9
+	smladx	r11, r4, r12, r11
+	smladx	r11, r3, r14, r11
+	smladx	r6, r4, r14, r6
+	smlabb	r8, r3, r12, r8
+	smlabb	r10, r3, r14, r10
+	pkhtb	r3, r3, r4
+	smlad	r10, r3, r12, r10
+	smlad	r5, r3, r14, r5
+	smlatt	r5, r4, r12, r5
+	smlatt	r7, r4, r14, r7
+	// block (4,2)
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r9, r3, r12, r9
+	smladx	r11, r4, r12, r11
+	smladx	r11, r3, r14, r11
+	smladx	r6, r4, r14, r6
+	smlabb	r8, r3, r12, r8
+	smlabb	r10, r3, r14, r10
+	pkhtb	r3, r3, r4
+	smlad	r10, r3, r12, r10
+	smlad	r5, r3, r14, r5
+	smlatt	r5, r4, r12, r5
+	smlatt	r7, r4, r14, r7
+	// block (5,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #40]
+	ldr	r4, [r0, #44]
+	smladx	r9, r3, r12, r9
+	smladx	r11, r4, r12, r11
+	smladx	r11, r3, r14, r11
+	smladx	r6, r4, r14, r6
+	smlabb	r8, r3, r12, r8
+	smlabb	r10, r3, r14, r10
+	pkhtb	r3, r3, r4
+	smlad	r10, r3, r12, r10
+	smlad	r5, r3, r14, r5
+	smlatt	r5, r4, r12, r5
+	smlatt	r7, r4, r14, r7
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r8, r9, r3, r12, r14
+	mr_16x2	r10, r11, r3, r12, r14
+	str	r8, [r2], #4
+	str	r10, [r2], #4
+	ldr	r3, [r0, #40]
+	ldr	r12, [r1, #16]
+	ldr	r14, [r1, #20]
+	// block (5,2)
+	smladx	r6, r3, r12, r6
+	smuadx	r8, r4, r12
+	smladx	r8, r3, r14, r8
+	smuadx	r10, r4, r14
+	smlabb	r5, r3, r12, r5
+	smlabb	r7, r3, r14, r7
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smuad	r9, r3, r14
+	smlatt	r9, r4, r12, r9
+	smultt	r11, r4, r14
+	// block (4,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r6, r3, r12, r6
+	smladx	r8, r4, r12, r8
+	smladx	r8, r3, r14, r8
+	smladx	r10, r4, r14, r10
+	smlabb	r5, r3, r12, r5
+	smlabb	r7, r3, r14, r7
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smlad	r9, r3, r14, r9
+	smlatt	r9, r4, r12, r9
+	smlatt	r11, r4, r14, r11
+	// block (3,4)
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	smladx	r6, r3, r12, r6
+	smladx	r8, r4, r12, r8
+	smladx	r8, r3, r14, r8
+	smladx	r10, r4, r14, r10
+	smlabb	r5, r3, r12, r5
+	smlabb	r7, r3, r14, r7
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smlad	r9, r3, r14, r9
+	smlatt	r9, r4, r12, r9
+	smlatt	r11, r4, r14, r11
+	// block (2,5)
+	ldr	r12, [r1, #40]
+	ldr	r14, [r1, #44]
+	ldr	r3, [r0, #16]
+	ldr	r4, [r0, #20]
+	smladx	r6, r3, r12, r6
+	smladx	r8, r4, r12, r8
+	smladx	r8, r3, r14, r8
+	smladx	r10, r4, r14, r10
+	smlabb	r5, r3, r12, r5
+	smlabb	r7, r3, r14, r7
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smlad	r9, r3, r14, r9
+	smlatt	r9, r4, r12, r9
+	smlatt	r11, r4, r14, r11
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r5, r6, r3, r12, r4
+	mr_16x2	r7, r8, r3, r12, r4
+	str	r5, [r2], #4
+	str	r7, [r2], #4
+	ldr	r3, [r0, #24]
+	ldr	r4, [r0, #28]
+	ldr	r12, [r1, #40]
+	// block (3,5)
+	smladx	r10, r3, r12, r10
+	smuadx	r5, r4, r12
+	smladx	r5, r3, r14, r5
+	smuadx	r7, r4, r14
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smuad	r6, r3, r14
+	smlatt	r6, r4, r12, r6
+	smultt	r8, r4, r14
+	// block (4,4)
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r10, r3, r12, r10
+	smladx	r5, r4, r12, r5
+	smladx	r5, r3, r14, r5
+	smladx	r7, r4, r14, r7
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smlad	r6, r3, r14, r6
+	smlatt	r6, r4, r12, r6
+	smlatt	r8, r4, r14, r8
+	// block (5,3)
+	ldr	r12, [r1, #24]
+	ldr	r14, [r1, #28]
+	ldr	r3, [r0, #40]
+	ldr	r4, [r0, #44]
+	smladx	r10, r3, r12, r10
+	smladx	r5, r4, r12, r5
+	smladx	r5, r3, r14, r5
+	smladx	r7, r4, r14, r7
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smlad	r6, r3, r14, r6
+	smlatt	r6, r4, r12, r6
+	smlatt	r8, r4, r14, r8
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r9, r10, r3, r12, r14
+	mr_16x2	r11, r5, r3, r12, r14
+	str	r9, [r2], #4
+	str	r11, [r2], #4
+	ldr	r3, [r0, #40]
+	ldr	r12, [r1, #32]
+	ldr	r14, [r1, #36]
+	// block (5,4)
+	smladx	r7, r3, r12, r7
+	smuadx	r9, r4, r12
+	smladx	r9, r3, r14, r9
+	smuadx	r11, r4, r14
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smuad	r10, r3, r14
+	smlatt	r10, r4, r12, r10
+	smultt	r5, r4, r14
+	// block (4,5)
+	ldr	r12, [r1, #40]
+	ldr	r14, [r1, #44]
+	ldr	r3, [r0, #32]
+	ldr	r4, [r0, #36]
+	smladx	r7, r3, r12, r7
+	smladx	r9, r4, r12, r9
+	smladx	r9, r3, r14, r9
+	smladx	r11, r4, r14, r11
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smlad	r10, r3, r14, r10
+	smlatt	r10, r4, r12, r10
+	smlatt	r5, r4, r14, r5
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r6, r7, r3, r12, r4
+	mr_16x2	r8, r9, r3, r12, r4
+	str	r6, [r2], #4
+	str	r8, [r2], #4
+	ldr	r3, [r0, #40]
+	ldr	r4, [r0, #44]
+	ldr	r12, [r1, #40]
+	// block (5,5)
+	smladx	r11, r3, r12, r11
+	smuadx	r6, r4, r12
+	smladx	r6, r3, r14, r6
+	smuadx	r8, r4, r14
+	smlabb	r10, r3, r12, r10
+	smlabb	r5, r3, r14, r5
+	pkhtb	r3, r3, r4
+	smlad	r5, r3, r12, r5
+	smuad	r7, r3, r14
+	smlatt	r7, r4, r12, r7
+	smultt	r9, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r10, r11, r3, r12, r4
+	mr_16x2	r5, r6, r3, r12, r4
+	str	r10, [r2], #4
+	str	r5, [r2], #4
+	mr_16x2	r7, r8, r3, r12, r4
+	mr_hi	r9, r3, r12, r4
+	lsr	r9, #16
+	str	r7, [r2], #4
+	str	r9, [r2], #4
+	add	r0, #48
+	add	r1, #48
+	vmov	r14, s9  // counter=scr0
+	subs	r14, #1
+	bne	KA768_muls1
+KA768_collect:
+	vmov	r2, s3  // reload hh
+	vmov	r3, s4  // reload overflow list
+KA768_col_24_ov:			// no overflow
+KA768_col_24_add:			// KA collection
+	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
+	add	r12, r2, r14, LSL #3	// other pointer
+	mov	r1, r2		// copy of hh
+	mov	r11, #24	// N0
+KA768_col_24_add1:	// begin KA collect loop
+	ldrd	r4, r5, [r1, #48]
+	ldrd	r6, r7, [r1, #96]
+	ssub16	r4, r4, r6
+	ssub16	r5, r5, r7
+	ldrd	r6, r7, [r1, #144]
+	sadd16	r8, r4, r6
+	sadd16	r9, r5, r7
+	ldrd	r6, r7, [r1]
+	ssub16	r4, r4, r6
+	ssub16	r5, r5, r7
+	ldrd	r6, r7, [r12, #48]
+	ssub16	r8, r6, r8
+	ssub16	r9, r7, r9
+	strd	r8, r9, [r1, #96]
+	ldrd	r6, r7, [r12], #8	// shift r12 up 8
+	sadd16	r4, r4, r6
+	sadd16	r5, r5, r7
+	strd	r4, r5, [r1, #48]
+	add	r1, r1, #8		// shift r1 up 8
+	subs	r14, r14, #4
+	beq	KA768_col_24_end
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
+	addeq	r1, r1, #144
+	addeq	r12, r12, #48
+	moveq	r11, #24	// N0
+	b	KA768_col_24_add1
+KA768_col_24_end:
+KA768_col_48_ov:
+	ldrsh	r4, [r3], #2
+	cmp	r4, #-1
+	beq	KA768_col_48_add
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
+	mov	r6,#32768
+KA768_col_48_ov1:
+	ldrsh	r5, [r3], #2
+KA768_col_48_ov2:
+	ldr	r8, [r2, r4, LSL #2]
+	br_16x2	r8, r0, r1, r6, r7, r9
+	str	r8, [r2, r4, LSL #2]
+	add	r4, #1
+	cmp	r4, r5
+	bls	KA768_col_48_ov2
+	ldrsh	r4, [r3], #2
+	cmp	r4, -1
+	bne	KA768_col_48_ov1
+KA768_col_48_add:			// KA collection
+	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
+	add	r12, r2, r14, LSL #3	// other pointer
+	mov	r1, r2		// copy of hh
+	mov	r10, #48		// N0
+	mov	r0, #96			// 2*N0
+	add	r11, r0, r0, LSL #1	// 6*N0
+KA768_col_48_add1:	// begin KA collect loop
+	ldr	r4, [r1, r0]		//+2*N0
+	ldr	r6, [r1, r0, LSL #1]	//+4*N0
+	ldr	r7, [r1, r11]		//+6*N0
+	ssub16	r4, r4, r6
+	sadd16	r8, r4, r7
+	ldr	r6, [r1]
+	ldr	r7, [r12, r0]		//+2*N0
+	ssub16	r4, r4, r6
+	ssub16	r8, r7, r8
+	ldr	r6, [r12], #4		// shift r12 up 4
+	str	r8, [r1, r0, LSL #1] 	//+4*N0
+	sadd16	r4, r4, r6
+	str	r4, [r1, r0]		//+2*N0
+	add	r1, r1, #4		// shift r1 up 4
+	subs	r14, r14, #2
+	beq	KA768_col_48_end
+	subs	r10, #2
+	ittt	eq			//next 24 bloc
+	addeq	r1, r1, r11		//+6*N0
+	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #48		// N0
+	b	KA768_col_48_add1
+KA768_col_48_end:
+KA768_col_96_ov:
+	ldrsh	r4, [r3], #2
+	cmp	r4, #-1
+	beq	KA768_col_96_add
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
+	mov	r6,#32768
+KA768_col_96_ov1:
+	ldrsh	r5, [r3], #2
+KA768_col_96_ov2:
+	ldr	r8, [r2, r4, LSL #2]
+	br_16x2	r8, r0, r1, r6, r7, r9
+	str	r8, [r2, r4, LSL #2]
+	add	r4, #1
+	cmp	r4, r5
+	bls	KA768_col_96_ov2
+	ldrsh	r4, [r3], #2
+	cmp	r4, -1
+	bne	KA768_col_96_ov1
+KA768_col_96_add:			// KA collection
+	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
+	add	r12, r2, r14, LSL #3	// other pointer
+	mov	r1, r2		// copy of hh
+	mov	r10, #96		// N0
+	mov	r0, #192			// 2*N0
+	add	r11, r0, r0, LSL #1	// 6*N0
+KA768_col_96_add1:	// begin KA collect loop
+	ldr	r4, [r1, r0]		//+2*N0
+	ldr	r6, [r1, r0, LSL #1]	//+4*N0
+	ldr	r7, [r1, r11]		//+6*N0
+	ssub16	r4, r4, r6
+	sadd16	r8, r4, r7
+	ldr	r6, [r1]
+	ldr	r7, [r12, r0]		//+2*N0
+	ssub16	r4, r4, r6
+	ssub16	r8, r7, r8
+	ldr	r6, [r12], #4		// shift r12 up 4
+	str	r8, [r1, r0, LSL #1] 	//+4*N0
+	sadd16	r4, r4, r6
+	str	r4, [r1, r0]		//+2*N0
+	add	r1, r1, #4		// shift r1 up 4
+	subs	r14, r14, #2
+	beq	KA768_col_96_end
+	subs	r10, #2
+	ittt	eq			//next 48 bloc
+	addeq	r1, r1, r11		//+6*N0
+	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #96		// N0
+	b	KA768_col_96_add1
+KA768_col_96_end:
+KA768_col_192_ov:
+	ldrsh	r4, [r3], #2
+	cmp	r4, #-1
+	beq	KA768_col_192_add
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
+	mov	r6,#32768
+KA768_col_192_ov1:
+	ldrsh	r5, [r3], #2
+KA768_col_192_ov2:
+	ldr	r8, [r2, r4, LSL #2]
+	br_16x2	r8, r0, r1, r6, r7, r9
+	str	r8, [r2, r4, LSL #2]
+	add	r4, #1
+	cmp	r4, r5
+	bls	KA768_col_192_ov2
+	ldrsh	r4, [r3], #2
+	cmp	r4, -1
+	bne	KA768_col_192_ov1
+KA768_col_192_add:			// KA collection
+	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
+	add	r12, r2, r14, LSL #3	// other pointer
+	mov	r1, r2		// copy of hh
+	mov	r10, #192		// N0
+	mov	r0, #384			// 2*N0
+	add	r11, r0, r0, LSL #1	// 6*N0
+KA768_col_192_add1:	// begin KA collect loop
+	ldr	r4, [r1, r0]		//+2*N0
+	ldr	r6, [r1, r0, LSL #1]	//+4*N0
+	ldr	r7, [r1, r11]		//+6*N0
+	ssub16	r4, r4, r6
+	sadd16	r8, r4, r7
+	ldr	r6, [r1]
+	ldr	r7, [r12, r0]		//+2*N0
+	ssub16	r4, r4, r6
+	ssub16	r8, r7, r8
+	ldr	r6, [r12], #4		// shift r12 up 4
+	str	r8, [r1, r0, LSL #1] 	//+4*N0
+	sadd16	r4, r4, r6
+	str	r4, [r1, r0]		//+2*N0
+	add	r1, r1, #4		// shift r1 up 4
+	subs	r14, r14, #2
+	beq	KA768_col_192_end
+	subs	r10, #2
+	ittt	eq			//next 96 bloc
+	addeq	r1, r1, r11		//+6*N0
+	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #192		// N0
+	b	KA768_col_192_add1
+KA768_col_192_end:
+KA768_col_384_ov:
+	ldrsh	r4, [r3], #2
+	cmp	r4, #-1
+	beq	KA768_col_384_add
+	vmov	r0, s8  // load -q
+	vmov	r1, s7  // load qinv32
+	mov	r6,#32768
+KA768_col_384_ov1:
+	ldrsh	r5, [r3], #2
+KA768_col_384_ov2:
+	ldr	r8, [r2, r4, LSL #2]
+	br_16x2	r8, r0, r1, r6, r7, r9
+	str	r8, [r2, r4, LSL #2]
+	add	r4, #1
+	cmp	r4, r5
+	bls	KA768_col_384_ov2
+	ldrsh	r4, [r3], #2
+	cmp	r4, -1
+	bne	KA768_col_384_ov1
+KA768_col_384_add:			// KA collection
+	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
+	add	r12, r2, r14, LSL #3	// other pointer
+	mov	r1, r2		// copy of hh
+	mov	r10, #384		// N0
+	mov	r0, #768			// 2*N0
+	add	r11, r0, r0, LSL #1	// 6*N0
+KA768_col_384_add1:	// begin KA collect loop
+	ldr	r4, [r1, r0]		//+2*N0
+	ldr	r6, [r1, r0, LSL #1]	//+4*N0
+	ldr	r7, [r1, r11]		//+6*N0
+	ssub16	r4, r4, r6
+	sadd16	r8, r4, r7
+	ldr	r6, [r1]
+	ldr	r7, [r12, r0]		//+2*N0
+	ssub16	r4, r4, r6
+	ssub16	r8, r7, r8
+	ldr	r6, [r12], #4		// shift r12 up 4
+	str	r8, [r1, r0, LSL #1] 	//+4*N0
+	sadd16	r4, r4, r6
+	str	r4, [r1, r0]		//+2*N0
+	add	r1, r1, #4		// shift r1 up 4
+	subs	r14, r14, #2
+	beq	KA768_col_384_end
+	subs	r10, #2
+	ittt	eq			//next 192 bloc
+	addeq	r1, r1, r11		//+6*N0
+	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #384		// N0
+	b	KA768_col_384_add1
+KA768_col_384_end:
+KA768_mv_back:			// hh=[sp,4M] still =r2
+	vmov	r0, s0  // reload h
+	mov	r14, #3072
+KA768_mv_back_loop:
+	ldm	r2!, {r4-r11}
+	stm	r0!, {r4-r11}
+	subs	r14, #32
+	bne	KA768_mv_back_loop
+KA768_end:
+	vmov	r12, s1  // load 2M
+	add	sp, sp, r12, LSL #2	// add back 46656 = 8M
+	vpop	{s16-s31}
+	pop	{r4-r11,lr}
+	bx	lr
+

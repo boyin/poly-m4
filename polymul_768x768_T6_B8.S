@@ -28,14 +28,13 @@ T128x6_saves:
 	add	r14, r0, r12	// hh=gg+14256(=2M)
 	vmov	s3, r14	// save h
 	ldr	r14, =T_exp_ov_128
-	vmov	s4, r14	// save ov pointer
+	ldr	r11, =T6_Mat2
 	ldr	r12, =T6_Mat1
+	vmov	s4, r14	// save ov pointer
 	vmov	s15, r12	// save Matrix 1
-	ldr	r14, =T6_Mat2
-	vmov	s16, r14	// save Matrix 2
+	vmov	s16, r11	// save Matrix 2
 	movw	r12, #4591
-	movw	r14, #49905
-	movt	r14, #65536-1
+	movw	r14, #15631
 	vmov	s6, r14	// save qinv
 	rsb	r12, r12, #0		// -q
 	vmov	s8, r12	// save -q
@@ -278,100 +277,95 @@ T128x6_muls:
 	vmov	s4, r3	// save overflow list pointer
 	vmov	r2, s3	// load r2 = hh
 T128x6_muls1:
-	// begin polymul_8x8_divR
-	ldr	r5, [r0, #4]		// f23
-	ldr	r6, [r0, #8]		// f45
-	ldr	r7, [r0, #12]		// f67
-	ldr	r4, [r0],#16		// f01
-	ldr	r9, [r1, #4]		// g23
-	ldr	r10, [r1, #8]		// g45
-	ldr	r11, [r1, #12]		// g67
-	ldr	r8, [r1],#16		// g01
-	vmov	s17, r14	// scr0=count
-	smulbb	r12, r4, r8
-	smuadx	r14, r4, r8
-	vmov	s18, r12	// scr1=h0
-	vmov	s19, r14	// scr2=h1
-	smuadx	r12, r4, r9
-	smladx	r12, r5, r8, r12
-	smuadx	r14, r4, r10
-	smladx	r14, r5, r9, r14
-	smladx	r14, r6, r8, r14
-	vmov	s20, r12	// scr3=h3
-	vmov	s21, r14	// scr4=h5
-	smuadx	r12, r4, r11
-	smladx	r12, r5, r10, r12
-	smladx	r12, r6, r9, r12
-	smladx	r12, r7, r8, r12
-	smuadx	r14, r5, r11
-	smladx	r14, r6, r10, r14
-	smladx	r14, r7, r9, r14
-	vmov	s22, r12	// scr5=h7
-	vmov	s23, r14	// scr6=h9
-	smuadx	r12, r6, r11
-	smladx	r12, r7, r10, r12
-	smuadx	r14, r7, r11
-	vmov	s24, r12	// scr7=h11
-	vmov	s25, r14	// scr8=h13
-	pkhtb	r3, r4, r5		// f21
-	pkhtb	r5, r5, r6		// f43
-	pkhtb	r6, r6, r7		// f65
-	smultt	r12, r7, r11		// f7 g7
-	smultt	r14, r7, r10		// f7 g5
-	smlad	r14, r6, r11, r14
-	vmov	s26, r12	// scr9=h14
-	vmov	s27, r14	// scr10=h12
-	smultt	r12, r7, r9		// f7 g3
-	smlad	r12, r6, r10, r12
-	smlad	r12, r5, r11, r12
-	smultt	r14, r7, r8
-	smlad	r14, r6, r9, r14
-	smlad	r14, r5, r10, r14
-	smlad	r14, r3, r11, r14
-	vmov	s28, r12	// scr11=h10
-	vmov	s29, r14	// scr12=h8, r7 now used up
-	smulbb	r7, r4, r9
-	smlad	r7, r3, r8, r7		// h2
-	smulbb	r12, r4, r10
-	smlad	r12, r3, r9, r12
-	smlad	r12, r5, r8, r12	// h4
-	smulbb	r14, r4, r11
-	smlad	r14, r3, r10, r14
-	smlad	r14, r5, r9, r14
-	smlad	r14, r6, r8, r14	// h6
-	movw	r3, #49905
-	movw	r4, #4591
-	vmov	r8, s20	// h3=scr3
-	vmov	r9, s21	// h5=scr4
-	vmov	r10, s22	// h7=scr5
-	mr_16x2	r7, r8, r4, r3, r11	// h23
-	mr_16x2	r12, r9, r4, r3, r11	// h45
-	mr_16x2 r14, r10, r4, r3, r11	// h67
-	vmov	r8, s29	// h8=scr12
-	vmov	r9, s23	// h9=scr6
-	mr_16x2	r8, r9, r4, r3, r11	// h89
-	vmov	r10, s28	// h10=scr11
-	vmov	r9, s24	// h11=scr7
-	mr_16x2	r10, r9, r4, r3, r11	// h10,11
-	str	r7, [r2, #4]
-	str	r12, [r2, #8]
-	str	r14, [r2, #12]
-	str	r8, [r2, #16]
-	str	r10, [r2, #20]
-	vmov	r12, s27	// h12=scr10
-	vmov	r10, s25	// h13=scr8
-	vmov	r14, s26	// h14=scr9
-	vmov	r7, s18	// h0=scr1
-	vmov	r8, s19	// h1=scr2
-	mr_16x2	r7, r8, r4, r3, r11
-	mr_16x2	r12, r10, r4, r3, r11
-	mr_hi	r14, r4, r3, r11
-	lsr	r14, #16
-	str	r12, [r2, #24]
-	str	r14, [r2, #28]
-	str	r7, [r2], #32
+	vmov	s17, r14	// save counter to scr0
+	ldr	r12, [r1]
+	ldr	r14, [r1, #4]
+	ldr	r3, [r0]
+	ldr	r4, [r0, #4]
+	// block (0,0)
+	smuadx	r6, r3, r12
+	smuadx	r8, r4, r12
+	smladx	r8, r3, r14, r8
+	smuadx	r10, r4, r14
+	smulbb	r5, r3, r12
+	smulbb	r7, r3, r14
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smuad	r9, r3, r14
+	smlatt	r9, r4, r12, r9
+	smultt	r11, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r5, r6, r3, r12, r4
+	mr_16x2	r7, r8, r3, r12, r4
+	str	r5, [r2], #4
+	str	r7, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #0]
+	// block (1,0)
+	smladx	r10, r3, r12, r10
+	smuadx	r5, r4, r12
+	smladx	r5, r3, r14, r5
+	smuadx	r7, r4, r14
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smuad	r6, r3, r14
+	smlatt	r6, r4, r12, r6
+	smultt	r8, r4, r14
+	// block (0,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #0]
+	ldr	r4, [r0, #4]
+	smladx	r10, r3, r12, r10
+	smladx	r5, r4, r12, r5
+	smladx	r5, r3, r14, r5
+	smladx	r7, r4, r14, r7
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smlad	r6, r3, r14, r6
+	smlatt	r6, r4, r12, r6
+	smlatt	r8, r4, r14, r8
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r9, r10, r3, r12, r4
+	mr_16x2	r11, r5, r3, r12, r4
+	str	r9, [r2], #4
+	str	r11, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #8]
+	// block (1,1)
+	smladx	r7, r3, r12, r7
+	smuadx	r9, r4, r12
+	smladx	r9, r3, r14, r9
+	smuadx	r11, r4, r14
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smuad	r10, r3, r14
+	smlatt	r10, r4, r12, r10
+	smultt	r5, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r6, r7, r3, r12, r4
+	mr_16x2	r8, r9, r3, r12, r4
+	str	r6, [r2], #4
+	str	r8, [r2], #4
+	mr_16x2	r10, r11, r3, r12, r4
+	mr_hi	r5, r3, r12, r4
+	lsr	r5, #16
+	str	r10, [r2], #4
+	str	r5, [r2], #4
+	add	r0, #16
+	add	r1, #16
 	vmov	r14, s17	// counter=scr0
-// end polymul_8x8_divR
 	subs	r14, #1
 	bne	T128x6_muls1
 T128x6_collect:
@@ -422,8 +416,12 @@ T128x6_col_16_ov1:
 	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
 	ldrsh	r5, [r3], #2	// offset
 	add	r12, r12, r5
+	cmp	r11, #0
+	bne	T128x6_col_16_ov2
+	mov	r12, r4		// empty set of intervals
+	b	T128x6_col_16_ov1
 T128x6_col_16_ov2:
-	asr	r5, r11, #1	// r11 : number of intervals
+	asr	r5, r11, #1	// r5 : number of intervals
 T128x6_col_16_ov3:
 	ldrsh	r10, [r3], #2	// size of interval
 T128x6_col_16_ov4:
@@ -485,8 +483,12 @@ T128x6_col_32_ov1:
 	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
 	ldrsh	r5, [r3], #2	// offset
 	add	r12, r12, r5
+	cmp	r11, #0
+	bne	T128x6_col_32_ov2
+	mov	r12, r4		// empty set of intervals
+	b	T128x6_col_32_ov1
 T128x6_col_32_ov2:
-	asr	r5, r11, #1	// r11 : number of intervals
+	asr	r5, r11, #1	// r5 : number of intervals
 T128x6_col_32_ov3:
 	ldrsh	r10, [r3], #2	// size of interval
 T128x6_col_32_ov4:
@@ -548,8 +550,12 @@ T128x6_col_64_ov1:
 	ldrsh	r11, [r3], #2	// r11 : count of a[2] entries
 	ldrsh	r5, [r3], #2	// offset
 	add	r12, r12, r5
+	cmp	r11, #0
+	bne	T128x6_col_64_ov2
+	mov	r12, r4		// empty set of intervals
+	b	T128x6_col_64_ov1
 T128x6_col_64_ov2:
-	asr	r5, r11, #1	// r11 : number of intervals
+	asr	r5, r11, #1	// r5 : number of intervals
 T128x6_col_64_ov3:
 	ldrsh	r10, [r3], #2	// size of interval
 T128x6_col_64_ov4:
