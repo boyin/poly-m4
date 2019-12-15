@@ -805,16 +805,16 @@ void butterfly64ct_ym2t(int *F, int *G, int t) {
 		      "ands r8, #32\n\t"				\
 		      "it eq \n\t"		/* if no wrap? */	\
 		      "ssub16eq r5, r8, r5\n\t"				\
-		      "sadd16 r6, r4, r5\n\t"	/* new G[loc] */	\
+		      "sadd16 r8, r4, r5\n\t"	/* new G[loc] */	\
 		      "ssub16 r4, r4, r5\n\t"	/* new F[loc] */	\
 		      "str r4, [%2, r10, LSL #2]\n\t"			\
-		      "str r6, [%3, r10, LSL #2]\n\t"			\
+		      "str r8, [%3, r10, LSL #2]\n\t"			\
 		      "mov r10, r7\n\t"					\
 		      "subs r14, #1 \n\t" 	/* decr counter */	\
 		      "bcs loop%=\n\t"					\
 		      :"+m"(*(int (*)[32])(F)),"+m"(*(int (*)[32])(G))	\
 		      :"r"(F),"r"(G),"r"(t)				\
-		      :"r4","r5","r6","r7","r8",			\
+		      :"r4","r5","r7","r8",				\
 		       "r9","r10","r11","r12","lr","cc"			\
 		      );}  else butterfly64_1(F,G);
 }
@@ -830,26 +830,26 @@ void butterfly64gs_y2t(int *F, int *G, int t) {
 		      "ldr r5, [%3]\n\t"	/* r5= saved G[loc] */	\
 		      "loop%=:\n\t"					\
 		      "add r8, r10, %4\n\t"	/* r8= next loc */	\
-		      "and r7, r8, #31\n\t"	/* r7= ... mod 32 */	\
 		      "ldr r4, [%2, r10, LSL #2]\n\t"	/* F[loc] */	\
 		      "sadd16 r6, r4, r5\n\t"	/* new F[loc] */	\
-		      "ands r8, #32\n\t"				\
+		      "tst r8, #32\n\t"					\
 		      "ite eq \n\t"		/* if no wrap? */	\
 		      "ssub16eq r4, r4, r5\n\t"				\
 		      "ssub16ne r4, r5, r4\n\t"	/* new G[newloc] */	\
-		      "ldr r5, [%3, r7, LSL #2]\n\t" /* old G[newloc] */ \
+		      "and r8, r8, #31\n\t"	/* r8 %= 32 */	\
+		      "ldr r5, [%3, r8, LSL #2]\n\t" /* old G[newloc] */ \
 		      "str r6, [%2, r10, LSL #2]\n\t"			\
-		      "str r4, [%3, r7, LSL #2]\n\t"			\
+		      "str r4, [%3, r8, LSL #2]\n\t"			\
 		      "tst r14, r9 \n\t"	/* 1 full cycle? */	\
 		      "itt eq \n\t" 		/* if so ...  */	\
-		      "addeq r7, r7, #1 \n\t" 	/* incr next loc */	\
-		      "ldreq r5, [%3, r7, LSL #2]\n\t"			\
-		      "mov r10, r7\n\t"					\
+		      "addeq r8, r8, #1 \n\t" 	/* incr next loc */	\
+		      "ldreq r5, [%3, r8, LSL #2]\n\t"			\
+		      "mov r10, r8\n\t"					\
 		      "subs r14, #1 \n\t" 	/* decr counter */	\
 		      "bcs loop%=\n\t"					\
 		      :"+m"(*(int (*)[32])(F)),"+m"(*(int (*)[32])(G))	\
 		      :"r"(F),"r"(G),"r"(t)				\
-		      :"r4","r5","r6","r7","r8",			\
+		      :"r4","r5","r6","r8",				\
 		       "r9","r10","r11","r12","lr","cc"			\
 		      );} else butterfly64_1(F,G);
 }
