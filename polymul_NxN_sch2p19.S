@@ -1,47 +1,43 @@
 #include "red-asm.h"
-
 	.macro	conv_3x64_7x32
 	//r6-7/r8-9/r10-11 are partial accumulators
 	//cut out 19-bit pieces, add to 7x32b pointed by s4
 	sbfx	r2, r6, #0, #19
-	subs	r6, r6, r2
-	sbc	r7, r7, r2, ASR #31
+	mov	r12, -1
+	smlal	r6, r7, r12, r2
 	sbfx	r3, r7, #0, #6
 	sub	r7, r7, r3
 	lsl	r3, r3, #13
 	add	r3, r3, r6, LSR #19
-	asr	r4, r7, #6
 	sbfx	r5, r8, #0, #19
-	add	r4, r4, r5
-	subs	r8, r8, r5
-	sbc	r9, r9, r5, ASR #31
+	add	r4, r5, r7, ASR #6
+	smlal	r8, r9, r12, r5
 	sbfx	r5, r9, #0, #6
 	sub	r9, r9, r5
 	lsl	r5, r5, #13
 	add	r5, r5, r8, LSR #19
-	asr	r6, r9, #6
 	sbfx	r7, r10, #0, #19
-	add	r6, r6, r7
-	subs	r10, r10, r7
-	sbc	r11, r11, r7, ASR #31
+	add	r6, r7, r9, ASR #6
+	smlal	r10, r11, r12, r7
 	sbfx	r7, r11, #0, #6
 	sub	r11, r11, r7
 	lsl	r7, r7, #13
 	add	r7, r7, r10, LSR #19
-	asr	r8, r11, #6
 	vmov	r9, s4		// reload hh
-	ldrd	r10, r11, [r9]
+	ldr	r10, [r9]
+	ldr	r12, [r9, #4]
 	add	r2, r2, r10
-	add	r3, r3, r11
-	ldrd	r10, r11, [r9, #8]
+	add	r3, r3, r12	// r12 is not important now
+	ldr	r10, [r9, #8]
+	ldr	r12, [r9, #12]
 	add	r4, r4, r10
-	add	r5, r5, r11
+	add	r5, r5, r12
 	ldr	r10, [r9, #16]
-	ldr	r11, [r9, #20]
-	ldr	r12, [r9, #24]	// r12 is not important now
+	ldr	r12, [r9, #20]
+	ldr	r8, [r9, #24]
 	add	r6, r6, r10
-	add	r7, r7, r11
-	add	r8, r8, r12
+	add	r7, r7, r12
+	add	r8, r8, r11, asr #6
 	stm	r9, {r2-r8}
 	.endm
 
@@ -50,7 +46,6 @@
 	.text
 // void convert_2p19 (r0 = dst, r1 = src, r12 = length) 
 convert_2p19:
-	mov	r11, #0x80000	// 2^19
 convert_2p19_0:
 	ldrsh	r2, [r1], #2
 	ldr	r3, [r1], #4
@@ -61,21 +56,21 @@ convert_2p19_0:
 	ldr	r8, [r1], #4
 	ldr	r9, [r1], #4
 	ldrsh	r10, [r1], #2
-	mla	r2, r3, r11, r2
+	add	r2, r2, r3, LSL #19
 	asr	r3, r3, #16
-	mla	r3, r4, r11, r3
+	add	r3, r3, r4, LSL #19
 	asr	r4, r4, #16
-	mla	r4, r5, r11, r4
+	add	r4, r4, r5, LSL #19
 	asr	r5, r5, #16
-	mla	r5, r6, r11, r5
+	add	r5, r5, r6, LSL #19
 	asr	r6, r6, #16
-	mla	r6, r7, r11, r6
+	add	r6, r6, r7, LSL #19
 	asr	r7, r7, #16
-	mla	r7, r8, r11, r7
+	add	r7, r7, r8, LSL #19
 	asr	r8, r8, #16
-	mla	r8, r9, r11, r8
+	add	r8, r8, r9, LSL #19
 	asr	r9, r9, #16
-	mla	r9, r10, r11, r9
+	add	r9, r9, r10, LSL #19
 	stm	r0!, {r2-r9}
 	subs	r12, #16
 	bhi	convert_2p19_0

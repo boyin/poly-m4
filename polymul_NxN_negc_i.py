@@ -49,7 +49,7 @@ def print_str (reg, loc, comment) :
 
 # multiply and accumulate block pointed to by a and b (in row a+b)
 def add_block(a,b,i) :
-    print "block_%d_%d:" % (a,b)
+    print "	//block_%d_%d:" % (a,b)
     print "	ldr	r3, [%s, #%d]" % (r_f,8*a)
     print "	ldr	r4, [%s, #%d]" % (r_f,8*a+4)
     print "	ldr	r12, [%s, #%d]" % (r_g,8*b)
@@ -104,12 +104,12 @@ def SCH_polymulNxN_negc(N,rf,rg,rh,smq,sqi,s0,s1,s2,s3,MB) :
     
     # load 4x4 multiplications at a time from (r3,r4), (r12,r14)
     # doing 7 rotating accumulators in r5-r11
+    # left top, very first block
+    print "	//block_%d_0:" % (N/4-1)
     print "	ldr	r3, [%s, #%d]" % (r_f, 2*N-8)
     print "	ldr	r4, [%s, #%d]" % (r_f, 2*N-4)
     print "	ldr	r12, [%s]" % (r_g)
     print "	ldr	r14, [%s, #4]" % (r_g)
-    # left top, very first block
-    print "block_%d_0:" % (N/4-1)
     print "	smuadx	%s, r3, r12" % (acc_r(-1,1))
     print "	smuadx	%s, r4, r12" % (acc_r(-1,3))
     print "	smladx	%s, r3, r14, %s" % (acc_r(-1,3),acc_r(-1,3))
@@ -131,10 +131,10 @@ def SCH_polymulNxN_negc(N,rf,rg,rh,smq,sqi,s0,s1,s2,s3,MB) :
     
     for i in range(N/4-1) :
         a += 1
+        print "	//block_%d_%d:" % (a,b)
         print "	ldr	r3, [%s, #%d]" % (r_f,8*a)
         print "	ldr	r4, [%s, #%d]" % (r_f,8*a+4)
         if (i>0) : print "	ldr	r12, [%s, #%d]" % (r_g,8*b)
-        print "block_%d_%d:" % (a,b)
         add_block_first(i)
         #
         # split even and odd i

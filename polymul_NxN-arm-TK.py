@@ -693,11 +693,7 @@ def T_polymulNxN (T, l) :
         if (MONT_OR_BAR == 0) : s = V["qi"]
         else : s = V["q32"]
         print_str("r14",V["0"],"save counter to scr0")
-<<<<<<< HEAD
         SCH_polymulNxN(B,"r0","r1","r2",V["-q"],s,MONT_OR_BAR)
-=======
-        SCH_polymulNxN(B,"r0","r1","r2",V["-q"],s)
->>>>>>> edb24ed81ed2f4766b6019afab3d7ed7b01e7c4c
         print_ldr("r14",V["0"],"counter=scr0")
     print "	subs	r14, #1"
     print "	bne	T%dx%d_muls1" %  (N,l)

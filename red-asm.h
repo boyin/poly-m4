@@ -19,8 +19,8 @@
 	.endm
 
 	.macro	br_lo, res, mq, q32inv, _2p15, scr
-	smlawb	\scr, \res, \q32inv, \_2p15
-	smlatb	\res, \mq, \scr, \res
+	smlawb	\scr, \q32inv, \res, \_2p15
+	smlatb	\res, \scr, \mq, \res
 	.endm
 	// note that high half of res is undefined
 	// must save with strh
