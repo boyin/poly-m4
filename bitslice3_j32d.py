@@ -75,6 +75,41 @@ def add_sub_mod3_d (a0, a1, b0, b1, X0, X1) : # destroys (X0,X1)
     print "	orr	%s, %s, %s	// d0=(a0^b0)|(a1^b1)" % (b0,b0,X0)
     print "	and	%s, %s, %s	// d1=(a1^b0)&(b1^(a0^b0))" % (b1,b1,X1)
 
+NIT = 0			# global variable, how many IT instructions?
+LIT = []		# global variable, currently these IT instructions
+def cond_ex (c, L, scr) : # L is a list of [A, B] or [N],
+    # A <=> B is a conditional exchange, N is N <- -N to be negated
+    global NIT, LIT
+    i = NIT 
+    for X in L :
+        if isinstance(X, str) : i += 1
+        if isinstance(X, list) and len(X) == 2 and isinstance(X[0], list):
+            assert(len(X[0])==len(X[1])); i += 3*len(X[0])
+        if isinstance(X, list) and len(X) == 2 and isinstance(X[0], str): i += 3
+    LL = LIT
+    for X in L :
+        if isinstance(X, str) :
+            if (X[0]=="r") : LL.append("	neg%s	%s, %s" % (c, X, X))
+            if (X[0]=="s") :
+                LL.append("	vneg%s.f32	%s, %s" % (c, X, X))
+        if isinstance(X, list) and len(X) == 2 and isinstance(X[0], str):
+            LL.append("	mov%s	%s, %s	// %s<->%s" % (c,scr,X[0],X[0],X[1]))
+            LL.append("	mov%s	%s, %s" % (c, X[0], X[1]))
+            LL.append("	mov%s	%s, %s" % (c, X[1], scr))
+        if isinstance(X, list) and len(X) == 2 and isinstance(X[0], list):
+            for j in range(len(X[0])) :
+                LL.append("	mov%s	%s, %s	// %s<->%s" % (c, scr, X[0][j], X[0][j], X[1][j]))
+                LL.append("	mov%s	%s, %s" % (c, X[0][j], X[1][j]))
+                LL.append("	mov%s	%s, %s" % (c, X[1][j], scr))
+    for j in range (0, i, 4) :
+        if i - j >= 4 :
+            LL.insert(5*j/4, "	itttt	%s" % c)
+        else :
+            LL.insert(5*j/4, "	i" + "t"*(i-j) + "	" + c)
+    for j in LL :
+        print j 
+
+    
 def v (s) :
     return read_V(s)
     
@@ -118,31 +153,35 @@ print "bs3_jump32divsteps_0:		// first half"
 
 print "	vcmp.f32	%s, %s		// delta > 0?" % (v("D"),v("1"))
 print "	vmrs	APSR_nzcv, FPSCR	// move carry"
-print "	itttt	cs			// if cs, delta > 0, then"
-print "	tstcs	r0, %s, LSL #1		// set cs by g0[0], then if cs" % (g0) 
-print "	movcs	%s, %s	// exchange f0,g0" % (X0, f0)
-print "	movcs	%s, %s" % (f0, g0)
-print "	movcs	%s, %s" % (g0, X0)
-print "	itttt	cs			// exchanges"
-print "	movcs	%s, %s	// exchange f1,g1" % (X1, f1)
-print "	movcs	%s, %s" % (f1, g1)
-print "	movcs	%s, %s" % (g1, X1)
-print "	movcs	%s, %s	// exchange u0,r0" % (X0, u0)
-print "	itttt	cs			// exchanges"
-print "	movcs	%s, %s" % (u0, r0)
-print "	movcs	%s, %s" % (r0, X0)
-print "	movcs	%s, %s	// exchange u1,r1" % (X1, u1)
-print "	movcs	%s, %s" % (u1, r1)
-print "	itttt	cs			// exchanges"
-print "	movcs	%s, %s" % (r1, X1)
-print "	movcs	%s, %s	// exchange v0,s0" % (X0, v0)
-print "	movcs	%s, %s" % (v0, s0)
-print "	movcs	%s, %s" % (s0, X0)
-print "	itttt	cs			// exchanges"
-print "	movcs	%s, %s	// exchange v1,s1" % (X1, v1)
-print "	movcs	%s, %s" % (v1, s1)
-print "	movcs	%s, %s" % (s1, X1)
-print "	vnegcs.f32	%s, %s	// negate delta" % (v("D"),v("D"))
+NIT = 1
+LIT = ["	tstcs	r0, %s, LSL #1	// set cs by g0[0], then if cs" % (g0)]
+cond_ex("cs",[[[f0,f1],[g0,g1]],[[u0,u1],[r0,r1]],[[v0,v1],[s0,s1]],v("D")],X1)
+
+# print "	itttt	cs			// if cs, delta > 0, then"
+# print "	tstcs	r0, %s, LSL #1		// set cs by g0[0], then if cs" % (g0) 
+# print "	movcs	%s, %s	// exchange f0,g0" % (X0, f0)
+# print "	movcs	%s, %s" % (f0, g0)
+# print "	movcs	%s, %s" % (g0, X0)
+# print "	itttt	cs			// exchanges"
+# print "	movcs	%s, %s	// exchange f1,g1" % (X1, f1)
+# print "	movcs	%s, %s" % (f1, g1)
+# print "	movcs	%s, %s" % (g1, X1)
+# print "	movcs	%s, %s	// exchange u0,r0" % (X0, u0)
+# print "	itttt	cs			// exchanges"
+# print "	movcs	%s, %s" % (u0, r0)
+# print "	movcs	%s, %s" % (r0, X0)
+# print "	movcs	%s, %s	// exchange u1,r1" % (X1, u1)
+# print "	movcs	%s, %s" % (u1, r1)
+# print "	itttt	cs			// exchanges"
+# print "	movcs	%s, %s" % (r1, X1)
+# print "	movcs	%s, %s	// exchange v0,s0" % (X0, v0)
+# print "	movcs	%s, %s" % (v0, s0)
+# print "	movcs	%s, %s" % (s0, X0)
+# print "	itttt	cs			// exchanges"
+# print "	movcs	%s, %s	// exchange v1,s1" % (X1, v1)
+# print "	movcs	%s, %s" % (v1, s1)
+# print "	movcs	%s, %s" % (s1, X1)
+# print "	vnegcs.f32	%s, %s	// negate delta" % (v("D"),v("D"))
 
 print "bs3_jump32divsteps_1:		// second half"
 print "	vadd.f32	%s, %s, %s	// delta++" % (v("D"),v("D"),v("1"))
