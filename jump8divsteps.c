@@ -39,7 +39,7 @@ void polymul_4x4_2x2_x2p2 (int *V, int *M, int *fh, int *gh) {
   }
   polymul_4x4(V+4, M+8, fh);	// r * fh
   polymul_4x4(B, M+10, gh);	// s * gh
-  for (i = 0; i < 2; i++) {	// x( u fh + v gh) + f1
+  for (i = 0; i < 2; i++) {	// x( r fh + s gh) + g1
     V[4+i] =  barrett_16x2(__SADD16(__SADD16(M[2+i],V[4+i]),B[i]));
     V[6+i] =  barrett_16x2(__SADD16(V[6+i],B[2+i]));
   }

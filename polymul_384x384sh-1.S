@@ -66,7 +66,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114,7 +114,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -178,7 +178,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -251,7 +251,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -333,7 +333,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -424,7 +424,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -524,7 +524,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -633,7 +633,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -751,7 +751,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -878,7 +878,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1014,7 +1014,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1159,7 +1159,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1313,7 +1313,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1476,7 +1476,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1648,7 +1648,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1813,7 +1813,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -1875,7 +1875,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2040,7 +2040,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2111,7 +2111,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2276,7 +2276,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2356,7 +2356,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2521,7 +2521,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2610,7 +2610,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2775,7 +2775,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -2873,7 +2873,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3038,7 +3038,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3145,7 +3145,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3310,7 +3310,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3426,7 +3426,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3591,7 +3591,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3716,7 +3716,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -3881,7 +3881,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4015,7 +4015,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4180,7 +4180,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4323,7 +4323,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4488,7 +4488,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4640,7 +4640,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4805,7 +4805,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -4966,7 +4966,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5131,7 +5131,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5301,7 +5301,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5466,7 +5466,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5645,7 +5645,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5810,7 +5810,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -5982,7 +5982,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6044,7 +6044,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6209,7 +6209,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6381,7 +6381,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6452,7 +6452,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6617,7 +6617,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6789,7 +6789,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -6869,7 +6869,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7034,7 +7034,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7206,7 +7206,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7295,7 +7295,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7460,7 +7460,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7632,7 +7632,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7730,7 +7730,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -7895,7 +7895,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8067,7 +8067,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8174,7 +8174,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8339,7 +8339,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8511,7 +8511,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8627,7 +8627,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8792,7 +8792,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -8964,7 +8964,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9089,7 +9089,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9254,7 +9254,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9426,7 +9426,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9560,7 +9560,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9725,7 +9725,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -9897,7 +9897,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10040,7 +10040,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10205,7 +10205,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10377,7 +10377,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10529,7 +10529,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10694,7 +10694,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -10866,7 +10866,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11027,7 +11027,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11192,7 +11192,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11364,7 +11364,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11534,7 +11534,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11699,7 +11699,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -11871,7 +11871,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12050,7 +12050,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12215,7 +12215,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12387,7 +12387,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12559,7 +12559,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12621,7 +12621,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12786,7 +12786,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -12958,7 +12958,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13130,7 +13130,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13201,7 +13201,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13366,7 +13366,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13538,7 +13538,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13710,7 +13710,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13790,7 +13790,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -13955,7 +13955,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14127,7 +14127,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14299,7 +14299,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14388,7 +14388,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14553,7 +14553,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14725,7 +14725,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14897,7 +14897,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -14995,7 +14995,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15160,7 +15160,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15332,7 +15332,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15504,7 +15504,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15611,7 +15611,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15776,7 +15776,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -15948,7 +15948,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16120,7 +16120,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16236,7 +16236,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16401,7 +16401,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16573,7 +16573,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16745,7 +16745,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -16870,7 +16870,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17035,7 +17035,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17207,7 +17207,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17379,7 +17379,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17513,7 +17513,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17678,7 +17678,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -17850,7 +17850,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18022,7 +18022,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18165,7 +18165,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18330,7 +18330,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18502,7 +18502,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18674,7 +18674,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18826,7 +18826,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -18991,7 +18991,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -19163,7 +19163,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -19335,7 +19335,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -19496,7 +19496,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -19661,7 +19661,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -19833,7 +19833,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20005,7 +20005,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20175,7 +20175,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20340,7 +20340,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20512,7 +20512,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20684,7 +20684,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -20863,7 +20863,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21028,7 +21028,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21200,7 +21200,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21372,7 +21372,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21544,7 +21544,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21606,7 +21606,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21771,7 +21771,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -21943,7 +21943,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22115,7 +22115,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22287,7 +22287,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22358,7 +22358,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22523,7 +22523,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22695,7 +22695,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -22867,7 +22867,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23039,7 +23039,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23119,7 +23119,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23284,7 +23284,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23456,7 +23456,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23628,7 +23628,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23800,7 +23800,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -23889,7 +23889,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24054,7 +24054,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24226,7 +24226,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24398,7 +24398,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24570,7 +24570,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24668,7 +24668,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -24833,7 +24833,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25005,7 +25005,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25177,7 +25177,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25349,7 +25349,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25456,7 +25456,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25621,7 +25621,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25793,7 +25793,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -25965,7 +25965,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26137,7 +26137,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26253,7 +26253,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26418,7 +26418,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26590,7 +26590,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26762,7 +26762,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -26934,7 +26934,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27059,7 +27059,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27224,7 +27224,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27396,7 +27396,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27568,7 +27568,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27740,7 +27740,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -27874,7 +27874,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28039,7 +28039,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28211,7 +28211,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28383,7 +28383,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28555,7 +28555,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28698,7 +28698,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -28863,7 +28863,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29035,7 +29035,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29207,7 +29207,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29379,7 +29379,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29531,7 +29531,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29696,7 +29696,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -29868,7 +29868,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30040,7 +30040,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30212,7 +30212,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30373,7 +30373,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30538,7 +30538,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30710,7 +30710,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -30882,7 +30882,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31054,7 +31054,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31224,7 +31224,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31389,7 +31389,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31561,7 +31561,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31733,7 +31733,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -31905,7 +31905,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32084,7 +32084,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32249,7 +32249,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32421,7 +32421,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32593,7 +32593,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32765,7 +32765,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32937,7 +32937,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -32999,7 +32999,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33164,7 +33164,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33336,7 +33336,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33508,7 +33508,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33680,7 +33680,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33852,7 +33852,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -33923,7 +33923,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34088,7 +34088,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34260,7 +34260,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34432,7 +34432,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34604,7 +34604,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34776,7 +34776,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -34856,7 +34856,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35021,7 +35021,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35193,7 +35193,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35365,7 +35365,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35537,7 +35537,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35709,7 +35709,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35798,7 +35798,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -35963,7 +35963,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36135,7 +36135,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36307,7 +36307,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36479,7 +36479,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36651,7 +36651,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36749,7 +36749,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -36914,7 +36914,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37086,7 +37086,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37258,7 +37258,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37430,7 +37430,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37602,7 +37602,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37709,7 +37709,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -37874,7 +37874,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38046,7 +38046,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38218,7 +38218,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38390,7 +38390,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38562,7 +38562,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38678,7 +38678,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -38843,7 +38843,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39015,7 +39015,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39187,7 +39187,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39359,7 +39359,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39531,7 +39531,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39656,7 +39656,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39821,7 +39821,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -39993,7 +39993,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40165,7 +40165,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40337,7 +40337,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40509,7 +40509,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40643,7 +40643,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40808,7 +40808,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -40980,7 +40980,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41152,7 +41152,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41324,7 +41324,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41496,7 +41496,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41639,7 +41639,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41804,7 +41804,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -41976,7 +41976,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42148,7 +42148,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42320,7 +42320,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42492,7 +42492,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42644,7 +42644,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42809,7 +42809,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -42981,7 +42981,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43153,7 +43153,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43325,7 +43325,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43497,7 +43497,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43658,7 +43658,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43823,7 +43823,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -43995,7 +43995,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -44167,7 +44167,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -44339,7 +44339,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -44511,7 +44511,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -44681,7 +44681,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -44846,7 +44846,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45018,7 +45018,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45190,7 +45190,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45362,7 +45362,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45534,7 +45534,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45713,7 +45713,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -45878,7 +45878,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46050,7 +46050,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46222,7 +46222,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46394,7 +46394,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46566,7 +46566,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46738,7 +46738,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46800,7 +46800,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -46965,7 +46965,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47137,7 +47137,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47309,7 +47309,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47481,7 +47481,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47653,7 +47653,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47825,7 +47825,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -47896,7 +47896,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48061,7 +48061,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48233,7 +48233,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48405,7 +48405,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48577,7 +48577,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48749,7 +48749,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -48921,7 +48921,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49001,7 +49001,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49166,7 +49166,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49338,7 +49338,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49510,7 +49510,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49682,7 +49682,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -49854,7 +49854,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50026,7 +50026,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50115,7 +50115,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50280,7 +50280,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50452,7 +50452,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50624,7 +50624,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50796,7 +50796,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -50968,7 +50968,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51140,7 +51140,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51238,7 +51238,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51403,7 +51403,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51575,7 +51575,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51747,7 +51747,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -51919,7 +51919,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52091,7 +52091,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52263,7 +52263,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52370,7 +52370,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52535,7 +52535,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52707,7 +52707,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -52879,7 +52879,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53051,7 +53051,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53223,7 +53223,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53395,7 +53395,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53511,7 +53511,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53676,7 +53676,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -53848,7 +53848,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54020,7 +54020,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54192,7 +54192,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54364,7 +54364,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54536,7 +54536,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54661,7 +54661,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54826,7 +54826,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -54998,7 +54998,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55170,7 +55170,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55342,7 +55342,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55514,7 +55514,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55686,7 +55686,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55820,7 +55820,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -55985,7 +55985,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56157,7 +56157,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56329,7 +56329,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56501,7 +56501,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56673,7 +56673,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56845,7 +56845,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -56988,7 +56988,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -57153,7 +57153,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -57325,7 +57325,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -57497,7 +57497,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -57669,7 +57669,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -57841,7 +57841,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58013,7 +58013,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58165,7 +58165,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58330,7 +58330,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58502,7 +58502,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58674,7 +58674,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -58846,7 +58846,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59018,7 +59018,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59190,7 +59190,7 @@ sch2p19_0:			// increasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59352,7 +59352,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59517,7 +59517,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59689,7 +59689,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -59861,7 +59861,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60033,7 +60033,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60205,7 +60205,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60377,7 +60377,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60529,7 +60529,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60694,7 +60694,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -60866,7 +60866,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61038,7 +61038,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61210,7 +61210,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61382,7 +61382,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61554,7 +61554,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61697,7 +61697,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -61862,7 +61862,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62034,7 +62034,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62206,7 +62206,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62378,7 +62378,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62550,7 +62550,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62722,7 +62722,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -62856,7 +62856,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63021,7 +63021,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63193,7 +63193,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63365,7 +63365,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63537,7 +63537,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63709,7 +63709,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -63881,7 +63881,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64006,7 +64006,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64171,7 +64171,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64343,7 +64343,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64515,7 +64515,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64687,7 +64687,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -64859,7 +64859,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65031,7 +65031,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65147,7 +65147,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65312,7 +65312,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65484,7 +65484,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65656,7 +65656,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -65828,7 +65828,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66000,7 +66000,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66172,7 +66172,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66279,7 +66279,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66444,7 +66444,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66616,7 +66616,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66788,7 +66788,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -66960,7 +66960,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67132,7 +67132,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67304,7 +67304,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67402,7 +67402,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67567,7 +67567,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67739,7 +67739,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -67911,7 +67911,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68083,7 +68083,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68255,7 +68255,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68427,7 +68427,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68516,7 +68516,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68681,7 +68681,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -68853,7 +68853,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69025,7 +69025,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69197,7 +69197,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69369,7 +69369,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69541,7 +69541,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69621,7 +69621,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69786,7 +69786,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -69958,7 +69958,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70130,7 +70130,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70302,7 +70302,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70474,7 +70474,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70646,7 +70646,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70717,7 +70717,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -70882,7 +70882,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71054,7 +71054,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71226,7 +71226,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71398,7 +71398,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71570,7 +71570,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71742,7 +71742,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71804,7 +71804,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -71969,7 +71969,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -72141,7 +72141,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -72313,7 +72313,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -72485,7 +72485,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -72657,7 +72657,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -72836,7 +72836,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73001,7 +73001,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73173,7 +73173,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73345,7 +73345,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73517,7 +73517,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73689,7 +73689,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -73859,7 +73859,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74024,7 +74024,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74196,7 +74196,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74368,7 +74368,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74540,7 +74540,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74712,7 +74712,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -74873,7 +74873,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75038,7 +75038,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75210,7 +75210,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75382,7 +75382,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75554,7 +75554,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75726,7 +75726,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -75878,7 +75878,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76043,7 +76043,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76215,7 +76215,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76387,7 +76387,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76559,7 +76559,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76731,7 +76731,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -76874,7 +76874,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77039,7 +77039,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77211,7 +77211,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77383,7 +77383,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77555,7 +77555,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77727,7 +77727,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -77861,7 +77861,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78026,7 +78026,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78198,7 +78198,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78370,7 +78370,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78542,7 +78542,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78714,7 +78714,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -78839,7 +78839,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79004,7 +79004,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79176,7 +79176,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79348,7 +79348,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79520,7 +79520,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79692,7 +79692,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79808,7 +79808,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -79973,7 +79973,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80145,7 +80145,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80317,7 +80317,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80489,7 +80489,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80661,7 +80661,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80768,7 +80768,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -80933,7 +80933,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81105,7 +81105,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81277,7 +81277,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81449,7 +81449,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81621,7 +81621,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81719,7 +81719,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -81884,7 +81884,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82056,7 +82056,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82228,7 +82228,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82400,7 +82400,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82572,7 +82572,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82661,7 +82661,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82826,7 +82826,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -82998,7 +82998,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83170,7 +83170,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83342,7 +83342,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83514,7 +83514,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83594,7 +83594,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83759,7 +83759,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -83931,7 +83931,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84103,7 +84103,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84275,7 +84275,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84447,7 +84447,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84518,7 +84518,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84683,7 +84683,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -84855,7 +84855,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85027,7 +85027,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85199,7 +85199,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85371,7 +85371,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85433,7 +85433,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85598,7 +85598,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85770,7 +85770,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -85942,7 +85942,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86114,7 +86114,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86293,7 +86293,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86458,7 +86458,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86630,7 +86630,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86802,7 +86802,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -86974,7 +86974,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87144,7 +87144,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87309,7 +87309,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87481,7 +87481,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87653,7 +87653,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87825,7 +87825,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -87986,7 +87986,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88151,7 +88151,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88323,7 +88323,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88495,7 +88495,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88667,7 +88667,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88819,7 +88819,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -88984,7 +88984,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89156,7 +89156,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89328,7 +89328,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89500,7 +89500,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89643,7 +89643,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89808,7 +89808,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -89980,7 +89980,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90152,7 +90152,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90324,7 +90324,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90458,7 +90458,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90623,7 +90623,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90795,7 +90795,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -90967,7 +90967,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91139,7 +91139,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91264,7 +91264,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91429,7 +91429,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91601,7 +91601,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91773,7 +91773,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -91945,7 +91945,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92061,7 +92061,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92226,7 +92226,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92398,7 +92398,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92570,7 +92570,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92742,7 +92742,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -92849,7 +92849,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93014,7 +93014,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93186,7 +93186,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93358,7 +93358,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93530,7 +93530,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93628,7 +93628,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93793,7 +93793,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -93965,7 +93965,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94137,7 +94137,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94309,7 +94309,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94398,7 +94398,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94563,7 +94563,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94735,7 +94735,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -94907,7 +94907,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95079,7 +95079,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95159,7 +95159,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95324,7 +95324,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95496,7 +95496,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95668,7 +95668,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95840,7 +95840,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -95911,7 +95911,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96076,7 +96076,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96248,7 +96248,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96420,7 +96420,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96592,7 +96592,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96654,7 +96654,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96819,7 +96819,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -96991,7 +96991,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -97163,7 +97163,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -97342,7 +97342,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -97507,7 +97507,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -97679,7 +97679,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -97851,7 +97851,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98021,7 +98021,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98186,7 +98186,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98358,7 +98358,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98530,7 +98530,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98691,7 +98691,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -98856,7 +98856,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99028,7 +99028,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99200,7 +99200,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99352,7 +99352,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99517,7 +99517,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99689,7 +99689,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -99861,7 +99861,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100004,7 +100004,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100169,7 +100169,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100341,7 +100341,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100513,7 +100513,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100647,7 +100647,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100812,7 +100812,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -100984,7 +100984,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101156,7 +101156,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101281,7 +101281,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101446,7 +101446,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101618,7 +101618,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101790,7 +101790,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -101906,7 +101906,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102071,7 +102071,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102243,7 +102243,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102415,7 +102415,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102522,7 +102522,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102687,7 +102687,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -102859,7 +102859,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103031,7 +103031,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103129,7 +103129,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103294,7 +103294,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103466,7 +103466,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103638,7 +103638,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103727,7 +103727,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -103892,7 +103892,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104064,7 +104064,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104236,7 +104236,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104316,7 +104316,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104481,7 +104481,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104653,7 +104653,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104825,7 +104825,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -104896,7 +104896,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105061,7 +105061,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105233,7 +105233,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105405,7 +105405,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105467,7 +105467,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105632,7 +105632,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105804,7 +105804,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -105983,7 +105983,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106148,7 +106148,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106320,7 +106320,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106490,7 +106490,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106655,7 +106655,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106827,7 +106827,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -106988,7 +106988,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107153,7 +107153,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107325,7 +107325,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107477,7 +107477,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107642,7 +107642,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107814,7 +107814,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -107957,7 +107957,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108122,7 +108122,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108294,7 +108294,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108428,7 +108428,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108593,7 +108593,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108765,7 +108765,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -108890,7 +108890,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109055,7 +109055,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109227,7 +109227,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109343,7 +109343,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109508,7 +109508,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109680,7 +109680,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109787,7 +109787,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -109952,7 +109952,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110124,7 +110124,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110222,7 +110222,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110387,7 +110387,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110559,7 +110559,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110648,7 +110648,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110813,7 +110813,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -110985,7 +110985,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111065,7 +111065,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111230,7 +111230,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111402,7 +111402,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111473,7 +111473,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111638,7 +111638,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111810,7 +111810,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -111872,7 +111872,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112037,7 +112037,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112216,7 +112216,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112381,7 +112381,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112551,7 +112551,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112716,7 +112716,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -112877,7 +112877,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113042,7 +113042,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113194,7 +113194,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113359,7 +113359,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113502,7 +113502,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113667,7 +113667,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113801,7 +113801,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -113966,7 +113966,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114091,7 +114091,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114256,7 +114256,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114372,7 +114372,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114537,7 +114537,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114644,7 +114644,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114809,7 +114809,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -114907,7 +114907,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115072,7 +115072,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115161,7 +115161,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115326,7 +115326,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115406,7 +115406,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115571,7 +115571,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115642,7 +115642,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115807,7 +115807,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -115869,7 +115869,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116041,7 +116041,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116204,7 +116204,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116358,7 +116358,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116503,7 +116503,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116639,7 +116639,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116766,7 +116766,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116884,7 +116884,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -116993,7 +116993,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117093,7 +117093,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117184,7 +117184,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117266,7 +117266,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117339,7 +117339,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117403,7 +117403,7 @@ sch2p19_10:			// decreasing thread length
 	ldr.w	r2, [r0], #8
 	ldr.w	r5, [r1, #4]
 	ldr.w	r4, [r1], #-8
- 	smull	r6, r7, r2, r4
+	smull.w	r6, r7, r2, r4
 	smull.w	r8, r9, r2, r5
 	smlal.w	r8, r9, r3, r4
 	smull.w	r10, r11, r3, r5
@@ -117460,4 +117460,4 @@ sch2p19_20:			// mv hh back to h
 	add.w	sp, sp, #1536	// sp += 4N
 	pop.w	{r4-r11,lr}
 	bx	lr
-	nop
+	nop	

@@ -31,31 +31,31 @@ bs3_jump32divsteps:
 bs3_jump32divsteps_0:		// first half
 	vcmp.f32	s3, s1		// delta > 0?
 	vmrs	APSR_nzcv, FPSCR	// move carry
-	itttt	cs			// if cs, delta > 0, then
-	tstcs	r0, r2, LSL #1		// set cs by g0[0], then if cs
-	movcs	r4, r0	// exchange f0,g0
+	itttt	cs
+	tstcs	r0, r2, LSL #1	// set cs by g0[0], then if cs
+	movcs	r5, r0	// r0<->r2
 	movcs	r0, r2
-	movcs	r2, r4
-	itttt	cs			// exchanges
-	movcs	r5, r1	// exchange f1,g1
+	movcs	r2, r5
+	itttt	cs
+	movcs	r5, r1	// r1<->r3
 	movcs	r1, r3
 	movcs	r3, r5
-	movcs	r4, r6	// exchange u0,r0
-	itttt	cs			// exchanges
+	movcs	r5, r6	// r6<->r10
+	itttt	cs
 	movcs	r6, r10
-	movcs	r10, r4
-	movcs	r5, r7	// exchange u1,r1
+	movcs	r10, r5
+	movcs	r5, r7	// r7<->r11
 	movcs	r7, r11
-	itttt	cs			// exchanges
+	itttt	cs
 	movcs	r11, r5
-	movcs	r4, r8	// exchange v0,s0
+	movcs	r5, r8	// r8<->r12
 	movcs	r8, r12
-	movcs	r12, r4
-	itttt	cs			// exchanges
-	movcs	r5, r9	// exchange v1,s1
+	movcs	r12, r5
+	itttt	cs
+	movcs	r5, r9	// r9<->r14
 	movcs	r9, r14
 	movcs	r14, r5
-	vnegcs.f32	s3, s3	// negate delta
+	vnegcs.f32	s3, s3
 bs3_jump32divsteps_1:		// second half
 	vadd.f32	s3, s3, s1	// delta++
 	and	r4, r6, r2,ASR #31	// d0 = a0 & b0

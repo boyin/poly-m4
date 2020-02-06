@@ -7,15 +7,17 @@
 	.type	gf_polymul_16x16, %function
 gf_polymul_16x16:
 	push	{r4-r11,lr}
-	movw	r14, #47521
-	movt	r14, #65521
-	vmov	s1, r14	// save minus q32inv
-	movw	r12, #4591
-	vmov	s0, r12	// save q
+	movw	r14, #18015
+	movt	r14, #14
+	vmov	s2, r14	// save q32inv
+	movw	r12, #60945
+	movt	r12, #65535
+	vmov	s0, r12	// save -q
 	ldr	r12, [r2]
 	ldr	r14, [r2, #4]
 	ldr	r3, [r1]
 	ldr	r4, [r1, #4]
+	// block (0,0)
 	smuadx	r6, r3, r12
 	smuadx	r8, r4, r12
 	smladx	r8, r3, r14, r8
@@ -27,8 +29,8 @@ gf_polymul_16x16:
 	smuad	r9, r3, r14
 	smlatt	r9, r4, r12, r9
 	smultt	r11, r4, r14
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
 	br_32x2	r5, r6, r3, r12, r4
 	br_32x2	r7, r8, r3, r12, r4
 	str	r5, [r0], #4
@@ -36,6 +38,7 @@ gf_polymul_16x16:
 	ldr	r3, [r1, #8]
 	ldr	r4, [r1, #12]
 	ldr	r12, [r2, #0]
+	// block (1,0)
 	smladx	r10, r3, r12, r10
 	smuadx	r5, r4, r12
 	smladx	r5, r3, r14, r5
@@ -47,6 +50,7 @@ gf_polymul_16x16:
 	smuad	r6, r3, r14
 	smlatt	r6, r4, r12, r6
 	smultt	r8, r4, r14
+	// block (0,1)
 	ldr	r12, [r2, #8]
 	ldr	r14, [r2, #12]
 	ldr	r3, [r1, #0]
@@ -62,8 +66,8 @@ gf_polymul_16x16:
 	smlad	r6, r3, r14, r6
 	smlatt	r6, r4, r12, r6
 	smlatt	r8, r4, r14, r8
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
 	br_32x2	r9, r10, r3, r12, r14
 	br_32x2	r11, r5, r3, r12, r14
 	str	r9, [r0], #4
@@ -71,6 +75,7 @@ gf_polymul_16x16:
 	ldr	r3, [r1, #0]
 	ldr	r12, [r2, #16]
 	ldr	r14, [r2, #20]
+	// block (0,2)
 	smladx	r7, r3, r12, r7
 	smuadx	r9, r4, r12
 	smladx	r9, r3, r14, r9
@@ -82,6 +87,7 @@ gf_polymul_16x16:
 	smuad	r10, r3, r14
 	smlatt	r10, r4, r12, r10
 	smultt	r5, r4, r14
+	// block (1,1)
 	ldr	r12, [r2, #8]
 	ldr	r14, [r2, #12]
 	ldr	r3, [r1, #8]
@@ -97,6 +103,7 @@ gf_polymul_16x16:
 	smlad	r10, r3, r14, r10
 	smlatt	r10, r4, r12, r10
 	smlatt	r5, r4, r14, r5
+	// block (2,0)
 	ldr	r12, [r2, #0]
 	ldr	r14, [r2, #4]
 	ldr	r3, [r1, #16]
@@ -112,8 +119,8 @@ gf_polymul_16x16:
 	smlad	r10, r3, r14, r10
 	smlatt	r10, r4, r12, r10
 	smlatt	r5, r4, r14, r5
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
 	br_32x2	r6, r7, r3, r12, r4
 	br_32x2	r8, r9, r3, r12, r4
 	str	r6, [r0], #4
@@ -121,6 +128,7 @@ gf_polymul_16x16:
 	ldr	r3, [r1, #24]
 	ldr	r4, [r1, #28]
 	ldr	r12, [r2, #0]
+	// block (3,0)
 	smladx	r11, r3, r12, r11
 	smuadx	r6, r4, r12
 	smladx	r6, r3, r14, r6
@@ -132,6 +140,7 @@ gf_polymul_16x16:
 	smuad	r7, r3, r14
 	smlatt	r7, r4, r12, r7
 	smultt	r9, r4, r14
+	// block (2,1)
 	ldr	r12, [r2, #8]
 	ldr	r14, [r2, #12]
 	ldr	r3, [r1, #16]
@@ -147,6 +156,7 @@ gf_polymul_16x16:
 	smlad	r7, r3, r14, r7
 	smlatt	r7, r4, r12, r7
 	smlatt	r9, r4, r14, r9
+	// block (1,2)
 	ldr	r12, [r2, #16]
 	ldr	r14, [r2, #20]
 	ldr	r3, [r1, #8]
@@ -162,6 +172,7 @@ gf_polymul_16x16:
 	smlad	r7, r3, r14, r7
 	smlatt	r7, r4, r12, r7
 	smlatt	r9, r4, r14, r9
+	// block (0,3)
 	ldr	r12, [r2, #24]
 	ldr	r14, [r2, #28]
 	ldr	r3, [r1, #0]
@@ -177,15 +188,16 @@ gf_polymul_16x16:
 	smlad	r7, r3, r14, r7
 	smlatt	r7, r4, r12, r7
 	smlatt	r9, r4, r14, r9
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
-	br_32x2	r10, r11, r3, r12, r14
-	br_32x2	r5, r6, r3, r12, r14
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
+	br_32x2	r10, r11, r3, r12, r4
+	br_32x2	r5, r6, r3, r12, r4
 	str	r10, [r0], #4
 	str	r5, [r0], #4
-	ldr	r3, [r1, #0]
-	ldr	r12, [r2, #32]
-	ldr	r14, [r2, #36]
+	ldr	r3, [r1, #8]
+	ldr	r4, [r1, #12]
+	ldr	r12, [r2, #24]
+	// block (1,3)
 	smladx	r8, r3, r12, r8
 	smuadx	r10, r4, r12
 	smladx	r10, r3, r14, r10
@@ -197,21 +209,7 @@ gf_polymul_16x16:
 	smuad	r11, r3, r14
 	smlatt	r11, r4, r12, r11
 	smultt	r6, r4, r14
-	ldr	r12, [r2, #24]
-	ldr	r14, [r2, #28]
-	ldr	r3, [r1, #8]
-	ldr	r4, [r1, #12]
-	smladx	r8, r3, r12, r8
-	smladx	r10, r4, r12, r10
-	smladx	r10, r3, r14, r10
-	smladx	r5, r4, r14, r5
-	smlabb	r7, r3, r12, r7
-	smlabb	r9, r3, r14, r9
-	pkhtb	r3, r3, r4
-	smlad	r9, r3, r12, r9
-	smlad	r11, r3, r14, r11
-	smlatt	r11, r4, r12, r11
-	smlatt	r6, r4, r14, r6
+	// block (2,2)
 	ldr	r12, [r2, #16]
 	ldr	r14, [r2, #20]
 	ldr	r3, [r1, #16]
@@ -227,6 +225,7 @@ gf_polymul_16x16:
 	smlad	r11, r3, r14, r11
 	smlatt	r11, r4, r12, r11
 	smlatt	r6, r4, r14, r6
+	// block (3,1)
 	ldr	r12, [r2, #8]
 	ldr	r14, [r2, #12]
 	ldr	r3, [r1, #24]
@@ -242,30 +241,16 @@ gf_polymul_16x16:
 	smlad	r11, r3, r14, r11
 	smlatt	r11, r4, r12, r11
 	smlatt	r6, r4, r14, r6
-	ldr	r12, [r2, #0]
-	ldr	r14, [r2, #4]
-	ldr	r3, [r1, #32]
-	ldr	r4, [r1, #36]
-	smladx	r8, r3, r12, r8
-	smladx	r10, r4, r12, r10
-	smladx	r10, r3, r14, r10
-	smladx	r5, r4, r14, r5
-	smlabb	r7, r3, r12, r7
-	smlabb	r9, r3, r14, r9
-	pkhtb	r3, r3, r4
-	smlad	r9, r3, r12, r9
-	smlad	r11, r3, r14, r11
-	smlatt	r11, r4, r12, r11
-	smlatt	r6, r4, r14, r6
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
-	br_32x2	r7, r8, r3, r12, r4
-	br_32x2	r9, r10, r3, r12, r4
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
+	br_32x2	r7, r8, r3, r12, r14
+	br_32x2	r9, r10, r3, r12, r14
 	str	r7, [r0], #4
 	str	r9, [r0], #4
 	ldr	r3, [r1, #24]
 	ldr	r12, [r2, #16]
 	ldr	r14, [r2, #20]
+	// block (3,2)
 	smladx	r5, r3, r12, r5
 	smuadx	r7, r4, r12
 	smladx	r7, r3, r14, r7
@@ -277,6 +262,7 @@ gf_polymul_16x16:
 	smuad	r8, r3, r14
 	smlatt	r8, r4, r12, r8
 	smultt	r10, r4, r14
+	// block (2,3)
 	ldr	r12, [r2, #24]
 	ldr	r14, [r2, #28]
 	ldr	r3, [r1, #16]
@@ -292,8 +278,8 @@ gf_polymul_16x16:
 	smlad	r8, r3, r14, r8
 	smlatt	r8, r4, r12, r8
 	smlatt	r10, r4, r14, r10
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
 	br_32x2	r11, r5, r3, r12, r4
 	br_32x2	r6, r7, r3, r12, r4
 	str	r11, [r0], #4
@@ -301,6 +287,7 @@ gf_polymul_16x16:
 	ldr	r3, [r1, #24]
 	ldr	r4, [r1, #28]
 	ldr	r12, [r2, #24]
+	// block (3,3)
 	smladx	r9, r3, r12, r9
 	smuadx	r11, r4, r12
 	smladx	r11, r3, r14, r11
@@ -312,16 +299,17 @@ gf_polymul_16x16:
 	smuad	r5, r3, r14
 	smlatt	r5, r4, r12, r5
 	smultt	r7, r4, r14
-	vmov	r3, s0  // load q
-	vmov	r12, s1  // load -q32inv
-	br_32x2	r8, r9, r3, r12, r14
-	br_32x2	r10, r11, r3, r12, r14
-	str	r8, [r0], #4
-	str	r10, [r0], #4
+	vmov	r3, s0  // load -q
+	vmov	r12, s2  // load q32inv
 	br_32x2	r8, r9, r3, r12, r4
-	br_32	r10, r3, r12, r4
+	br_32x2	r10, r11, r3, r12, r4
 	str	r8, [r0], #4
 	str	r10, [r0], #4
+	br_32x2	r5, r6, r3, r12, r4
+	br_32	r7, r3, r12, r4
+ bfc	r7, #16, #16
+	str	r5, [r0], #4
+	str	r7, [r0], #4
 	add	r1, #32
 	add	r2, #32
 	pop	{r4-r11,lr}

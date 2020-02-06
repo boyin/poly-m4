@@ -38,11 +38,16 @@
 	.endif
 	.endm	
 
-	.macro	br_32, res, mq, q32inv, scr
+	.macro	br_32, res, mq, q32inv, scr, newres
 	smmulr	\scr, \res, \q32inv
+	.ifb	\newres
 	mla	\res, \mq, \scr, \res
+	.else	
+	mla	\newres, \mq, \scr, \res
+	.endif
 	.endm
 
+	  
 	.macro	br_32x2, res0, res1, mq, q32inv, scr
 	smmulr	\scr, \res0, \q32inv
 	mla	\res0, \mq, \scr, \res0
@@ -50,12 +55,6 @@
 	mla	\res1, \mq, \scr, \res1
 	pkhbt   \res0, \res0, \res1, LSL #16  
 	.endm  
-	  // no good don't use
-	.macro	center_adj, res, qqx2, scr // qqx2 = 2 copies of qq
-	sadd16	scr, res, qqx2
-	sel	res, scr
-	ssub16	scr, res, qqx2
-	sel	res, scr
-	.endm	  
+	  
 
 #endif

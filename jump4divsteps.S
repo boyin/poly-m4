@@ -226,6 +226,12 @@ jump2divsteps_1_t0_1:	// end of first half
 	lsl	r6, r6, #16	// r6 was reduced, shift
 	lsl	r7, r7, #16	// r7 was reduced, shift
 	pop	{pc}
+ // note M1 redefined here
+ // note M2 redefined here
+ // note fg redefined here
+ // note M redefined here
+ // note pf redefined here
+ // note pg redefined here
 	.p2align	2,,3	
 	.syntax		unified
 	.text
