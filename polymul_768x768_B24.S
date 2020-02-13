@@ -4,6 +4,7 @@
 #include "polymul_768x768_B24_aux.h"
 	.p2align	2,,3	
 	.syntax		unified
+	.globl 		memcpy
 	.text
 // void gf_polymul_768x768_divR (int32_t *h, int32_t *f, int32_t *g);
 	.global gf_polymul_768x768_divR
@@ -1029,15 +1030,12 @@ KA768_col_384_add1:	// begin KA collect loop
 KA768_col_384_end:
 KA768_mv_back:			// hh=[sp,4M] still =r2
 	vmov	r0, s0  // reload h
-	mov	r14, #3072
-KA768_mv_back_loop:
-	ldm	r2!, {r4-r11}
-	stm	r0!, {r4-r11}
-	subs	r14, #32
-	bne	KA768_mv_back_loop
+	mov	r1, r2
+	mov	r2, #3072
+	vmov	r4, s1  // load 2M
+	bl	memcpy
 KA768_end:
-	vmov	r12, s1  // load 2M
-	add	sp, sp, r12, LSL #2	// add back 46656 = 8M
+	add	sp, sp, r4, LSL #2	// add back 46656 = 8M
 	vpop	{s16-s31}
 	pop	{r4-r11,lr}
 	bx	lr
