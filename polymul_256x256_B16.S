@@ -11,7 +11,7 @@
 gf_polymul_256x256_divR:
 	push	{r4-r11,lr}
 	vpush	{s16-s31}
-	ldr	r12, =2592	// r12=2M
+	movw	r12, #2592	// r12=2M
 	sub	sp, sp, r12, LSL #2	// subtract 10368 = 8M
 		// ff=[sp], gg=[sp,#2592], hh=[sp,#5184]
 	vmov	s0, r0	// save h
@@ -62,8 +62,6 @@ KA256_exp_red2:			// while loop on r4
 	ldr	r9, [r1, r4, LSL #2]	// gg[r4]
 	br_16x2	r8, r6, r7, r10, r11, r12
 	str	r8, [r0, r4, LSL #2]	// ff[r4] %= q
-	br_16x2	r9, r6, r7, r10, r11, r12
-	str	r9, [r1, r4, LSL #2]	// gg[r4] %= q
 	add	r4, #1
 	cmp	r4, r5		// r4 > r5?
 	bls	KA256_exp_red2	// loop (r4)
@@ -84,6 +82,7 @@ KA256_exp_adds:
 	add	r0, r0, r2		// r0 = ff + N0/2/W
 	add	r1, r1, r2		// r1 = gg + N0/2/W
 	rsb	r2, r2, #0			// r2 = -N0
+	mov	r12, r2
 KA256_exp_adds1:
 	ldr	r8, [r0, r2]
 	ldr	r10, [r0], #4
@@ -101,10 +100,11 @@ KA256_exp_adds1:
 	strd	r8, r9, [r6], #8
 	subs	r4, r4, #2
 	beq	KA256_exp_end
-	bics	r7, r4, r2, ASR #2
-	itt	eq		// divisible by N0/2/W=4?
+	adds	r12, r12, #8
+	ittt	eq		// divisible by N0/2/W?
 	subeq	r0, r0, r2	// then add N0!
 	subeq	r1, r1, r2	// then add N0!
+	moveq	r12, r2		// reload with N0
 	b	KA256_exp_adds1
 KA256_exp_end:
 	rsb	r2, r2, #0
@@ -473,6 +473,7 @@ KA256_col_16_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r11, #16	// N0
 KA256_col_16_add1:	// begin KA collect loop
 	ldrd	r4, r5, [r1, #32]
 	ldrd	r6, r7, [r1, #64]
@@ -495,10 +496,11 @@ KA256_col_16_add1:	// begin KA collect loop
 	add	r1, r1, #8		// shift r1 up 8
 	subs	r14, r14, #4
 	beq	KA256_col_16_end
-	tst	r14, #15	// set bit < 16?
-	itt	eq		// no, then next set
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
 	addeq	r1, r1, #96
 	addeq	r12, r12, #32
+	moveq	r11, #16	// N0
 	b	KA256_col_16_add1
 KA256_col_16_end:
 KA256_col_32_ov:
@@ -524,6 +526,7 @@ KA256_col_32_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r11, #32	// N0
 KA256_col_32_add1:	// begin KA collect loop
 	ldrd	r4, r5, [r1, #64]
 	ldrd	r6, r7, [r1, #128]
@@ -546,10 +549,11 @@ KA256_col_32_add1:	// begin KA collect loop
 	add	r1, r1, #8		// shift r1 up 8
 	subs	r14, r14, #4
 	beq	KA256_col_32_end
-	tst	r14, #31	// set bit < 32?
-	itt	eq		// no, then next set
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
 	addeq	r1, r1, #192
 	addeq	r12, r12, #64
+	moveq	r11, #32	// N0
 	b	KA256_col_32_add1
 KA256_col_32_end:
 KA256_col_64_ov:
@@ -575,6 +579,7 @@ KA256_col_64_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r10, #64		// N0
 	mov	r0, #128			// 2*N0
 	add	r11, r0, r0, LSL #1	// 6*N0
 KA256_col_64_add1:	// begin KA collect loop
@@ -594,10 +599,11 @@ KA256_col_64_add1:	// begin KA collect loop
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA256_col_64_end
-	tst	r14, #63	// set bit < 64?
-	itt	eq			//next 32 bloc
+	subs	r10, #2
+	ittt	eq			//next 32 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #64		// N0
 	b	KA256_col_64_add1
 KA256_col_64_end:
 KA256_col_128_ov:
@@ -623,6 +629,7 @@ KA256_col_128_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r10, #128		// N0
 	mov	r0, #256			// 2*N0
 	add	r11, r0, r0, LSL #1	// 6*N0
 KA256_col_128_add1:	// begin KA collect loop
@@ -642,10 +649,11 @@ KA256_col_128_add1:	// begin KA collect loop
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA256_col_128_end
-	tst	r14, #127	// set bit < 128?
-	itt	eq			//next 64 bloc
+	subs	r10, #2
+	ittt	eq			//next 64 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #128		// N0
 	b	KA256_col_128_add1
 KA256_col_128_end:
 KA256_mv_back:			// hh=[sp,4M] still =r2

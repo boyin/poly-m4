@@ -11,7 +11,7 @@ void gf_polymul_64x64_2x2_x_2x2 (int *M, int *M1, int *M2);
 #define qR2inv 935519 // round(2^32/q)
 #define _2P15 (1 << 15)
 
-#if 0
+#if 1
 // result range: +- 2295 (note: 3 loads for _2P15 and the longer qR2inv)
 static inline int barrett_16x2i(int X) {
   int32_t QL = __SMLAWB(qR2inv,X,_2P15);

@@ -11,7 +11,7 @@
 gf_polymul_512x512_divR:
 	push	{r4-r11,lr}
 	vpush	{s16-s31}
-	ldr	r12, =11664	// r12=2M
+	movw	r12, #11664	// r12=2M
 	sub	sp, sp, r12, LSL #2	// subtract 46656 = 8M
 		// ff=[sp], gg=[sp,#11664], hh=[sp,#23328]
 	vmov	s0, r0	// save h
@@ -24,9 +24,7 @@ gf_polymul_512x512_divR:
 	ldr	r14, =KA_exp_ov_512
 	vmov	s4, r14	// save ov pointer
 	movw	r12, #4591
-	vmov	s5, r12	// save q
-	movw	r14, #49905
-	movt	r14, #65536-1
+	movw	r14, #15631
 	vmov	s6, r14	// save qinv
 	rsb	r12, r12, #0		// -q
 	vmov	s8, r12	// save -q
@@ -64,8 +62,6 @@ KA512_exp_red2:			// while loop on r4
 	ldr	r9, [r1, r4, LSL #2]	// gg[r4]
 	br_16x2	r8, r6, r7, r10, r11, r12
 	str	r8, [r0, r4, LSL #2]	// ff[r4] %= q
-	br_16x2	r9, r6, r7, r10, r11, r12
-	str	r9, [r1, r4, LSL #2]	// gg[r4] %= q
 	add	r4, #1
 	cmp	r4, r5		// r4 > r5?
 	bls	KA512_exp_red2	// loop (r4)
@@ -86,6 +82,7 @@ KA512_exp_adds:
 	add	r0, r0, r2		// r0 = ff + N0/2/W
 	add	r1, r1, r2		// r1 = gg + N0/2/W
 	rsb	r2, r2, #0			// r2 = -N0
+	mov	r12, r2
 KA512_exp_adds1:
 	ldr	r8, [r0, r2]
 	ldr	r10, [r0], #4
@@ -103,10 +100,11 @@ KA512_exp_adds1:
 	strd	r8, r9, [r6], #8
 	subs	r4, r4, #2
 	beq	KA512_exp_end
-	bics	r7, r4, r2, ASR #2
-	itt	eq		// divisible by N0/2/W=2?
+	adds	r12, r12, #8
+	ittt	eq		// divisible by N0/2/W?
 	subeq	r0, r0, r2	// then add N0!
 	subeq	r1, r1, r2	// then add N0!
+	moveq	r12, r2		// reload with N0
 	b	KA512_exp_adds1
 KA512_exp_end:
 	rsb	r2, r2, #0
@@ -119,117 +117,121 @@ KA512_exp_end1:
 
 KA512_mul:
   // check multiplicative overflow (pre-mult size > q_mb=15799)
-	vmov	r6, s8  // load -q
-	vmov	r7, s7  // load round(2^32/q)
-	mov	r8, #32768
 KA512_mul_ov:
 	ldrsh	r2, [r3], #2
 	cmp	r2, #-1		// multiplicative overflow?
 	beq	KA512_muls
+	mov	r8, #32768
+	vmov	r6, s8  // load -q
+	vmov	r7, s7  // load round(2^32/q)
+KA512_mul_ov1:
+	ldrsh	r11, [r3], #2
+KA512_mul_ov2:
 	ldr	r4, [r0, r2, LSL #2]
 	ldr	r5, [r1, r2, LSL #2]
 	br_16x2	r4, r6, r7, r8, r9, r10
 	br_16x2 r5, r6, r7, r8, r9, r10
 	str	r4, [r0, r2, LSL #2]
 	str	r5, [r1, r2, LSL #2]
-	b	KA512_mul_ov
+	add	r2, r2, #1
+	cmp	r2, r11
+	bls	KA512_mul_ov2
+	ldrsh	r2, [r3], #2
+	cmp	r2, -1
+	bne	KA512_mul_ov1
 KA512_muls:
 	ldrsh	r14, [r3], #2	// r14 = N1/B
 	vmov	s4, r3	// save overflow list pointer
 	vmov	r2, s3  // load r2 = hh
 KA512_muls1:
-	// begin polymul_8x8_divR
-	ldr	r5, [r0, #4]		// f23
-	ldr	r6, [r0, #8]		// f45
-	ldr	r7, [r0, #12]		// f67
-	ldr	r4, [r0],#16		// f01
-	ldr	r9, [r1, #4]		// g23
-	ldr	r10, [r1, #8]		// g45
-	ldr	r11, [r1, #12]		// g67
-	ldr	r8, [r1],#16		// g01
-	vmov	s9, r14	// scr0=count
-	smulbb	r12, r4, r8
-	smuadx	r14, r4, r8
-	vmov	s10, r12	// scr1=h0
-	vmov	s11, r14	// scr2=h1
-	smuadx	r12, r4, r9
-	smladx	r12, r5, r8, r12
-	smuadx	r14, r4, r10
-	smladx	r14, r5, r9, r14
-	smladx	r14, r6, r8, r14
-	vmov	s12, r12	// scr3=h3
-	vmov	s13, r14	// scr4=h5
-	smuadx	r12, r4, r11
-	smladx	r12, r5, r10, r12
-	smladx	r12, r6, r9, r12
-	smladx	r12, r7, r8, r12
-	smuadx	r14, r5, r11
-	smladx	r14, r6, r10, r14
-	smladx	r14, r7, r9, r14
-	vmov	s14, r12	// scr5=h7
-	vmov	s15, r14	// scr6=h9
-	smuadx	r12, r6, r11
-	smladx	r12, r7, r10, r12
-	smuadx	r14, r7, r11
-	vmov	s16, r12	// scr7=h11
-	vmov	s17, r14	// scr8=h13
-	pkhtb	r3, r4, r5		// f21
-	pkhtb	r5, r5, r6		// f43
-	pkhtb	r6, r6, r7		// f65
-	smultt	r12, r7, r11		// f7 g7
-	smultt	r14, r7, r10		// f7 g5
-	smlad	r14, r6, r11, r14
-	vmov	s18, r12	// scr9=h14
-	vmov	s19, r14	// scr10=h12
-	smultt	r12, r7, r9		// f7 g3
-	smlad	r12, r6, r10, r12
-	smlad	r12, r5, r11, r12
-	smultt	r14, r7, r8
-	smlad	r14, r6, r9, r14
-	smlad	r14, r5, r10, r14
-	smlad	r14, r3, r11, r14
-	vmov	s20, r12	// scr11=h10
-	vmov	s21, r14	// scr12=h8, r7 now used up
-	smulbb	r7, r4, r9
-	smlad	r7, r3, r8, r7		// h2
-	smulbb	r12, r4, r10
-	smlad	r12, r3, r9, r12
-	smlad	r12, r5, r8, r12	// h4
-	smulbb	r14, r4, r11
-	smlad	r14, r3, r10, r14
-	smlad	r14, r5, r9, r14
-	smlad	r14, r6, r8, r14	// h6
-	movw	r3, #49905
-	movw	r4, #4591
-	vmov	r8, s12  // h3=scr3
-	vmov	r9, s13  // h5=scr4
-	vmov	r10, s14  // h7=scr5
-	mr_16x2	r7, r8, r4, r3, r11	// h23
-	mr_16x2	r12, r9, r4, r3, r11	// h45
-	mr_16x2 r14, r10, r4, r3, r11	// h67
-	vmov	r8, s21  // h8=scr12
-	vmov	r9, s15  // h9=scr6
-	mr_16x2	r8, r9, r4, r3, r11	// h89
-	vmov	r10, s20  // h10=scr11
-	vmov	r9, s16  // h11=scr7
-	mr_16x2	r10, r9, r4, r3, r11	// h10,11
-	str	r7, [r2, #4]
-	str	r12, [r2, #8]
-	str	r14, [r2, #12]
-	str	r8, [r2, #16]
-	str	r10, [r2, #20]
-	vmov	r12, s19  // h12=scr10
-	vmov	r10, s17  // h13=scr8
-	vmov	r14, s18  // h14=scr9
-	vmov	r7, s10  // h0=scr1
-	vmov	r8, s11  // h1=scr2
-	mr_16x2	r7, r8, r4, r3, r11
-	mr_16x2	r12, r10, r4, r3, r11
-	mr_hi	r14, r4, r3, r11
-	lsr	r14, #16
-	str	r12, [r2, #24]
-	str	r14, [r2, #28]
-	str	r7, [r2], #32
+	vmov	s9, r14	// save counter to scr0
+	ldr	r12, [r1]
+	ldr	r14, [r1, #4]
+	ldr	r3, [r0]
+	ldr	r4, [r0, #4]
+	// block (0,0)
+	smuadx	r6, r3, r12
+	smuadx	r8, r4, r12
+	smladx	r8, r3, r14, r8
+	smuadx	r10, r4, r14
+	smulbb	r5, r3, r12
+	smulbb	r7, r3, r14
+	pkhtb	r3, r3, r4
+	smlad	r7, r3, r12, r7
+	smuad	r9, r3, r14
+	smlatt	r9, r4, r12, r9
+	smultt	r11, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r5, r6, r3, r12, r4
+	mr_16x2	r7, r8, r3, r12, r4
+	str	r5, [r2], #4
+	str	r7, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #0]
+	// block (1,0)
+	smladx	r10, r3, r12, r10
+	smuadx	r5, r4, r12
+	smladx	r5, r3, r14, r5
+	smuadx	r7, r4, r14
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smuad	r6, r3, r14
+	smlatt	r6, r4, r12, r6
+	smultt	r8, r4, r14
+	// block (0,1)
+	ldr	r12, [r1, #8]
+	ldr	r14, [r1, #12]
+	ldr	r3, [r0, #0]
+	ldr	r4, [r0, #4]
+	smladx	r10, r3, r12, r10
+	smladx	r5, r4, r12, r5
+	smladx	r5, r3, r14, r5
+	smladx	r7, r4, r14, r7
+	smlabb	r9, r3, r12, r9
+	smlabb	r11, r3, r14, r11
+	pkhtb	r3, r3, r4
+	smlad	r11, r3, r12, r11
+	smlad	r6, r3, r14, r6
+	smlatt	r6, r4, r12, r6
+	smlatt	r8, r4, r14, r8
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r9, r10, r3, r12, r4
+	mr_16x2	r11, r5, r3, r12, r4
+	str	r9, [r2], #4
+	str	r11, [r2], #4
+	ldr	r3, [r0, #8]
+	ldr	r4, [r0, #12]
+	ldr	r12, [r1, #8]
+	// block (1,1)
+	smladx	r7, r3, r12, r7
+	smuadx	r9, r4, r12
+	smladx	r9, r3, r14, r9
+	smuadx	r11, r4, r14
+	smlabb	r6, r3, r12, r6
+	smlabb	r8, r3, r14, r8
+	pkhtb	r3, r3, r4
+	smlad	r8, r3, r12, r8
+	smuad	r10, r3, r14
+	smlatt	r10, r4, r12, r10
+	smultt	r5, r4, r14
+	vmov	r3, s8  // load -q
+	vmov	r12, s6  // load qinv
+	mr_16x2	r6, r7, r3, r12, r4
+	mr_16x2	r8, r9, r3, r12, r4
+	str	r6, [r2], #4
+	str	r8, [r2], #4
+	mr_16x2	r10, r11, r3, r12, r4
+	mr_hi	r5, r3, r12, r4
+	lsr	r5, #16
+	str	r10, [r2], #4
+	str	r5, [r2], #4
+	add	r0, #16
+	add	r1, #16
 	vmov	r14, s9  // counter=scr0
 	subs	r14, #1
 	bne	KA512_muls1
@@ -241,6 +243,7 @@ KA512_col_8_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r11, #8	// N0
 KA512_col_8_add1:	// begin KA collect loop
 	ldrd	r4, r5, [r1, #16]
 	ldrd	r6, r7, [r1, #32]
@@ -263,10 +266,11 @@ KA512_col_8_add1:	// begin KA collect loop
 	add	r1, r1, #8		// shift r1 up 8
 	subs	r14, r14, #4
 	beq	KA512_col_8_end
-	tst	r14, #7	// set bit < 8?
-	itt	eq		// no, then next set
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
 	addeq	r1, r1, #48
 	addeq	r12, r12, #16
+	moveq	r11, #8	// N0
 	b	KA512_col_8_add1
 KA512_col_8_end:
 KA512_col_16_ov:
@@ -292,6 +296,7 @@ KA512_col_16_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r11, #16	// N0
 KA512_col_16_add1:	// begin KA collect loop
 	ldrd	r4, r5, [r1, #32]
 	ldrd	r6, r7, [r1, #64]
@@ -314,10 +319,11 @@ KA512_col_16_add1:	// begin KA collect loop
 	add	r1, r1, #8		// shift r1 up 8
 	subs	r14, r14, #4
 	beq	KA512_col_16_end
-	tst	r14, #15	// set bit < 16?
-	itt	eq		// no, then next set
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
 	addeq	r1, r1, #96
 	addeq	r12, r12, #32
+	moveq	r11, #16	// N0
 	b	KA512_col_16_add1
 KA512_col_16_end:
 KA512_col_32_ov:
@@ -343,6 +349,7 @@ KA512_col_32_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r11, #32	// N0
 KA512_col_32_add1:	// begin KA collect loop
 	ldrd	r4, r5, [r1, #64]
 	ldrd	r6, r7, [r1, #128]
@@ -365,10 +372,11 @@ KA512_col_32_add1:	// begin KA collect loop
 	add	r1, r1, #8		// shift r1 up 8
 	subs	r14, r14, #4
 	beq	KA512_col_32_end
-	tst	r14, #31	// set bit < 32?
-	itt	eq		// no, then next set
+	subs	r11, r11, #4
+	ittt	eq		// no, then next set
 	addeq	r1, r1, #192
 	addeq	r12, r12, #64
+	moveq	r11, #32	// N0
 	b	KA512_col_32_add1
 KA512_col_32_end:
 KA512_col_64_ov:
@@ -394,6 +402,7 @@ KA512_col_64_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r10, #64		// N0
 	mov	r0, #128			// 2*N0
 	add	r11, r0, r0, LSL #1	// 6*N0
 KA512_col_64_add1:	// begin KA collect loop
@@ -413,10 +422,11 @@ KA512_col_64_add1:	// begin KA collect loop
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA512_col_64_end
-	tst	r14, #63	// set bit < 64?
-	itt	eq			//next 32 bloc
+	subs	r10, #2
+	ittt	eq			//next 32 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #64		// N0
 	b	KA512_col_64_add1
 KA512_col_64_end:
 KA512_col_128_ov:
@@ -442,6 +452,7 @@ KA512_col_128_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r10, #128		// N0
 	mov	r0, #256			// 2*N0
 	add	r11, r0, r0, LSL #1	// 6*N0
 KA512_col_128_add1:	// begin KA collect loop
@@ -461,10 +472,11 @@ KA512_col_128_add1:	// begin KA collect loop
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA512_col_128_end
-	tst	r14, #127	// set bit < 128?
-	itt	eq			//next 64 bloc
+	subs	r10, #2
+	ittt	eq			//next 64 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #128		// N0
 	b	KA512_col_128_add1
 KA512_col_128_end:
 KA512_col_256_ov:
@@ -490,6 +502,7 @@ KA512_col_256_add:			// KA collection
 	ldrsh	r14, [r3], #2	// #shift/8, #iterations*4
 	add	r12, r2, r14, LSL #3	// other pointer
 	mov	r1, r2		// copy of hh
+	mov	r10, #256		// N0
 	mov	r0, #512			// 2*N0
 	add	r11, r0, r0, LSL #1	// 6*N0
 KA512_col_256_add1:	// begin KA collect loop
@@ -509,10 +522,11 @@ KA512_col_256_add1:	// begin KA collect loop
 	add	r1, r1, #4		// shift r1 up 4
 	subs	r14, r14, #2
 	beq	KA512_col_256_end
-	tst	r14, #255	// set bit < 256?
-	itt	eq			//next 128 bloc
+	subs	r10, #2
+	ittt	eq			//next 128 bloc
 	addeq	r1, r1, r11		//+6*N0
 	addeq	r12, r12, r0		//+2*N0
+	moveq	r10, #256		// N0
 	b	KA512_col_256_add1
 KA512_col_256_end:
 KA512_mv_back:			// hh=[sp,4M] still =r2

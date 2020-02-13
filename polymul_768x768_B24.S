@@ -63,8 +63,6 @@ KA768_exp_red2:			// while loop on r4
 	ldr	r9, [r1, r4, LSL #2]	// gg[r4]
 	br_16x2	r8, r6, r7, r10, r11, r12
 	str	r8, [r0, r4, LSL #2]	// ff[r4] %= q
-	br_16x2	r9, r6, r7, r10, r11, r12
-	str	r9, [r1, r4, LSL #2]	// gg[r4] %= q
 	add	r4, #1
 	cmp	r4, r5		// r4 > r5?
 	bls	KA768_exp_red2	// loop (r4)
