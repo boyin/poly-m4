@@ -177,7 +177,7 @@ def j2ds() :
     print "jump2divsteps_t1:	// start of turn 1" 
     print "	// top of r4(u)/r5(v): 0/1,  of r6(r)/r7(s): 0"
     print "	// start of first half, no need to reduce g[0]"
-    print "	tst	r10, r0, ASR #31"
+    print "	tst	r3, r0, ASR #31"
     NIT = 0; LIT = []
     cond_ex("ne",[["r4","r6"],["r5","r7"],["r2","r3"],"r0"],"r10")
     print "jump2divsteps_t1_1:	// end of first half"

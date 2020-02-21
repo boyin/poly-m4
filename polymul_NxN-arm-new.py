@@ -219,9 +219,13 @@ def KA_polymulNxN (N) :
     	print "	stm	r3!, {r4-r7}"
     	print "	stm	r0!, {r8-r11}"
     else :	# N >= 16
-        print "	ldm	r1!, {r4-r11}"
+        #print "	ldm	r1!, {r4-r11}"
+        for i in range(4,12) :
+            print "	ldr	r%d, [r1], #4" % (i)
         print "	stm	r3!, {r4-r11}"
-        print "	ldm	r2!, {r4-r11}"
+        #print "	ldm	r2!, {r4-r11}"
+        for i in range(4,12) :
+            print "	ldr	r%d, [r2], #4" % (i)
         print "	stm	r0!, {r4-r11}"
         if (N>16) :
             print "	subs	r14, #32"
@@ -761,26 +765,30 @@ def KA_polymulNxN (N) :
     # hh should still be at #2
     print "KA%d_mv_back:			// hh=[sp,4M] still =r2" % N
     print_ldr("r0",s_h,"reload h")
-    ##print_ldr("r2",s_h,"reload hh")
-    #if (N>8) :
-    #    print "	mov	r14, #%d" % (4*N)
-    #print "KA%d_mv_back_loop:" % N
-    #print "	ldm	r2!, {r4-r11}"
+    #print_ldr("r2",s_h,"reload hh")
+    if (N>8) :
+        print "	mov	r14, #%d" % (4*N)
+    print "KA%d_mv_back_loop:" % N
+    print "	ldm	r2!, {r4-r11}"
+    #for i in range(4,12) :
+    #    print "	ldr	r%s, [r2], #4" % (i)
+    for i in range(4,12) :
+        print "	str	r%s, [r0], #4" % (i)
     #print "	stm	r0!, {r4-r11}"
-    #if (N>8) :
-    #    print "	subs	r14, #32"
-    #    print "	bne	KA%d_mv_back_loop" % N
-    ##
-    print "	mov	r1, r2"
-    print "	mov	r2, #%d" % (4*N)
-    print_ldr("r4", s_2M, "load 2M")
-    print "	bl	memcpy"
+    if (N>8) :
+        print "	subs	r14, #32"
+        print "	bne	KA%d_mv_back_loop" % N
+    #
+    # print "	mov	r1, r2"
+    # print "	mov	r2, #%d" % (4*N)
+    # print_ldr("r4", s_2M, "load 2M")
+    # print "	bl	memcpy"
     
     aux.write("\n")
     print "KA%d_end:" % N
-    #print_ldr("r12", s_2M, "load 2M")
-    print "	add	sp, sp, r4, LSL #2	// add back %d = 8M" % (8*M) 
-    #print "	add	sp, sp, r12, LSL #2	// add back %d = 8M" % (8*M) 
+    print_ldr("r12", s_2M, "load 2M")
+    #print "	add	sp, sp, r4, LSL #2	// add back %d = 8M" % (8*M) 
+    print "	add	sp, sp, r12, LSL #2	// add back %d = 8M" % (8*M) 
     if (SAVES > 16) :
         print "	vpop	{s16-s31}"
     print "	pop	{r4-r11,lr}"
