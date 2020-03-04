@@ -103,7 +103,7 @@ jump2divsteps_t0_1:	// end of first half
 jump2divsteps_t1:	// start of turn 1
 	// top of r4(u)/r5(v): 0/1,  of r6(r)/r7(s): 0
 	// start of first half, no need to reduce g[0]
-	tst	r10, r0, ASR #31
+	tst	r3, r0, ASR #31
 	itttt	ne
 	movne	r10, r4	// r4<->r6
 	movne	r4, r6

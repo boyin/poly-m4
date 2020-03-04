@@ -35,9 +35,23 @@ gf_polymul_768x768:
 	vmov	s7, r14	// save q32inv
 	mov	r14, #1536
 KA768_mv_loop:	// r0 = gg, r1 = f, r2 = g, r3 = ff
-	ldm	r1!, {r4-r11}
+	ldr	r4, [r1], #4
+	ldr	r5, [r1], #4
+	ldr	r6, [r1], #4
+	ldr	r7, [r1], #4
+	ldr	r8, [r1], #4
+	ldr	r9, [r1], #4
+	ldr	r10, [r1], #4
+	ldr	r11, [r1], #4
 	stm	r3!, {r4-r11}
-	ldm	r2!, {r4-r11}
+	ldr	r4, [r2], #4
+	ldr	r5, [r2], #4
+	ldr	r6, [r2], #4
+	ldr	r7, [r2], #4
+	ldr	r8, [r2], #4
+	ldr	r9, [r2], #4
+	ldr	r10, [r2], #4
+	ldr	r11, [r2], #4
 	stm	r0!, {r4-r11}
 	subs	r14, #32
 	bne	KA768_mv_loop
@@ -2765,12 +2779,22 @@ KA768_col_384_add1:	// begin KA collect loop
 KA768_col_384_end:
 KA768_mv_back:			// hh=[sp,4M] still =r2
 	vmov	r0, s0  // reload h
-	mov	r1, r2
-	mov	r2, #3072
-	vmov	r4, s1  // load 2M
-	bl	memcpy
+	mov	r14, #3072
+KA768_mv_back_loop:
+	ldm	r2!, {r4-r11}
+	str	r4, [r0], #4
+	str	r5, [r0], #4
+	str	r6, [r0], #4
+	str	r7, [r0], #4
+	str	r8, [r0], #4
+	str	r9, [r0], #4
+	str	r10, [r0], #4
+	str	r11, [r0], #4
+	subs	r14, #32
+	bne	KA768_mv_back_loop
 KA768_end:
-	add	sp, sp, r4, LSL #2	// add back 31104 = 8M
+	vmov	r12, s1  // load 2M
+	add	sp, sp, r12, LSL #2	// add back 31104 = 8M
 	vpop	{s16-s31}
 	pop	{r4-r11,lr}
 	bx	lr
