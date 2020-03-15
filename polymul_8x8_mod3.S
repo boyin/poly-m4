@@ -70,6 +70,10 @@ gf_polymul_8x8_mod3:
 	add	r9, r9, r2, LSR #2	// range <=5
 	usub8	r2, r9, r1		// >= 3 ?
 	sel	r9, r2, r9		// select
-	stm	r0, {r6-r9}
+	//stm	r0, {r6-r9}
+	str	r6, [r0], #4
+	str	r7, [r0], #4
+	str	r8, [r0], #4
+	str	r9, [r0], #4
 	pop	{r4-r9}
 	bx	lr
